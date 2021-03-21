@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\Users;
 
 class SiteController extends Controller
 {
@@ -87,4 +88,16 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * Displays signup page.
+     *
+     * @return Response|string
+     */
+    public function actionSignup()
+    {
+      $model = new Users();
+      return $this->render('signup', [
+          'model' => $model,
+      ]);
+    }
 }

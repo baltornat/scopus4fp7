@@ -40,7 +40,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'SignUp', 'url' => ['/site/signup']]
+                ['label' => 'Sign up', 'url' => ['/site/signup']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

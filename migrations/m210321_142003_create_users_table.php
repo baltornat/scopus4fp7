@@ -13,12 +13,13 @@ class m210321_142003_create_users_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%users}}', [
-            'email' => $this->primaryKey(),
+            'id' => $this->primaryKey(),
+            'email' => $this->string()->notNull()->unique(),
             'password' => $this->string()->notNull(),
             'nome' => $this->string()->notNull(),
             'cognome' => $this->string()->notNull(),
             'auth_key' => $this->string(),
-            'is_disabled' => $this->boolean()->defaultValue(0),
+            'is_disabled' => $this->boolean()->defaultValue(false),
         ]);
     }
 

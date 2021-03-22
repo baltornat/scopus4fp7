@@ -10,10 +10,10 @@ use Yii;
  * @property int $id
  * @property string $email
  * @property string $password
- * @property string $nome
- * @property string $cognome
- * @property string|null $auth_key
- * @property bool|null $is_disabled
+ * @property string $name
+ * @property string $surname
+ * @property string $authKey
+ * @property string $accessToken
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -31,11 +31,11 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'password', 'nome', 'cognome'], 'required'],
-            ['email', 'email'],
-            [['is_disabled'], 'boolean'],
-            [['email', 'password', 'nome', 'cognome', 'auth_key'], 'string', 'max' => 255],
+            [['email', 'password', 'name', 'surname'], 'required'],
+            [['email'], 'string', 'max' => 80],
+            [['password', 'name', 'surname', 'authKey', 'accessToken'], 'string', 'max' => 255],
             [['email'], 'unique'],
+            [['email'], 'email'],
         ];
     }
 
@@ -45,13 +45,10 @@ class Users extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'email' => 'Email',
             'password' => 'Password',
-            'nome' => 'Nome',
-            'cognome' => 'Cognome',
-            'auth_key' => 'Auth Key',
-            'is_disabled' => 'Is Disabled',
+            'name' => 'Name',
+            'surname' => 'Surname',
         ];
     }
 }

@@ -88,16 +88,27 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays signup page.
-     *
-     * @return Response|string
-     */
     public function actionSignup()
     {
-      $model = new Users();
-      return $this->render('signup', [
-          'model' => $model,
-      ]);
+        $model = new Users();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                // form inputs are valid, do something here
+                $model->email = $_POST['Users']['email'];
+                $model->password = password_hash($_POST['Users']['password'], PASSWORD_ARGON2I);
+                $model->name = $_POST['Users']['name'];
+                $model->surname = $_POST['Users']['surname'];
+                $model->authKey = md5(random_bytes(5));
+                $model->accessToken = password_hash(random_bytes(10), PASSWORD_DEFAULT);
+                if($model->save(false)){
+                  return $this->redirect(['index']);
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 }

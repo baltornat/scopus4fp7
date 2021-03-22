@@ -36,6 +36,7 @@ class Users extends \yii\db\ActiveRecord
             [['password', 'name', 'surname', 'authKey', 'accessToken'], 'string', 'max' => 255],
             [['email'], 'unique'],
             [['email'], 'email'],
+            [['isDisabled'], 'boolean'],
         ];
     }
 

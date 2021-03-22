@@ -20,6 +20,7 @@ class m210321_142003_create_users_table extends Migration
             'surname' => $this->string()->notNull(),
             'authKey' => $this->string()->notNull(),
             'accessToken' => $this->string()->notNull(),
+            'isDisabled' => $this->boolean()->defaultValue(false),
         ]);
     }
 

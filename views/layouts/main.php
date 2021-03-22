@@ -35,23 +35,18 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md navbar-light bg-dark',
         ],
     ]);
+    $navItem = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Sign up', 'url' => ['/site/signup']],
+    ];
+    if(Yii::$app->user->isGuest){
+        array_push($navItem, ['label' => 'Login', 'url' => ['/site/login']]);
+    }else{
+        array_push($navItem, '<li>'. Html::beginForm(['/site/logout'], 'post'). Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm(). '</li>');
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Sign up', 'url' => ['/site/signup']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items' => $navItem,
     ]);
     NavBar::end();
     ?>

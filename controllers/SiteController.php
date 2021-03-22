@@ -57,23 +57,33 @@ class SiteController extends Controller
     /**
      * Displays homepage.
      *
-     * @return Response|string
+     * @return string
      */
     public function actionIndex()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+        return $this->render('index');
+    }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
+    /**
+    * Login action.
+    *
+    * @return Response|string
+    */
+    public function actionLogin()
+    {
+      if (!Yii::$app->user->isGuest) {
+          return $this->goHome();
+      }
 
-        $model->password = '';
-        return $this->render('index', [
-            'model' => $model,
-        ]);
+      $model = new LoginForm();
+      if ($model->load(Yii::$app->request->post()) && $model->login()) {
+          return $this->goBack();
+      }
+
+      $model->password = '';
+      return $this->render('login', [
+          'model' => $model,
+      ]);
     }
 
     /**

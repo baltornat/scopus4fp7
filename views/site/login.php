@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
-$this->title = 'Scopus';
+$this->title = 'Login';
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>

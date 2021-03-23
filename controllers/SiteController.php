@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\rbac\DbManager;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -111,8 +112,14 @@ class SiteController extends Controller
                 $model->surname = $_POST['Users']['surname'];
                 $model->authKey = md5(random_bytes(5));
                 $model->accessToken = password_hash(random_bytes(10), PASSWORD_DEFAULT);
-                if($model->save(false)){
-                  return $this->redirect(['index']);
+                if($model->save()){
+                  //Assegno il ruolo manager di default
+                  $p_key = $model->getPrimaryKey();
+                  $auth = new DbManager;
+                  $manager = $auth->getRole('manager');
+                  $auth->assign($manager, $p_key);
+                  Yii::$app->session->setFlash('userSignedUp');
+                  return $this->refresh();
                 }
             }
         }

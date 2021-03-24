@@ -39,12 +39,11 @@ AppAsset::register($this);
     ]);
     $navItem = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Sign up', 'url' => ['/site/signup']],
     ];
     if(Yii::$app->user->isGuest){
-        array_push($navItem, ['label' => 'Login', 'url' => ['/site/login']]);
+        array_push($navItem, ['label' => 'Login', 'url' => ['/site/login']], ['label' => 'Sign up', 'url' => ['/site/signup']]);
     }else{
-        array_push($navItem, '<li>'. Html::beginForm(['/site/logout'], 'post'). Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm(). '</li>');
+        array_push($navItem, ['label' => 'Projects', 'url' => ['/authors-project-ppi/index']], '<li>'. Html::beginForm(['/site/logout'], 'post'). Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm(). '</li>');
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],

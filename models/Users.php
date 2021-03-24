@@ -32,8 +32,9 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['email', 'password', 'name', 'surname'], 'required'],
-            [['email'], 'string', 'max' => 80],
-            [['password', 'name', 'surname', 'authKey', 'accessToken'], 'string', 'max' => 255],
+            [['email'], 'string', 'max' => 254],
+            [['password'], 'string', 'min' => 4, 'max' => 128],
+            [['name', 'surname', 'authKey', 'accessToken'], 'string', 'max' => 255],
             [['email'], 'unique'],
             [['email'], 'email'],
             [['isDisabled'], 'boolean'],
@@ -65,7 +66,7 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public static function findByEmail($email)
     {
-        return self::findOne(['email'=>$email]);
+        return self::findOne(['email' => $email]);
     }
 
     public function getId()

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\rbac\DbManager;
 use yii\web\Controller;
 use yii\web\Response;

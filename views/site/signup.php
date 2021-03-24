@@ -23,12 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
               'id' => 'signup-form',
               'layout' => 'horizontal',
               'fieldConfig' => [
-                  'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-                  'labelOptions' => ['class' => 'col-lg-1 control-label'],
+                  'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
+                  'horizontalCssClasses' => [
+                      'offset' => 'offset-sm-3',
+                      'label' => 'col-lg-1',
+                      'wrapper' => 'col-sm-4',
+                      'error' => '',
+                      'hint' => 'col-sm-3',
+                  ],
               ],
           ]); ?>
 
-              <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+              <?= $form->field($model, 'email')->textInput() ?>
               <?= $form->field($model, 'password')->passwordInput() ?>
               <?= $form->field($model, 'name')->textInput() ?>
               <?= $form->field($model, 'surname')->textInput() ?>

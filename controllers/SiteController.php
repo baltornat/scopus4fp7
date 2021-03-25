@@ -4,8 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\helpers\VarDumper;
-use yii\rbac\DbManager;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -116,7 +114,7 @@ class SiteController extends Controller
                 if($model->save()){
                   //Assegno il ruolo manager di default
                   $p_key = $model->getPrimaryKey();
-                  $auth = new DbManager;
+                  $auth = Yii::$app->authManager;
                   $manager = $auth->getRole('manager');
                   $auth->assign($manager, $p_key);
                   Yii::$app->session->setFlash('userSignedUp');

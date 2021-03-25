@@ -22,15 +22,15 @@ class AuthorsProjectPpiController extends Controller
     {
         return [
             [
-                'class' => AccessControl::class,
+                'class' => AccessControl::className(),
                 'only' => ['index', 'view', 'create', 'update', 'delete'],
                 'rules' => [
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'delete'],
                         'allow' => true,
-                        'roles' => ['@'],
-                    ]
-                ]
+                        'roles' => ['manager'],
+                    ],
+                ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

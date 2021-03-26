@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 
 /**
  * This is the model class for table "authors.project_ppi".
@@ -58,4 +57,5 @@ class AuthorsProjectPpi extends \yii\db\ActiveRecord
             'p_id' => 'P ID',
         ];
     }
+
 }

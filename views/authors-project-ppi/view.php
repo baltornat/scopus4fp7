@@ -7,6 +7,10 @@ use yii\widgets\DetailView;
 /* @var $model app\models\AuthorsProjectPpi */
 
 $this->title = $model->id;
+
+// Query to obtain authors based on project_ppi
+$author = \app\models\AuthorsScopusAuthor::find()->where(['project_ppi'=>$model->id])->one();
+
 $this->params['breadcrumbs'][] = ['label' => 'Authors Project Ppis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -26,19 +30,26 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'funding_scheme',
-            'call_year',
-            'ppi_firstname',
-            'ppi_lastname',
-            'organization_url:url',
-            'ppi_organization',
-            'erc_field',
-            'p_id',
-        ],
-    ]) ?>
+    <?php
+        if($author === null){
+            echo "No authors where found!";
+        } else {
+            echo DetailView::widget([
+                'model' => $author,
+                'attributes' => [
+                    'id',
+                    'author_scopus_id',
+                    'firstname',
+                    'lastname',
+                    'affil_id',
+                    'affil_name',
+                    'affil_city',
+                    'affil_country',
+                    'num_documents',
+                    'author_modality',
+                ],
+            ]);
+        }
+    ?>
 
 </div>

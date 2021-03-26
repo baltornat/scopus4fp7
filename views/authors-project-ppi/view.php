@@ -8,9 +8,6 @@ use yii\widgets\DetailView;
 
 $this->title = $model->id;
 
-// Query to obtain authors based on project_ppi
-$author = \app\models\AuthorsScopusAuthor::find()->where(['project_ppi'=>$model->id])->one();
-
 $this->params['breadcrumbs'][] = ['label' => 'Authors Project Ppis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -29,27 +26,33 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?php
-        if($author === null){
-            echo "No authors where found!";
-        } else {
+        foreach(\app\models\AuthorsScopusAuthor::find()->where(['project_ppi'=>$model->id])->each(5) as $author){
+            echo "<div class=\"alert alert-success\"> Author number: ";
+            echo $author->id;
+            echo "</div>";
             echo DetailView::widget([
                 'model' => $author,
                 'attributes' => [
-                    'id',
-                    'author_scopus_id',
-                    'firstname',
-                    'lastname',
-                    'affil_id',
-                    'affil_name',
-                    'affil_city',
-                    'affil_country',
-                    'num_documents',
-                    'author_modality',
+                        'id',
+                        'author_scopus_id',
+                        'firstname',
+                        'lastname',
+                        'affil_id',
+                        'affil_name',
+                        'affil_city',
+                        'affil_country',
+                        'num_documents',
+                        'author_modality',
                 ],
             ]);
         }
+        if(empty($author)) {
+            echo "<div class=\"alert alert-danger\">
+                     No authors were found! 
+                  </div>";
+        }
     ?>
+
 
 </div>

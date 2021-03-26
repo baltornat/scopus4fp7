@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?php
         foreach(\app\models\AuthorsScopusAuthor::find()->where(['project_ppi'=>$model->id])->each(5) as $author){
-            echo "<div class=\"alert alert-success\"> Author number: ";
+            echo "<h1> Author number: ";
             echo $author->id;
-            echo "</div>";
+            echo "</h1>";
             echo DetailView::widget([
                 'model' => $author,
                 'attributes' => [
@@ -46,6 +46,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         'author_modality',
                 ],
             ]);
+            $area = \app\models\AuthorsAuthorSubjectArea::find()->where(['author_id'=>$author->id])->one();
+            if($area === null){
+                echo "<div class=\"alert alert-danger\"> No area defined for author ";
+                echo $author->id;
+                echo "</div>";
+            } else {
+                echo "<div class=\"alert alert-success\"> Area of working: </div>";
+                echo DetailView::widget([
+                    'model' => $area,
+                    'attributes' => [
+                        'author_id',
+                        'area_short_name',
+                        'area_frequency',
+                        'area_long_name',
+                    ],
+                ]);
+            }
+            echo "<br><br><br>";
         }
         if(empty($author)) {
             echo "<div class=\"alert alert-danger\">

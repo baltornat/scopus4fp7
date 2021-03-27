@@ -41,6 +41,7 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
     public function search($params)
     {
         $query = AuthorsProjectPpi::find();
+        $query->leftJoin('authors.institution', 'project_ppi.erc_field=institution.md_institution_tokens');
 
         // add conditions that should always apply here
 
@@ -61,15 +62,14 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['ilike', 'p_rcn', $this->p_rcn])
-            ->andFilterWhere(['ilike', 'funding_scheme', $this->funding_scheme])
+        $query->andFilterWhere(['ilike', 'funding_scheme', $this->funding_scheme])
             ->andFilterWhere(['ilike', 'call_year', $this->call_year])
             ->andFilterWhere(['ilike', 'ppi_firstname', $this->ppi_firstname])
             ->andFilterWhere(['ilike', 'ppi_lastname', $this->ppi_lastname])
             ->andFilterWhere(['ilike', 'organization_url', $this->organization_url])
             ->andFilterWhere(['ilike', 'ppi_organization', $this->ppi_organization])
-            ->andFilterWhere(['ilike', 'erc_field', $this->erc_field])
-            ->andFilterWhere(['ilike', 'p_id', $this->p_id]);
+            ->andFilterWhere(['ilike', 'institution.institution_name', $this->erc_field]);
+            //->andFilterWhere(['ilike', 'p_id', $this->p_id]);
 
         return $dataProvider;
     }

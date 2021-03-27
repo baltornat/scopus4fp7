@@ -29,15 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'funding_scheme',
             'call_year',
             'ppi_firstname',
             'ppi_lastname',
             'organization_url:url',
             'ppi_organization',
-            'erc_field',
-            'p_id',
+            [
+                'label'=>'Institution name',
+                'attribute'=>'erc_field',
+                'value'=>function($model){
+                    $institution = \app\models\AuthorsInstitution::find()->where(['md_institution_tokens'=>$model->erc_field])->one();
+                    if(empty($institution)){
+                        return null;
+                    }
+                    return $institution->institution_name;
+                }
+            ],
+
 
             ['class' => 'app\grid\ActionColumn'],
         ],

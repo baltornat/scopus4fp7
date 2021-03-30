@@ -62,4 +62,12 @@ class AuthorsScopusAuthor extends \yii\db\ActiveRecord
             'author_modality' => 'Author modality',
         ];
     }
+
+    public function getAuthorSubjectArea(){
+        return $this->hasOne(AuthorsAuthorSubjectArea::className(), ['author_id'=>'id']);
+    }
+
+    public function getProjectAuthorMatch(){
+        return $this->hasOne(AuthorsProjectAuthorMatch::className(), ['author_scopus_id'=>'author_scopus_id', 'project_ppi'=>'project_ppi']);
+    }
 }

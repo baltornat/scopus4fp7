@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\AuthorsProjectPpi */
 
-$this->title = $model->id;
+$this->title = "Project number $model->id";
 
 $this->params['breadcrumbs'][] = ['label' => 'Authors Project Ppis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -26,62 +26,43 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+
     <?php
-        foreach(\app\models\AuthorsScopusAuthor::find()->where(['project_ppi'=>$model->id])->all() as $author){
-            echo "<h1> Author number: ";
-            echo $author->id;
-            echo "</h1>";
-            echo DetailView::widget([
-                'model' => $author,
-                'attributes' => [
-                    'id',
-                    'author_scopus_id',
-                    'firstname',
-                    'lastname',
-                    'affil_id',
-                    'affil_name',
-                    'affil_city',
-                    'affil_country',
-                    'num_documents',
-                    'author_modality',
-                ],
-            ]);
-            $area = \app\models\AuthorsAuthorSubjectArea::find()->where(['author_id'=>$author->id])->one();
-            if($area === null){
-                echo "<div class=\"alert alert-danger\"> No area defined for author ";
+        $authors = \app\models\AuthorsScopusAuthor::find()
+            ->joinWith('authorSubjectArea')
+            ->joinWith('projectAuthorMatch')
+            ->where(['scopus_author.project_ppi'=>$model->id])
+            ->orderBy(['project_author_match.match_value'=>SORT_DESC])
+            ->all();
+        if(empty($authors)){
+            echo "<div class=\"alert alert-danger\"> No valid authors found!</div>";
+        }else{
+            foreach($authors as $author) {
+                echo "<h1> Author number: ";
                 echo $author->id;
-                echo "</div>";
-            } else {
-                echo "<div class=\"alert alert-success\"> Area of working: </div>";
+                echo "</h1>";
                 echo DetailView::widget([
-                    'model' => $area,
+                    'model' => $author,
                     'attributes' => [
-                        'author_id',
-                        'area_short_name',
-                        'area_frequency',
-                        'area_long_name',
+                        'projectAuthorMatch.match_value',
+                        'id',
+                        'author_scopus_id',
+                        'firstname',
+                        'lastname',
+                        'affil_id',
+                        'affil_name',
+                        'affil_city',
+                        'affil_country',
+                        'num_documents',
+                        'author_modality',
+                        'authorSubjectArea.area_short_name',
+                        'authorSubjectArea.area_frequency',
+                        'authorSubjectArea.area_long_name',
                     ],
                 ]);
             }
-            $match = \app\models\AuthorsProjectAuthorMatch::find()->where(['author_scopus_id'=>$author->author_scopus_id, 'project_ppi'=>$model->id])->one();
-            if($match === null){
-                echo "<div class=\"alert alert-danger\"> No match value defined</div>";
-            } else {
-                echo "<div class=\"alert alert-success\"> Match value: </div>";
-                echo DetailView::widget([
-                    'model' => $match,
-                    'attributes' => [
-                        'match_value',
-                    ],
-                ]);
-            }
-            echo "<br><br>";
-        }
-        if(empty($author)) {
-            echo "<div class=\"alert alert-danger\">No authors were found!</div>";
         }
     ?>
-
 
 </div>
 

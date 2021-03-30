@@ -33,23 +33,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ->joinWith('projectAuthorMatch')
             ->where(['scopus_author.project_ppi'=>$model->id])
             ->orderBy(['project_author_match.match_value'=>SORT_DESC])
+            ->limit(10)
             ->all();
         if(empty($authors)){
             echo "<div class=\"alert alert-danger\"> No valid authors found!</div>";
         }else{
             foreach($authors as $author) {
-                echo "<h1> Author number: ";
+                echo "<h1> Author ";
                 echo $author->id;
+                echo " - ";
+                echo $author->firstname;
+                echo " ";
+                echo $author->lastname;
                 echo "</h1>";
                 echo DetailView::widget([
                     'model' => $author,
                     'attributes' => [
                         'projectAuthorMatch.match_value',
-                        'id',
-                        'author_scopus_id',
-                        'firstname',
-                        'lastname',
-                        'affil_id',
+                        //'author_scopus_id',
+                        //'affil_id',
                         'affil_name',
                         'affil_city',
                         'affil_country',

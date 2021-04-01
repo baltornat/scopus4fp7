@@ -76,8 +76,23 @@ class SiteController extends Controller
       }
 
       $model = new LoginForm();
-      if ($model->load(Yii::$app->request->post()) && $model->login()) {
+      /*if ($model->load(Yii::$app->request->post()) && $model->login()) {
           return $this->goBack();
+      }*/
+      if($model->load(Yii::$app->request->post())){
+          $user = \app\models\User::find()
+              ->where(['email'=>$model->email])
+              ->one();
+          if($user->isDisabled){
+              $model->password = '';
+              Yii::$app->session->setFlash('userBanned');
+              return $this->render('login', [
+                  'model' => $model,
+              ]);
+          }
+          if($model->login()){
+              return $this->goBack();
+          }
       }
 
       $model->password = '';

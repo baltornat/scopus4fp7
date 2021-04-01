@@ -30,26 +30,28 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-          'class' => 'fixed-top navbar-expand-lg navbar-dark bg-dark',
-        ],
-    ]);
-    $navItem = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if(Yii::$app->user->isGuest){
-        array_push($navItem, ['label' => 'Login', 'url' => ['/site/login']], ['label' => 'Sign up', 'url' => ['/site/signup']]);
-    }else{
-        array_push($navItem, ['label' => 'Projects', 'url' => ['/authors-project-ppi/index']], '<li>'. Html::beginForm(['/site/logout'], 'post'). Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm(). '</li>');
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav ml-auto'],
-        'items' => $navItem,
-    ]);
-    NavBar::end();
+        NavBar::begin([
+            'brandLabel' => Yii::$app->name,
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
+              'class' => 'fixed-top navbar-expand-lg navbar-dark bg-dark',
+            ],
+        ]);
+        $navItem = [
+            ['label' => 'Home', 'url' => ['/site/index']],
+        ];
+        if(Yii::$app->user->isGuest){
+            array_push($navItem, ['label' => 'Login', 'url' => ['/site/login']], ['label' => 'Sign up', 'url' => ['/site/signup']]);
+        }elseif(Yii::$app->user->can('manageUser')){
+            array_push($navItem, ['label' => 'Manage users', 'url' => ['/user/index']], ['label' => 'Projects', 'url' => ['/authors-project-ppi/index']], '<li>'. Html::beginForm(['/site/logout'], 'post'). Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm(). '</li>');
+        }else{
+            array_push($navItem, ['label' => 'Projects', 'url' => ['/authors-project-ppi/index']], '<li>'. Html::beginForm(['/site/logout'], 'post'). Html::submitButton('Logout (' . Yii::$app->user->identity->email . ')',['class' => 'btn btn-link logout']). Html::endForm(). '</li>');
+        }
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav ml-auto'],
+            'items' => $navItem,
+        ]);
+        NavBar::end();
     ?>
 
     <div class="container">

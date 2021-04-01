@@ -3,17 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\AuthorsProjectPpi;
-use app\models\AuthorsProjectPpiSearch;
+use app\models\User;
+use app\models\UserSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AuthorsProjectPpiController implements the CRUD actions for AuthorsProjectPpi model.
+ * UserController implements the CRUD actions for User model.
  */
-class AuthorsProjectPpiController extends Controller
+class UserController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -23,12 +23,12 @@ class AuthorsProjectPpiController extends Controller
         return [
             [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view'],
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
                         'allow' => true,
-                        'roles' => ['manager'],
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -42,12 +42,12 @@ class AuthorsProjectPpiController extends Controller
     }
 
     /**
-     * Lists all AuthorsProjectPpi models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AuthorsProjectPpiSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -57,7 +57,7 @@ class AuthorsProjectPpiController extends Controller
     }
 
     /**
-     * Displays a single AuthorsProjectPpi model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -70,13 +70,13 @@ class AuthorsProjectPpiController extends Controller
     }
 
     /**
-     * Creates a new AuthorsProjectPpi model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new AuthorsProjectPpi();
+        $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -88,7 +88,7 @@ class AuthorsProjectPpiController extends Controller
     }
 
     /**
-     * Updates an existing AuthorsProjectPpi model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -108,7 +108,7 @@ class AuthorsProjectPpiController extends Controller
     }
 
     /**
-     * Deletes an existing AuthorsProjectPpi model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -122,15 +122,15 @@ class AuthorsProjectPpiController extends Controller
     }
 
     /**
-     * Finds the AuthorsProjectPpi model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return AuthorsProjectPpi the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = AuthorsProjectPpi::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         }
 

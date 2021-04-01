@@ -50,7 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $author,
                     'attributes' => [
                         'projectAuthorMatch.match_value',
-                        //'author_scopus_id',
+                        //'id',
+                        //'project_ppi',
+                        'author_scopus_id',
+                        //'firstname',
+                        //'lastname',
                         //'affil_id',
                         'affil_name',
                         'affil_city',

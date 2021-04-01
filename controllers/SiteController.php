@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\Users;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -100,24 +100,24 @@ class SiteController extends Controller
 
     public function actionSignup()
     {
-        $model = new Users();
+        $model = new User();
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 // form inputs are valid, do something here
-                $model->email = $_POST['Users']['email'];
-                $model->password = password_hash($_POST['Users']['password'], PASSWORD_ARGON2I);
-                $model->name = $_POST['Users']['name'];
-                $model->surname = $_POST['Users']['surname'];
+                $model->email = $_POST['User']['email'];
+                $model->password = password_hash($_POST['User']['password'], PASSWORD_ARGON2I);
+                $model->name = $_POST['User']['name'];
+                $model->surname = $_POST['User']['surname'];
                 $model->authKey = md5(random_bytes(5));
                 $model->accessToken = password_hash(random_bytes(10), PASSWORD_DEFAULT);
                 if($model->save()){
-                  //Assegno il ruolo manager di default
+                  // assign role "manager" by default
                   $p_key = $model->getPrimaryKey();
                   $auth = Yii::$app->authManager;
                   $manager = $auth->getRole('manager');
                   $auth->assign($manager, $p_key);
-                  Yii::$app->session->setFlash('userSignedUp');
+                  Yii::$app->session->setFlash('UserignedUp');
                   return $this->refresh();
                 }
             }

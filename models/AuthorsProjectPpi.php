@@ -57,4 +57,5 @@ class AuthorsProjectPpi extends \yii\db\ActiveRecord
             'p_id' => 'P ID',
         ];
     }
+
 }

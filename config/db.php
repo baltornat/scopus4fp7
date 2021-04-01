@@ -6,9 +6,8 @@ return [
     'username' => 'scopus_user',
     'password' => 'test',
     'charset' => 'utf8',
-
     // Schema cache options (for production environment)
-    //'enableSchemaCache' => true,
+    //'enableSchemaCache' => true,c
     //'schemaCacheDuration' => 60,
     //'schemaCache' => 'cache',
 ];

@@ -117,7 +117,7 @@ class SiteController extends Controller
                   $auth = Yii::$app->authManager;
                   $manager = $auth->getRole('manager');
                   $auth->assign($manager, $p_key);
-                  Yii::$app->session->setFlash('UserignedUp');
+                  Yii::$app->session->setFlash('userSignedUp');
                   return $this->refresh();
                 }
             }

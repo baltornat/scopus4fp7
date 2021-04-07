@@ -12,21 +12,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Authors Project Ppis', 'url' => ['
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="authors-project-ppi-view">
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-<!--
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
--->
+    <!-- Page Heading -->
+    <h1 class="h3 mb-1 text-gray-800">Authors</h1>
+    <p class="mb-4">Here are shown all the authors that matched with the project searched</p>
     <?php
         $authors = \app\models\AuthorsScopusAuthor::find()
             ->joinWith('authorSubjectArea')
@@ -38,18 +29,33 @@ $this->params['breadcrumbs'][] = $this->title;
         if(empty($authors)){
             echo "<div class=\"alert alert-danger\"> No valid authors found!</div>";
         }else{
+            $counter = 0;
             foreach($authors as $author) {
-                echo "<h1> Author ";
-                echo $author->id;
-                echo " - ";
-                echo $author->firstname;
-                echo " ";
-                echo $author->lastname;
-                echo "</h1>";
+                if($counter%3 == 0 || $counter==0){
+                    echo "<div class=\"row\">";
+                }
+                $info = "Author ".$author->id." - ".$author->firstname." ".$author->lastname;
+                $matchValue = $author->projectAuthorMatch->match_value;
+                $percentage = $matchValue * 100;
+                echo "
+                    <div class=\"col-lg-4\">           
+                        <div class=\"card shadow mb-4\">
+                            <div class=\"card-header py-3\">
+                                <h6 class=\"m-0 font-weight-bold text-primary\">$info</h6>
+                            </div>
+                            <div class=\"card-body\">
+                                <div class=\"mb-1 small\">Match value: $percentage%</div>
+                                <div class=\"progress mb-4\">
+                                    <div class=\"progress-bar\" role=\"progressbar\" style=\"width: $percentage%\"
+                                        aria-valuenow=\"$matchValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
+                                    </div>
+                                </div>
+                            </div>
+                ";
                 echo DetailView::widget([
                     'model' => $author,
                     'attributes' => [
-                        'projectAuthorMatch.match_value',
+                        //'projectAuthorMatch.match_value',
                         //'id',
                         //'project_ppi',
                         'author_scopus_id',
@@ -66,10 +72,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'authorSubjectArea.area_long_name',
                     ],
                 ]);
+                echo "
+                        </div>
+                    </div>
+                ";
+                $counter++;
+                if($counter%3 == 0) {
+                    echo "</div>";
+                }
             }
         }
     ?>
-
 </div>
+<!-- /.container-fluid -->
 
 

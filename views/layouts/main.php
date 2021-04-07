@@ -122,7 +122,7 @@ AppAsset::register($this);
                 echo "
                     <!-- Heading -->
                     <div class=\"sidebar-heading\">
-                        Addons
+                        Manager
                     </div>";
                 if($this->title == "Authors Project Ppis"){
                     echo "<li class=\"nav-item active\">";

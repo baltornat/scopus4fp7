@@ -7,42 +7,55 @@ use yii\bootstrap4\ActiveForm;
 /* @var $model app\models\User */
 /* @var $form ActiveForm */
 $this->title = 'Sign up';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="signup">
-  <h1><?= Html::encode($this->title) ?></h1>
-  <?php if (Yii::$app->session->hasFlash('userSignedUp')): ?>
+
+<div class="container">
+    <?php if (Yii::$app->session->hasFlash('userSignedUp')): ?>
 
         <div class="alert alert-success">
             Your account was successfully created.
         </div>
-  <?php else: ?>
-        <p>Please fill out the following fields to sign up:</p>
+    <?php else: ?>
 
-          <?php $form = ActiveForm::begin([
-              'id' => 'signup-form',
-              'layout' => 'horizontal',
-              'fieldConfig' => [
-                  'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
-                  'horizontalCssClasses' => [
-                      'offset' => 'offset-sm-3',
-                      'label' => 'col-lg-1',
-                      'wrapper' => 'col-sm-4',
-                      'error' => '',
-                      'hint' => 'col-sm-3',
-                  ],
-              ],
-          ]); ?>
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                        </div>
+                            <?php $form = ActiveForm::begin([
+                                'id' => 'signup-form',
+                            ]); ?>
+                            <div class="form-group">
+                                <?= $form->field($model, 'email')->textInput() ?>
+                            </div>
+                            <div class="form-group">
+                                <?= $form->field($model, 'password')->passwordInput() ?>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <?= $form->field($model, 'name')->textInput() ?>
+                                </div>
+                                <div class="col-sm-6">
+                                    <?= $form->field($model, 'surname')->textInput() ?>
+                                </div>
+                            </div>
+                            <?= Html::submitButton('Register now', ['class' => 'btn btn-primary btn-user btn-block', 'name' => 'signup-button']) ?>
+                            <?php ActiveForm::end(); ?>
+                            <hr>
+                        <div class="text-center">
+                            <a class="small" href="<?=\yii\helpers\Url::to(['/site/login']) ?>">Already have an account? Login!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-              <?= $form->field($model, 'email')->textInput() ?>
-              <?= $form->field($model, 'password')->passwordInput() ?>
-              <?= $form->field($model, 'name')->textInput() ?>
-              <?= $form->field($model, 'surname')->textInput() ?>
+    <?php endif; ?>
 
-              <div class="form-group">
-                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-              </div>
-          <?php ActiveForm::end(); ?>
-
-  <?php endif; ?>
-</div><!-- signup -->
+</div>

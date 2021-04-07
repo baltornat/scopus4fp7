@@ -83,12 +83,14 @@ class SiteController extends Controller
           $user = \app\models\User::find()
               ->where(['email'=>$model->email])
               ->one();
-          if($user->isDisabled){
-              $model->password = '';
-              Yii::$app->session->setFlash('userBanned');
-              return $this->render('login', [
-                  'model' => $model,
-              ]);
+          if(!empty($user)){
+              if($user->isDisabled){
+                  $model->password = '';
+                  Yii::$app->session->setFlash('userBanned');
+                  return $this->render('login', [
+                      'model' => $model,
+                  ]);
+              }
           }
           if($model->login()){
               return $this->goBack();

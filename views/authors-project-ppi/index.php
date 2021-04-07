@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'pager' => [
-                        'class' => \yii\bootstrap4\LinkPager::class
+                        'class' => \yii\bootstrap4\LinkPager::class,
                     ],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],

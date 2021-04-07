@@ -47,13 +47,13 @@ class AuthorsProjectPpi extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'p_rcn' => 'P Rcn',
-            'funding_scheme' => 'Funding Scheme',
-            'call_year' => 'Call Year',
-            'ppi_firstname' => 'Ppi Firstname',
-            'ppi_lastname' => 'Ppi Lastname',
-            'organization_url' => 'Organization Url',
+            'funding_scheme' => 'Funding scheme',
+            'call_year' => 'Call year',
+            'ppi_firstname' => 'Ppi firstname',
+            'ppi_lastname' => 'Ppi lastname',
+            'organization_url' => 'Organization url',
             'ppi_organization' => 'Ppi Organization',
-            'erc_field' => 'Erc Field',
+            'erc_field' => 'Erc field',
             'p_id' => 'P ID',
         ];
     }

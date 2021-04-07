@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'isDisabled')->checkbox() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-primary btn-user btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">User <?=$model->name?> <?=$model->surname?></h1>
     <p class="mb-4">Here are shown all the informations about the specified user</p>
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4 border-bottom-warning">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Informations</h6>
         </div>

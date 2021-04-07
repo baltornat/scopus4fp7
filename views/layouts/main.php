@@ -45,7 +45,13 @@ AppAsset::register($this);
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Home -->
-        <li class="nav-item active">
+        <?php
+            if($this->title == "Scopus"){
+                echo "<li class=\"nav-item active\">";
+            }else{
+                echo "<li class=\"nav-item\">";
+            }
+        ?>
             <a class="nav-link" href="<?=\yii\helpers\Url::to(['/site/index']) ?>">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Home</span></a>
@@ -60,9 +66,14 @@ AppAsset::register($this);
                     <!-- Heading -->
                     <div class=\"sidebar-heading\">
                         Admin
-                    </div>
-                    <!-- Nav Item - Manage Users -->
-                    <li class=\"nav-item\">
+                    </div>";
+                if($this->title == "Users"){
+                    echo "<li class=\"nav-item active\">";
+                }else{
+                    echo "<li class=\"nav-item\">";
+                }
+                # Nav Item - Manage Users
+                echo"
                         <a class=\"nav-link\" href=\"".$manageUsersUrl."\">
                             <i class=\"fas fa-fw fa-cog\"></i>
                             <span>Manage users</span></a>
@@ -83,15 +94,25 @@ AppAsset::register($this);
                     <!-- Heading -->
                     <div class=\"sidebar-heading\">
                         Interface
-                    </div>
-                    <!-- Nav Item - Login -->
-                    <li class=\"nav-item\">
+                    </div>";
+                if($this->title == "Login"){
+                    echo "<li class=\"nav-item active\">";
+                }else{
+                    echo "<li class=\"nav-item\">";
+                }
+                # Nav Item - Login
+                echo"
                         <a class=\"nav-link\" href=\"".$loginUrl."\">
                             <i class=\"fas fa-user fa-sm fa-fw\"></i>
                             <span>Login</span></a>
-                    </li>
-                    <!-- Nav Item - Signup -->
-                    <li class=\"nav-item\">
+                    </li>";
+                if($this->title == "Sign up"){
+                    echo "<li class=\"nav-item active\">";
+                }else{
+                    echo "<li class=\"nav-item\">";
+                }
+                # Nav Item - Signup
+                echo"
                         <a class=\"nav-link\" href=\"".$signupUrl."\">
                             <i class=\"fas fa-user fa-sm fa-fw\"></i>
                             <span>Signup</span></a>
@@ -102,9 +123,14 @@ AppAsset::register($this);
                     <!-- Heading -->
                     <div class=\"sidebar-heading\">
                         Addons
-                    </div>
-                    <!-- Nav Item - Projects -->
-                    <li class=\"nav-item\">
+                    </div>";
+                if($this->title == "Authors Project Ppis"){
+                    echo "<li class=\"nav-item active\">";
+                }else{
+                    echo "<li class=\"nav-item\">";
+                }
+                # Nav Item - Projects
+                echo"
                         <a class=\"nav-link\" href=\"".$projectsUrl."\">
                             <i class=\"fas fa-fw fa-table\"></i>
                             <span>Projects</span></a>
@@ -131,7 +157,7 @@ AppAsset::register($this);
         <div id="content">
 
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow border-bottom-primary">
                 <h2>Scopus Web-App</h2>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">

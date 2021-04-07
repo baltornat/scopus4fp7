@@ -18,7 +18,7 @@ $this->title = 'Sign up';
     <?php else: ?>
 
     <div class="card o-hidden border-0 shadow-lg my-5">
-        <div class="card-body p-0">
+        <div class="card-body p-0 border-bottom-warning">
             <!-- Nested Row within Card Body -->
             <div class="row">
                 <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>

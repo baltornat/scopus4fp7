@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use yii\bootstrap4\Breadcrumbs;
 use yii\helpers\Html;
 use app\assets\AppAsset;
 
@@ -172,6 +173,11 @@ AppAsset::register($this);
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                <?= Breadcrumbs::widget([
+                    'itemTemplate' => "\n\t<li class=\"breadcrumb-item\"><i>{link}</i></li>\n", // template for all links
+                    'activeItemTemplate' => "\t<li class=\"breadcrumb-item active\">{link}</li>\n", // template for the active link
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
                 <?= $content ?>
             </div>
             <!-- /.container-fluid -->

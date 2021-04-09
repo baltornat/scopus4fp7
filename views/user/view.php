@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -15,24 +16,42 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1 class="h3 mb-2 text-gray-800">User <?=$model->name?> <?=$model->surname?></h1>
     <p class="mb-4">Here are shown all the informations about the specified user</p>
     <div class="card shadow mb-4 border-bottom-warning">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Informations</h6>
-        </div>
         <div class="card-body">
             <div class="table-responsive">
-                <?= DetailView::widget([
-                    'model' => $model,
-                    'attributes' => [
-                        'id',
-                        'email:email',
-                        'password',
-                        'name',
-                        'surname',
-                        'authKey',
-                        'accessToken',
-                        'isDisabled:boolean',
-                    ],
-                ]) ?>
+                <?php
+                    echo DetailView::widget([
+                        'model' => $model,
+                        'attributes' => [
+                            'id',
+                            'email:email',
+                            'password',
+                            'name',
+                            'surname',
+                            'authKey',
+                            'accessToken',
+                            'isDisabled:boolean',
+                        ],
+                        'mode' => 'view',
+                        'bordered' => true,
+                        'striped' => false,
+                        'condensed' => false,
+                        'responsive' => true,
+                        'hover' => true,
+                        'panel' => [
+                            'type' => DetailView::TYPE_PRIMARY,
+                            'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
+                        ],
+                        'deleteOptions'=>[
+                            'params' => ['custom_param'=>true],
+                            'url'=>['delete', 'id' => $model->id],
+                            'data'=>[
+                                'confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'),
+                                'method'=>'post',
+                            ],
+                        ],
+                        'enableEditMode' => false
+                    ]);
+                ?>
             </div>
         </div>
     </div>

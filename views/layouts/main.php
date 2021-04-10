@@ -147,6 +147,13 @@ AppAsset::register($this);
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
 
+        <!-- Sidebar Message -->
+        <div class="sidebar-card">
+            <img class="sidebar-card-illustration mb-2" src="img/undraw_Tabs_re_a2bd.svg" alt="">
+            <p class="text-center mb-2"><strong>Scopus</strong> is the world's largest abstract and citation database of peer-reviewed research literature. </p>
+            <a class="btn btn-success btn-sm" href="https://www.scopus.com/home.uri">Visit Scopus website!</a>
+        </div>
+
     </ul>
     <!-- End of Sidebar -->
 
@@ -158,7 +165,7 @@ AppAsset::register($this);
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow border-bottom-primary">
-                <h2>Scopus Web-App</h2>
+                <h2>Scopus4fp7 Web-App</h2>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 

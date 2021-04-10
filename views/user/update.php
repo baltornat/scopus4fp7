@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = 'Update';
                 <div class="card-body p-0 border-bottom-warning">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <?=Html::img(Yii::getAlias('@web').'/img/undraw_switches_1js3.svg', ['class' => 'col-lg-5 d-none d-lg-block']); ?>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">

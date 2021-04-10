@@ -22,13 +22,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo DetailView::widget([
                         'model' => $model,
                         'attributes' => [
+                            [
+                                'group'=>true,
+                                'label'=>'SECTION 1: Unmodifiables',
+                                'rowOptions'=>['class'=>'table-info']
+                            ],
                             'id',
-                            'email:email',
-                            'password',
-                            'name',
-                            'surname',
                             'authKey',
                             'accessToken',
+                            'password',
+                            [
+                                'group'=>true,
+                                'label'=>'SECTION 2: Identification Informations',
+                                'rowOptions'=>['class'=>'table-info'],
+                            ],
+                            'email:email',
+                            'name',
+                            'surname',
                             'isDisabled:boolean',
                         ],
                         'mode' => 'view',
@@ -41,14 +51,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'type' => DetailView::TYPE_PRIMARY,
                             'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
                         ],
-                        'deleteOptions'=>[
+                        /*'deleteOptions'=>[
                             'params' => ['custom_param'=>true],
                             'url'=>['delete', 'id' => $model->id],
                             'data'=>[
                                 'confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'),
                                 'method'=>'post',
                             ],
-                        ],
+                        ],*/
                         'enableEditMode' => false
                     ]);
                 ?>

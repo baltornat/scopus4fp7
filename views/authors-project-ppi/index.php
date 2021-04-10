@@ -51,8 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'erc_field',
                         ],
                         [
-                            'class' => 'kartik\grid\ActionColumn',
-                            'width' => '100px',
+                            'class' => 'app\grid\ActionColumn',
                         ],
                     ];
                     echo GridView::widget([

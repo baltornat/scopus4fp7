@@ -36,7 +36,7 @@ AppAsset::register($this);
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?=Yii::$app->homeUrl ?>">
             <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+                <i class="fas fa-globe-europe"></i>
             </div>
             <div class="sidebar-brand-text mx-3">Scopus <sup>4fp7</sup></div>
         </a>
@@ -53,7 +53,7 @@ AppAsset::register($this);
             }
         ?>
             <a class="nav-link" href="<?=\yii\helpers\Url::to(['/site/index']) ?>">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-home"></i>
                 <span>Home</span></a>
         </li>
 
@@ -114,7 +114,7 @@ AppAsset::register($this);
                 # Nav Item - Signup
                 echo"
                         <a class=\"nav-link\" href=\"".$signupUrl."\">
-                            <i class=\"fas fa-user fa-sm fa-fw\"></i>
+                            <i class=\"fas fa-user-plus\"></i>
                             <span>Signup</span></a>
                     </li>
                 ";

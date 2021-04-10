@@ -11,7 +11,6 @@ $this->title = 'Sign up';
 
 <div class="container">
     <?php if (Yii::$app->session->hasFlash('userSignedUp')): ?>
-
         <div class="alert alert-success">
             Your account was successfully created.
         </div>
@@ -21,7 +20,7 @@ $this->title = 'Sign up';
         <div class="card-body p-0 border-bottom-warning">
             <!-- Nested Row within Card Body -->
             <div class="row">
-                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <?=Html::img(Yii::getAlias('@web').'/img/undraw_Access_account_re_8spm.svg', ['class' => 'col-lg-5 d-none d-lg-block']); ?>
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">

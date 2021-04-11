@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use yii\helpers\Url;
@@ -35,6 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'group'=>true,
                                 'label'=>'SECTION 2: Identification Informations',
                                 'rowOptions'=>['class'=>'table-info'],
+                            ],
+                            [
+                                'label'=>'Role',
+                                'attribute'=>'id',
+                                'value'=>$model->authAssignment->item_name,
                             ],
                             'email:email',
                             'name',

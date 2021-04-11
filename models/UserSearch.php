@@ -42,7 +42,7 @@ class UserSearch extends User
     public function search($params)
     {
         $query = User::find();
-
+        $query->leftJoin('public.auth_assignment', 'id=user_id::integer');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -59,16 +59,17 @@ class UserSearch extends User
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            //'id' => $this->id,
             'isDisabled' => $this->isDisabled,
         ]);
 
         $query->andFilterWhere(['ilike', 'email', $this->email])
-            ->andFilterWhere(['ilike', 'password', $this->password])
+            //->andFilterWhere(['ilike', 'password', $this->password])
             ->andFilterWhere(['ilike', 'name', $this->name])
             ->andFilterWhere(['ilike', 'surname', $this->surname])
-            ->andFilterWhere(['ilike', 'authKey', $this->authKey])
-            ->andFilterWhere(['ilike', 'accessToken', $this->accessToken]);
+            //->andFilterWhere(['ilike', 'authKey', $this->authKey])
+            ->andFilterWhere(['ilike', 'auth_assignment.item_name', $this->authKey]);
+            //->andFilterWhere(['ilike', 'accessToken', $this->accessToken]);
 
         return $dataProvider;
     }

@@ -33,6 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'surname',
                         ],
                         [
+                            'label' => 'Role',
+                            'attribute' => 'authKey',
+                            'value' => 'authAssignment.item_name'
+                        ],
+                        [
                             'class' => 'kartik\grid\BooleanColumn',
                             'attribute' => 'isDisabled',
                         ],

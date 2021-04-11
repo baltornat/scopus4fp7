@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\AuthAssignment;
 use Yii;
 use app\models\User;
 use app\models\UserSearch;
@@ -96,9 +97,31 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        $auth = new AuthAssignment();
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save() && $auth->load(Yii::$app->request->post())) {
+            $actualRole = Yii::$app->authManager->getRolesByUser($id);
+            if($auth->item_name != $actualRole){
+                switch($auth->item_name){
+                    case 'manager':
+                        // Revoke current role
+                        $manager = Yii::$app->authManager;
+                        $manager->revokeAll($id);
+                        // Assign new role manager
+                        $newRole = $manager->getRole('manager');
+                        $manager->assign($newRole, $id);
+                        break;
+                    case 'admin':
+                        // Revoke current role
+                        $admin = Yii::$app->authManager;
+                        $admin->revokeAll($id);
+                        // Assign new role manager
+                        $newRole = $admin->getRole('admin');
+                        $admin->assign($newRole, $id);
+                        break;
+                    default: echo "Error";
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

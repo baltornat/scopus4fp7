@@ -90,4 +90,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return password_verify($password, $this->password);
     }
 
+    public function getAuthAssignment(){
+        return $this->hasOne(AuthAssignment::className(), ['user_id'=>'id']);
+    }
+
 }

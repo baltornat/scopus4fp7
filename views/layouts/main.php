@@ -133,7 +133,7 @@ AppAsset::register($this);
                 echo"
                         <a class=\"nav-link\" href=\"".$projectsUrl."\">
                             <i class=\"fas fa-fw fa-table\"></i>
-                            <span>Projects</span></a>
+                            <span>Manage projects</span></a>
                     </li>
                 ";
             }
@@ -149,7 +149,7 @@ AppAsset::register($this);
 
         <!-- Sidebar Message -->
         <div class="sidebar-card">
-            <img class="sidebar-card-illustration mb-2" src="img/undraw_Tabs_re_a2bd.svg" alt="">
+            <img class="sidebar-card-illustration mb-2" src="/img/undraw_Tabs_re_a2bd.svg" alt="">
             <p class="text-center mb-2"><strong>Scopus</strong> is the world's largest abstract and citation database of peer-reviewed research literature. </p>
             <a class="btn btn-success btn-sm" href="https://www.scopus.com/home.uri">Visit Scopus website!</a>
         </div>
@@ -179,7 +179,7 @@ AppAsset::register($this);
                                        data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
                                         <span class=\"mr-2 d-none d-lg-inline text-gray-600\">".Yii::$app->user->identity->name." ".Yii::$app->user->identity->surname."</span>
                                         <img class=\"img-profile rounded-circle\"
-                                             src=\"img/undraw_profile.svg\">
+                                             src=\"/img/undraw_profile.svg\">
                                     </a>
                                     <!-- Dropdown - User Information -->
                                     <div class=\"dropdown-menu dropdown-menu-right shadow animated--grow-in\"

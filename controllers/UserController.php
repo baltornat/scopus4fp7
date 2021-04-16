@@ -119,7 +119,7 @@ class UserController extends Controller
                         $newRole = $admin->getRole('admin');
                         $admin->assign($newRole, $id);
                         break;
-                    default: 
+                    default:
                 }
             }
             return $this->redirect(['view', 'id' => $model->id]);

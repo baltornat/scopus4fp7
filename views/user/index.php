@@ -1,5 +1,6 @@
 <?php
 
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\Url;
@@ -23,15 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\SerialColumn',
                             'width' => '20px',
                         ],
-                        [
-                            'attribute' => 'email',
-                        ],
-                        [
-                            'attribute' => 'name',
-                        ],
-                        [
-                            'attribute' => 'surname',
-                        ],
+                        'email',
+                        'name',
+                        'surname',
                         [
                             'label' => 'Role',
                             'attribute' => 'authKey',
@@ -39,31 +34,62 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'class' => 'kartik\grid\BooleanColumn',
+                            'label' => 'Disabled?',
                             'attribute' => 'isDisabled',
+                            'trueLabel' => 'Yes',
+                            'falseLabel' => 'No'
                         ],
                         [
                             'class' => 'kartik\grid\ActionColumn',
                             'width' => '100px',
                         ],
                     ];
+                    echo ExportMenu::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => [
+                            [
+                                'class' => 'kartik\grid\SerialColumn',
+                                'exportMenuStyle' => [ // format the serial column cells
+                                    'fill' => [
+                                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                                        'color' => ['argb' => 'FFE5E5E5']
+                                    ]
+                                ]
+                            ],
+                            'email',
+                            'name',
+                            'surname',
+                            [
+                                'label' => 'Role',
+                                'attribute' => 'authKey',
+                                'value' => 'authAssignment.item_name'
+                            ],
+                            [
+                                'class' => 'kartik\grid\BooleanColumn',
+                                'attribute' => 'isDisabled',
+                            ],
+                        ],
+                        'dropdownOptions' => [
+                            'label' => 'Export All',
+                            'class' => 'btn btn-outline-secondary'
+                        ]
+                    ]);
+                    echo "<br><br>";
                     echo GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => $gridColumns,
-                        'toolbar' =>  [
-                            '{export}'
-                        ],
                         'pjax' => true,
                         'bordered' => true,
                         'striped' => false,
                         'condensed' => false,
                         'responsive' => true,
                         'hover' => true,
-                        //'showPageSummary' => true,
                         'panel' => [
                             'type' => GridView::TYPE_PRIMARY,
                             'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
-                            'after' => false
+                            'after' => false,
+                            'before' => false
                         ],
                     ]);
                 ?>

@@ -1,6 +1,7 @@
 <?php
 
 use kartik\grid\GridView;
+use kartik\export\ExportMenu;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AuthorsProjectPpiSearch */
@@ -21,21 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\SerialColumn',
                             'width' => '20px',
                         ],
-                        [
-                            'attribute' => 'funding_scheme',
-                        ],
-                        [
-                            'attribute' => 'call_year',
-                        ],
-                        [
-                            'attribute' => 'ppi_firstname',
-                        ],
-                        [
-                            'attribute' => 'ppi_lastname',
-                        ],
-                        [
-                            'attribute' => 'organization_url',
-                        ],
+                        'funding_scheme',
+                        'call_year',
+                        'ppi_firstname',
+                        'ppi_lastname',
+                        'organization_url',
                         [
                             'label'=>'Institution name',
                             'attribute' => 'ppi_organization',
@@ -47,20 +38,54 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $institution->institution_name;
                             }
                         ],
-                        [
-                            'attribute' => 'erc_field',
-                        ],
+                        'erc_field',
                         [
                             'class' => 'app\grid\ActionColumn',
                         ],
                     ];
+                    echo ExportMenu::widget([
+                            'dataProvider' => $dataProvider,
+                            'columns' => [
+                                [
+                                    'class' => 'kartik\grid\SerialColumn',
+                                    'exportMenuStyle' => [ // format the serial column cells
+                                        'fill' => [
+                                            'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                                            'color' => ['argb' => 'FFE5E5E5']
+                                        ]
+                                    ]
+                                ],
+                                'funding_scheme',
+                                'call_year',
+                                'ppi_firstname',
+                                'ppi_lastname',
+                                'organization_url',
+                                [
+                                    'label'=>'Institution name',
+                                    'attribute' => 'ppi_organization',
+                                    'value'=>function($model){
+                                        $institution = \app\models\AuthorsInstitution::find()->where(['md_institution_tokens'=>$model->ppi_organization])->one();
+                                        if(empty($institution)){
+                                            return null;
+                                        }
+                                        return $institution->institution_name;
+                                    }
+                                ],
+                                [
+                                    'attribute' => 'erc_field',
+                                ],
+                            ],
+                            'dropdownOptions' => [
+                                'label' => 'Export All',
+                                'class' => 'btn btn-outline-secondary'
+                            ]
+                        ]);
+                    echo "<br><br>";
                     echo GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => $gridColumns,
-                        'toolbar' =>  [
-                            '{export}'
-                        ],
+                        'toolbar' => false,
                         'pjax' => true,
                         'bordered' => true,
                         'striped' => false,
@@ -70,7 +95,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'panel' => [
                             'type' => GridView::TYPE_PRIMARY,
                             'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
-                            'after' => false
+                            'after' => false,
+                            'before' => false
                         ],
                     ]);
                 ?>

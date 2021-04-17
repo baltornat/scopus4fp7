@@ -29,9 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'rowOptions'=>['class'=>'table-info']
                             ],
                             'id',
-                            'authKey',
-                            'accessToken',
-                            'password',
                             [
                                 'group'=>true,
                                 'label'=>'SECTION 2: Identification Informations',

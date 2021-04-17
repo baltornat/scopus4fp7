@@ -44,21 +44,9 @@ AppAsset::register($this);
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Home -->
-        <?php
-            if($this->title == "Scopus"){
-                echo "<li class=\"nav-item active\">";
-            }else{
-                echo "<li class=\"nav-item\">";
-            }
-        ?>
-            <a class="nav-link" href="<?=\yii\helpers\Url::to(['/site/index']) ?>">
-                <i class="fas fa-home"></i>
-                <span>Home</span></a>
-        </li>
-
         <?php
             $manageUsersUrl = \yii\helpers\Url::to(['/user/index']);
+            $createUrl = \yii\helpers\Url::to(['/user/create']);
             if(Yii::$app->user->can('manageUser')){
                 echo "
                     <!-- Divider -->
@@ -79,6 +67,18 @@ AppAsset::register($this);
                             <span>Manage users</span></a>
                     </li>
                 ";
+                if($this->title == "Create User"){
+                    echo "<li class=\"nav-item active\">";
+                }else{
+                    echo "<li class=\"nav-item\">";
+                }
+                # Nav Item - Create User
+                echo"
+                        <a class=\"nav-link\" href=\"".$createUrl."\">
+                            <i class=\"fas fa-user-plus\"></i>
+                            <span>Create user</span></a>
+                    </li>
+                ";
             }
         ?>
 
@@ -86,8 +86,7 @@ AppAsset::register($this);
         <hr class="sidebar-divider">
 
         <?php
-            $loginUrl = \yii\helpers\Url::to(['/site/login']);
-            $signupUrl = \yii\helpers\Url::to(['/site/signup']);
+            $loginUrl = \yii\helpers\Url::to(['/site/index']);
             $projectsUrl = \yii\helpers\Url::to(['/authors-project-ppi/index']);
             if(Yii::$app->user->isGuest){
                 echo "
@@ -106,18 +105,6 @@ AppAsset::register($this);
                             <i class=\"fas fa-user fa-sm fa-fw\"></i>
                             <span>Login</span></a>
                     </li>";
-                if($this->title == "Sign up"){
-                    echo "<li class=\"nav-item active\">";
-                }else{
-                    echo "<li class=\"nav-item\">";
-                }
-                # Nav Item - Signup
-                echo"
-                        <a class=\"nav-link\" href=\"".$signupUrl."\">
-                            <i class=\"fas fa-user-plus\"></i>
-                            <span>Signup</span></a>
-                    </li>
-                ";
             }else{
                 echo "
                     <!-- Heading -->
@@ -165,7 +152,7 @@ AppAsset::register($this);
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow border-bottom-primary">
-                <h2>Scopus4fp7 Web-App</h2>
+                <h2>Scopus4fp7 web-app</h2>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 

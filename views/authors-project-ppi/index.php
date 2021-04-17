@@ -22,11 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\SerialColumn',
                             'width' => '20px',
                         ],
+                        'erc_field',
                         'funding_scheme',
                         'call_year',
                         'ppi_firstname',
                         'ppi_lastname',
-                        'organization_url',
                         [
                             'label'=>'Institution name',
                             'attribute' => 'ppi_organization',
@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $institution->institution_name;
                             }
                         ],
-                        'erc_field',
                         [
                             'class' => 'app\grid\ActionColumn',
                         ],
@@ -55,11 +54,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ]
                                     ]
                                 ],
+                                'id',
+                                'p_rcn',
+                                'erc_field',
                                 'funding_scheme',
                                 'call_year',
                                 'ppi_firstname',
                                 'ppi_lastname',
                                 'organization_url',
+                                'ppi_organization',
                                 [
                                     'label'=>'Institution name',
                                     'attribute' => 'ppi_organization',
@@ -71,9 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $institution->institution_name;
                                     }
                                 ],
-                                [
-                                    'attribute' => 'erc_field',
-                                ],
+                                'p_id',
                             ],
                             'dropdownOptions' => [
                                 'label' => 'Export All',

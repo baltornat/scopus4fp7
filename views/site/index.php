@@ -1,53 +1,69 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $form yii\bootstrap4\ActiveForm */
+/* @var $model app\models\LoginForm */
 
-$this->title = 'Scopus';
+use yii\helpers\Html;
+use yii\bootstrap4\ActiveForm;
+
+$this->title = 'Login';
 ?>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Scopus database</h1>
-
-        <p class="lead">Web-app</p>
-
-        <p><a class="btn btn-lg btn-success" href="https://europa.eu/">European Union website</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+<?php if (Yii::$app->session->hasFlash('userBanned')): ?>
+    <div class="container-fluid">
+        <div class="alert alert-danger">
+            Your account was banned.
+        </div>
+        <!-- Account banned -->
+        <div class="text-center">
+            <p class="lead text-gray-800 mb-5">Blocked!</p>
+            <p class="text-gray-500 mb-0">You cannot use this app anymore</p><br>
+            <a href="<?=\yii\helpers\Url::to(['/site/index']) ?>">&larr; Back to Login</a><br>
         </div>
 
     </div>
-</div>
+<?php else: ?>
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0 border-bottom-warning">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <?=Html::img(Yii::getAlias('@web').'/img/undraw_Sign_in_re_o58h.svg', ['class' => 'col-lg-5 d-none d-lg-block']); ?>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    </div>
+                                    <?php $form = ActiveForm::begin([
+                                        'id' => 'login-form',
+                                    ]); ?>
+                                    <div class="form-group">
+                                        <?= $form->field($model, 'email')->textInput() ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <?= $form->field($model, 'password')->passwordInput() ?>
+                                    </div>
+                                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-user btn-block', 'name' => 'login-button']) ?>
+                                    <?php ActiveForm::end(); ?>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="<?=\yii\helpers\Url::to(['/site/signup']) ?>">Create an Account!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+<?php endif; ?>
+
+

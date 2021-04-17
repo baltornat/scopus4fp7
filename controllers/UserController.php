@@ -79,8 +79,25 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                // form inputs are valid, do something here
+                $model->email = $_POST['User']['email'];
+                $model->password = password_hash($_POST['User']['password'], PASSWORD_ARGON2I);
+                $model->name = $_POST['User']['name'];
+                $model->surname = $_POST['User']['surname'];
+                $model->authKey = md5(random_bytes(5));
+                $model->accessToken = password_hash(random_bytes(10), PASSWORD_DEFAULT);
+                if($model->save()){
+                    // assign role "manager" by default
+                    $p_key = $model->getPrimaryKey();
+                    $auth = Yii::$app->authManager;
+                    $manager = $auth->getRole('manager');
+                    $auth->assign($manager, $p_key);
+                    Yii::$app->session->setFlash('userSignedUp');
+                    return $this->refresh();
+                }
+            }
         }
 
         return $this->render('create', [

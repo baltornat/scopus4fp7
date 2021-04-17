@@ -3,7 +3,6 @@
 use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use kartik\grid\GridView;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserSearch */
@@ -15,6 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">User informations</h1>
     <p class="mb-4">Here are shown all the users registered to the application</p>
+    <p>
+        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
     <div class="card shadow mb-4 border-bottom-warning">
         <div class="card-body">
             <div class="table-responsive">
@@ -56,7 +58,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]
                                 ]
                             ],
+                            'id',
                             'email',
+                            'password',
                             'name',
                             'surname',
                             [
@@ -64,9 +68,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'authKey',
                                 'value' => 'authAssignment.item_name'
                             ],
+                            'accessToken',
                             [
                                 'class' => 'kartik\grid\BooleanColumn',
                                 'attribute' => 'isDisabled',
+                                'label' => 'Disabled?',
                             ],
                         ],
                         'dropdownOptions' => [

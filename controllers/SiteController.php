@@ -20,12 +20,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -55,52 +60,42 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Login action.
      *
-     * @return string
+     * @return Response|string
      */
     public function actionIndex()
     {
-        return $this->render('index');
-    }
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->can('manageUser')) {
+                return $this->render('//user/welcome');
+            }
+            return $this->render('//authors-project-ppi/welcome');
+        }
 
-    /**
-    * Login action.
-    *
-    * @return Response|string
-    */
-    public function actionLogin()
-    {
-      if (!Yii::$app->user->isGuest) {
-          return $this->goHome();
-      }
+        $model = new LoginForm();
+        if($model->load(Yii::$app->request->post())){
+            $user = \app\models\User::find()
+                ->where(['email'=>$model->email])
+                ->one();
+            if(!empty($user)){
+                if($user->isDisabled){
+                    $model->password = '';
+                    Yii::$app->session->setFlash('userBanned');
+                    return $this->render('index', [
+                        'model' => $model,
+                    ]);
+                }
+            }
+            if($model->login()){
+                return $this->goBack();
+            }
+        }
 
-      $model = new LoginForm();
-      /*if ($model->load(Yii::$app->request->post()) && $model->login()) {
-          return $this->goBack();
-      }*/
-      if($model->load(Yii::$app->request->post())){
-          $user = \app\models\User::find()
-              ->where(['email'=>$model->email])
-              ->one();
-          if(!empty($user)){
-              if($user->isDisabled){
-                  $model->password = '';
-                  Yii::$app->session->setFlash('userBanned');
-                  return $this->render('login', [
-                      'model' => $model,
-                  ]);
-              }
-          }
-          if($model->login()){
-              return $this->goBack();
-          }
-      }
-
-      $model->password = '';
-      return $this->render('login', [
-          'model' => $model,
-      ]);
+        $model->password = '';
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -113,35 +108,5 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    public function actionSignup()
-    {
-        $model = new User();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                // form inputs are valid, do something here
-                $model->email = $_POST['User']['email'];
-                $model->password = password_hash($_POST['User']['password'], PASSWORD_ARGON2I);
-                $model->name = $_POST['User']['name'];
-                $model->surname = $_POST['User']['surname'];
-                $model->authKey = md5(random_bytes(5));
-                $model->accessToken = password_hash(random_bytes(10), PASSWORD_DEFAULT);
-                if($model->save()){
-                  // assign role "manager" by default
-                  $p_key = $model->getPrimaryKey();
-                  $auth = Yii::$app->authManager;
-                  $manager = $auth->getRole('manager');
-                  $auth->assign($manager, $p_key);
-                  Yii::$app->session->setFlash('userSignedUp');
-                  return $this->refresh();
-                }
-            }
-        }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
     }
 }

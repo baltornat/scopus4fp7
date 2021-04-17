@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-1 text-gray-800">Authors</h1>
+    <h1 class="h3 mb-1 text-gray-800">Candidate authors</h1>
     <p class="mb-4">Here are shown all the authors that matched with the project searched</p>
     <?php
         $authors = \app\models\AuthorsScopusAuthor::find()
@@ -27,14 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ->limit(10)
             ->all();
         if(empty($authors)){
-            echo "<div class=\"alert alert-danger\"> No valid authors found!</div>";
+            echo "<div class=\"alert alert-danger\"> No valid candidate authors found!</div>";
         }else{
             $counter = 0;
             foreach($authors as $author) {
                 if($counter%3 == 0 || $counter==0){
                     echo "<div class=\"row\">";
                 }
-                $info = "Author ".$author->id." - ".$author->firstname." ".$author->lastname;
+                $info = "Candidate author ".$author->id;
                 $matchValue = $author->projectAuthorMatch->match_value;
                 $percentage = $matchValue * 100;
                 echo "
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <h6 class=\"m-0 font-weight-bold text-primary\">$info</h6>
                             </div>
                             <div class=\"card-body\">
-                                <div class=\"mb-1 small\">Match value: $percentage%</div>
+                                <div class=\"mb-1\">Match value: $percentage%</div>
                                 <div class=\"progress mb-4\">
                                     <div class=\"progress-bar\" role=\"progressbar\" style=\"width: $percentage%\"
                                         aria-valuenow=\"$matchValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
@@ -59,9 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         //'id',
                         //'project_ppi',
                         'author_scopus_id',
-                        //'firstname',
-                        //'lastname',
-                        //'affil_id',
+                        'firstname',
+                        'lastname',
+                        'affil_id',
                         'affil_name',
                         'affil_city',
                         'affil_country',

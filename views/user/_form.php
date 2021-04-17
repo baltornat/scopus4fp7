@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
 
     <!--$form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?> -->
 
-    <?= $form->field($model->authAssignment, 'item_name')->textInput(['maxlength' => true]) ?>
+    <!--$form->field($model->authAssignment, 'item_name')->textInput(['maxlength' => true]) ?> -->
 
     <?= $form->field($model, 'isDisabled')->checkbox() ?>
 

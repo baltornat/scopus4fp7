@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="text-center">
             <p class="lead text-gray-800 mb-5">User created successfully</p>
             <p class="text-gray-500 mb-0">Now you can change his role in section "Manage users"</p><br>
-            <a href="<?=\yii\helpers\Url::to(['/user/view']) ?>">&larr; Back to Manage users</a><br>
+            <a href="<?=\yii\helpers\Url::to(['/user/index']) ?>">&larr; Back to Manage users</a><br>
+            <a href="<?=\yii\helpers\Url::to(['/user/create']) ?>">&larr; Create another user</a><br>
             <a href="<?=\yii\helpers\Url::to(['/authors-project-ppi/index']) ?>">&larr; Back to Manage projects</a>
         </div>
 

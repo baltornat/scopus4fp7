@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1 class="h3 mb-2 text-gray-800">User informations</h1>
     <p class="mb-4">Here are shown all the users registered to the application</p>
     <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create new user', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <div class="card shadow mb-4 border-bottom-warning">
         <div class="card-body">

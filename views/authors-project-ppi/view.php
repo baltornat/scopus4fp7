@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
                 ";
-                $areas = implode(', ', $author->getAuthorSubjectArea()->select("area_short_name")->column());
+                $areas = implode(', ', $author->getAuthorSubjectArea()->select(["CONCAT(area_short_name, ' (', area_frequency, ')') AS full_area"])->orderBy(['area_frequency'=>SORT_DESC])->column());
                 echo DetailView::widget([
                     'model' => $author,
                     'attributes' => [
@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'num_documents',
                         'author_modality',
                         [
-                            'label'=>'Areas of working',
+                            'label'=>'Areas (freq.)',
                             'value' => $areas
                         ],
                     ],

@@ -62,4 +62,8 @@ class AuthorsProjectPpi extends \yii\db\ActiveRecord
         return $this->hasOne(AuthorsInstitution::className(), ['md_institution_tokens'=>'ppi_organization']);
     }
 
+    public function getMappingErcScopus(){
+        return $this->hasOne(AuthorsMappingErcScopus::className(), ['erc_field'=>'erc_field']);
+    }
+
 }

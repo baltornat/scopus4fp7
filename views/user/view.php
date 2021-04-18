@@ -1,9 +1,6 @@
 <?php
 
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use kartik\detail\DetailView;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */

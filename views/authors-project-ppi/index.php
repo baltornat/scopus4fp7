@@ -7,7 +7,7 @@ use kartik\export\ExportMenu;
 /* @var $searchModel app\models\AuthorsProjectPpiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Authors Project Ppis';
+$this->title = 'Projects';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">

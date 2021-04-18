@@ -64,7 +64,7 @@ class AuthorsScopusAuthor extends \yii\db\ActiveRecord
     }
 
     public function getAuthorSubjectArea(){
-        return $this->hasOne(AuthorsAuthorSubjectArea::className(), ['author_id'=>'id']);
+        return $this->hasMany(AuthorsAuthorSubjectArea::className(), ['author_id'=>'id']);
     }
 
     public function getProjectAuthorMatch(){

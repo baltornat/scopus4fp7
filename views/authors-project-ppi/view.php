@@ -1,14 +1,13 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AuthorsProjectPpi */
 
 $this->title = "Project number $model->id";
 
-$this->params['breadcrumbs'][] = ['label' => 'Authors Project Ppis', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -18,6 +17,35 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- Page Heading -->
     <h1 class="h3 mb-1 text-gray-800">Candidate authors</h1>
     <p class="mb-4">Here are shown all the authors that matched with the project searched</p>
+    <?php
+        echo DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'erc_field',
+                'funding_scheme',
+                'call_year',
+                'ppi_firstname',
+                'ppi_lastname',
+                [
+                    'label'=>'Institution name',
+                    'attribute' => 'ppi_organization',
+                    'value'=>$model->institution->institution_name,
+                ],
+            ],
+            'mode' => 'view',
+            'bordered' => true,
+            'striped' => false,
+            'condensed' => false,
+            'responsive' => true,
+            'hover' => true,
+            'panel' => [
+                'type' => DetailView::TYPE_PRIMARY,
+                'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
+            ],
+            'enableEditMode' => false
+        ]);
+        echo "<br>";
+    ?>
     <?php
         $authors = \app\models\AuthorsScopusAuthor::find()
             ->joinWith('authorSubjectArea')
@@ -41,10 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class=\"col-lg-4\">           
                         <div class=\"card shadow mb-4 border-bottom-warning\">
                             <div class=\"card-header py-3\">
-                                <h6 class=\"m-0 font-weight-bold text-primary\">$info</h6>
+                                <h6 class=\"h4 m-0 font-weight-bold text-primary\">$info</h6>
                             </div>
                             <div class=\"card-body\">
-                                <div class=\"mb-1\">Match value: $percentage%</div>
+                                <div class=\"mb-1 text-gray-700\">Match value: $percentage%</div>
                                 <div class=\"progress mb-4\">
                                     <div class=\"progress-bar\" role=\"progressbar\" style=\"width: $percentage%\"
                                         aria-valuenow=\"$matchValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
@@ -52,12 +80,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
                 ";
+                $areas = implode(', ', $author->getAuthorSubjectArea()->select("area_short_name")->column());
                 echo DetailView::widget([
                     'model' => $author,
                     'attributes' => [
-                        //'projectAuthorMatch.match_value',
-                        //'id',
-                        //'project_ppi',
                         'author_scopus_id',
                         'firstname',
                         'lastname',
@@ -67,10 +93,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'affil_country',
                         'num_documents',
                         'author_modality',
-                        'authorSubjectArea.area_short_name',
-                        'authorSubjectArea.area_frequency',
-                        'authorSubjectArea.area_long_name',
+                        [
+                            'label'=>'Areas of working',
+                            'value' => $areas
+                        ],
                     ],
+                    'mode' => 'view',
+                    'bordered' => true,
+                    'striped' => false,
+                    'condensed' => false,
+                    'responsive' => true,
+                    'hover' => true,
+                    'enableEditMode' => false
                 ]);
                 echo "
                         </div>

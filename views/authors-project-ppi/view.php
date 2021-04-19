@@ -49,20 +49,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- Page Heading -->
     <h1 class="h3 mb-1 text-gray-800">Candidate authors</h1>
     <p class="mb-4">In this page you can check the candidates authors for the selected project. You can also see the relevance of all the areas with the Erc field specified by the project.</p>
-    <a href="#areas" class="btn btn-danger btn-icon-split" data-toggle="collapse" aria-expanded="false" aria-controls="areas">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-info-circle"></i>
-                        </span>
-        <span class="text">Show/hide areas</span>
-    </a>
-    <br><br>
 
-    <div class="collapse" id="areas">
-        <div class="card shadow mb-4 border-bottom-warning">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Relevance of all the areas with Erc (<?=$model->erc_field ?>). If present, the green ones indicate the areas of the candidate authors listed below </h6>
-            </div>
+    <!-- Areas -->
+    <div class="card shadow mb-4 border-bottom-warning">
+        <!-- Card Header - Accordion -->
+        <a href="#collapseCardAreas" class="d-block card-header py-3 collapsed" data-toggle="collapse"
+           role="button" aria-expanded="false" aria-controls="collapseCardAreas">
+            <h6 class="h4 m-0 font-weight-bold text-primary">Show/hide relevance of all the areas with Erc (<?=$model->erc_field ?>)</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse" id="collapseCardAreas">
             <div class="card-body">
+                <h6>If present, the green ones indicate the areas of the candidate authors listed below</h6>
                 <?php
                 $counter = 0;
                 foreach($mappings as $mapping) {
@@ -137,9 +135,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     }
                 }
-                echo "
-                    </div>
-                ";
                 if($counter%3 != 0){
                     echo "
                         </div>
@@ -148,39 +143,64 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             </div>
         </div>
-
-    <div class="table-responsive">
-        <?php
-            echo DetailView::widget([
-                'model' => $model,
-                'attributes' => [
-                    'erc_field',
-                    'funding_scheme',
-                    'call_year',
-                    'ppi_firstname',
-                    'ppi_lastname',
-                    [
-                        'label'=>'Institution name',
-                        'attribute' => 'ppi_organization',
-                        'value'=>$model->institution->institution_name,
-                    ],
-                ],
-                'mode' => 'view',
-                'bordered' => true,
-                'striped' => false,
-                'condensed' => false,
-                'responsive' => true,
-                'hover' => true,
-                'panel' => [
-                    'type' => DetailView::TYPE_PRIMARY,
-                    'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
-                ],
-                'enableEditMode' => false
-            ]);
-            echo "<br>";
-        ?>
     </div>
 
+    <!-- Project -->
+    <div class="card shadow mb-4 border-bottom-warning">
+        <!-- Card Header - Accordion -->
+        <a href="#collapseCardProject" class="d-block card-header py-3" data-toggle="collapse"
+           role="button" aria-expanded="true" aria-controls="collapseCardProject">
+            <h6 class="h4 m-0 font-weight-bold text-primary">Show/hide project data</h6>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse show" id="collapseCardProject">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <?php
+                    echo DetailView::widget([
+                        'model' => $model,
+                        'attributes' => [
+                            'erc_field',
+                            'funding_scheme',
+                            'call_year',
+                            'ppi_firstname',
+                            'ppi_lastname',
+                            [
+                                'label'=>'Institution name',
+                                'attribute' => 'ppi_organization',
+                                'value'=>$model->institution->institution_name,
+                            ],
+                        ],
+                        'mode' => 'view',
+                        'bordered' => true,
+                        'striped' => false,
+                        'condensed' => false,
+                        'responsive' => true,
+                        'hover' => true,
+                        'panel' => [
+                            'type' => DetailView::TYPE_PRIMARY,
+                            'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
+                        ],
+                        'enableEditMode' => false
+                    ]);
+                    echo "<br>";
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Show match threshold -->
+    <div class="card shadow mb-4 border-bottom-warning">
+        <div class="card-body">
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i>
+                Generate Report
+            </a>
+        </div>
+    </div>
+
+    <!-- Candidates -->
     <?php
         if(empty($authors)){
             echo "<div class=\"alert alert-danger\"> No valid candidate authors found!</div>";

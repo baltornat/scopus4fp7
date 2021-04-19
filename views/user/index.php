@@ -12,7 +12,7 @@ $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">User informations</h1>
+    <h1 class="h3 mb-2 text-gray-800">User data</h1>
     <p class="mb-4">Here are shown all the users registered to the application</p>
     <p>
         <?= Html::a('Create new user', ['create'], ['class' => 'btn btn-success']) ?>

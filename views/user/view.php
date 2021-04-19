@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">User <?=$model->name?> <?=$model->surname?></h1>
-    <p class="mb-4">Here are shown all the informations about the specified user</p>
+    <p class="mb-4">Here is shown all data about the specified user</p>
     <div class="card shadow mb-4 border-bottom-warning">
         <div class="card-body">
             <div class="table-responsive">
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'id',
                             [
                                 'group'=>true,
-                                'label'=>'SECTION 2: Identification Informations',
+                                'label'=>'SECTION 2: Identification Data',
                                 'rowOptions'=>['class'=>'table-info'],
                             ],
                             [

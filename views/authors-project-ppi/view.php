@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- Card Content - Collapse -->
         <div class="collapse" id="collapseCardAreas">
             <div class="card-body">
-                <h6>If present, the green ones indicate the areas of the candidate authors listed below</h6>
+                <h6>If present, the light blue ones indicate the areas of the candidate authors listed below</h6>
                 <?php
                 $counter = 0;
                 foreach($mappings as $mapping) {
@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         echo "
                             <!-- Mapping erc scopus not present -->
                             <div class=\"col-lg-4\">
-                                <div class=\"card mb-4 border-left-success\">
+                                <div class=\"card mb-4 border-left-info\">
                                     <div class=\"card-body\">
                         ";
                         $relValue = $mapping->relevance;
@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         echo "
                             <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
                             <div class=\"progress mb-4\">
-                                <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: $perc%\"
+                                <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: $perc%\"
                                     aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
                                 </div>
                             </div>

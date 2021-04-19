@@ -26,7 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ->orderBy(['relevance'=>SORT_DESC])
         ->all();
     $subjects = array();
+    $match_value_percentages = array();
     foreach($authors as $author){
+        $matchValue = $author->projectAuthorMatch->match_value;
+        $percentage = $matchValue * 100;
+        $match_value_percentages[]=$percentage;
         $areas = $author->getAuthorSubjectArea()->select(['area_short_name'])->column();
         foreach($areas as $area){
             if(!in_array($area, $subjects)){
@@ -190,13 +194,47 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <!-- Show match threshold -->
-    <div class="card shadow mb-4 border-bottom-warning">
-        <div class="card-body">
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-download fa-sm text-white-50"></i>
-                Generate Report
-            </a>
+    <!-- Commands dashboard -->
+    <div class="row">
+        <!-- Show match threshold -->
+        <div class="col-lg-4">
+            <div class="card shadow mb-4 border-bottom-warning">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Set the match threshold value</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-7">
+                            <input type="range" class="custom-range" min="0" max="100" value="0" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);">
+                        </div>
+                        <div class="col-xl-4 col-lg-5">
+                            <input type="text" id="textInput" value="" placeholder="0%" style="width: 65px;" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Delete candidate -->
+        <div class="col-lg-4">
+            <div class="card shadow mb-4 border-bottom-warning">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Delete candidate</h6>
+                </div>
+                <div class="card-body">
+                    bla
+                </div>
+            </div>
+        </div>
+        <!-- Create candidate -->
+        <div class="col-lg-4">
+            <div class="card shadow mb-4 border-bottom-warning">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Create new candidate</h6>
+                </div>
+                <div class="card-body">
+                    bla
+                </div>
+            </div>
         </div>
     </div>
 
@@ -215,14 +253,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 $percentage = $matchValue * 100;
                 echo "
                     <div class=\"col-lg-4\">           
-                        <div class=\"card shadow mb-4 border-bottom-warning\">
+                        <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-success\">
                             <div class=\"card-header py-3\">
-                                <h6 class=\"h4 m-0 font-weight-bold text-primary\">$info</h6>
+                                <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info</h6><br>
+                                <a class=\"btn btn-danger btn-circle btn-sm\" href=\"#\">
+                                    <i class=\"fas fa-trash\"></i>
+                                </a>
                             </div>
                             <div class=\"card-body\">
                                 <div class=\"mb-1 text-gray-700\">Match value: $percentage%</div>
                                 <div class=\"progress mb-4\">
-                                    <div class=\"progress-bar\" role=\"progressbar\" style=\"width: $percentage%\"
+                                    <div id=\"bar$counter\" class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: $percentage%\"
                                         aria-valuenow=\"$matchValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
                                     </div>
                                 </div>

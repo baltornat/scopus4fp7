@@ -48,122 +48,128 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- Page Heading -->
     <h1 class="h3 mb-1 text-gray-800">Candidate authors</h1>
     <p class="mb-4">In this page you can check the candidates authors for the selected project. You can also see the relevance of all the areas with the Erc field specified by the project.</p>
+        <div class="table-responsive">
+        <?php
+            echo DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'erc_field',
+                    'funding_scheme',
+                    'call_year',
+                    'ppi_firstname',
+                    'ppi_lastname',
+                    [
+                        'label'=>'Institution name',
+                        'attribute' => 'ppi_organization',
+                        'value'=>$model->institution->institution_name,
+                    ],
+                ],
+                'mode' => 'view',
+                'bordered' => true,
+                'striped' => false,
+                'condensed' => false,
+                'responsive' => true,
+                'hover' => true,
+                'panel' => [
+                    'type' => DetailView::TYPE_PRIMARY,
+                    'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
+                ],
+                'enableEditMode' => false
+            ]);
+            echo "<br><br>";
+        ?>
+    </div>
 
     <div class="card shadow mb-4 border-bottom-warning">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Relevance of all the areas with Erc (<?=$model->erc_field ?>) except those of the candidates shown below</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Relevance of all the areas with Erc (<?=$model->erc_field ?>). If present, the green ones indicate the areas of the candidate authors listed below </h6>
         </div>
         <div class="card-body">
             <?php
-                $counter = 0;
-                foreach($mappings as $mapping) {
-                    if(in_array($mapping->scopus_area, $subjectsNotPresent)){
-                        if($counter%3 == 0){
-                            echo "
-                                <div class=\"row\">
-                            ";
-                        }
+            $counter = 0;
+            foreach($mappings as $mapping) {
+                if(in_array($mapping->scopus_area, $subjectsNotPresent)){
+                    if($counter%3 == 0){
                         echo "
-                            <!-- Mapping erc scopus not present -->
-                            <div class=\"col-lg-4\">
+                            <div class=\"row\">
                         ";
-                        $relValue = $mapping->relevance;
-                        $perc = $relValue * 100;
-                        echo "<div class=\"text-gray-700\">Area: $mapping->scopus_area</div>";
-                        echo "
-                                <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
-                                <div class=\"progress mb-4\">
-                                    <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: $perc%\"
-                                        aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
-                                    </div>
+                    }
+                    echo "
+                        <!-- Mapping erc scopus not present -->
+                        <div class=\"col-lg-4\">
+                            <div class=\"card mb-4 border-left-danger\">
+                                <div class=\"card-body\">
+                    ";
+                    $relValue = $mapping->relevance;
+                    $perc = $relValue * 100;
+                    echo "<div class=\"text-gray-700\">Area: $mapping->scopus_area</div>";
+                    echo "
+                        <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
+                        <div class=\"progress mb-4\">
+                            <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: $perc%\"
+                                aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
+                            </div>
+                        </div>
+                    ";
+                    $counter++;
+                    echo "
                                 </div>
-                            ";
-                        $counter++;
+                            </div>
+                        </div>
+                    ";
+                    if($counter%3 == 0){
                         echo "
                             </div>
                         ";
-                        if($counter%3 == 0){
-                            echo "
-                                </div>
-                            ";
-                        }
                     }
                 }
+                if(in_array($mapping->scopus_area, $subjects)){
+                    if($counter%3 == 0){
+                        echo "
+                            <div class=\"row\">
+                        ";
+                    }
+                    echo "
+                        <!-- Mapping erc scopus not present -->
+                        <div class=\"col-lg-4\">
+                            <div class=\"card mb-4 border-left-success\">
+                                <div class=\"card-body\">
+                    ";
+                    $relValue = $mapping->relevance;
+                    $perc = $relValue * 100;
+                    echo "<div class=\"text-gray-700\">Area: $mapping->scopus_area</div>";
+                    echo "
+                        <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
+                        <div class=\"progress mb-4\">
+                            <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: $perc%\"
+                                aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
+                            </div>
+                        </div>
+                    ";
+                    $counter++;
+                    echo "
+                                </div>
+                            </div>
+                        </div>
+                    ";
+                    if($counter%3 == 0){
+                        echo "
+                            </div>
+                        ";
+                    }
+                }
+            }
+            echo "
+                </div>
+            ";
+            if($counter%3 != 0){
                 echo "
                     </div>
                 ";
-                if($counter%3 != 0){
-                    echo "
-                        </div>
-                    ";
-                }
+            }
             ?>
-    </div>
-
-    <div class="row">
-        <div class="col-xl-8 col-lg-3">
-            <div class="card shadow mb-4">
-                <?php
-                    echo DetailView::widget([
-                        'model' => $model,
-                        'attributes' => [
-                            'erc_field',
-                            'funding_scheme',
-                            'call_year',
-                            'ppi_firstname',
-                            'ppi_lastname',
-                            [
-                                'label'=>'Institution name',
-                                'attribute' => 'ppi_organization',
-                                'value'=>$model->institution->institution_name,
-                            ],
-                        ],
-                        'mode' => 'view',
-                        'bordered' => true,
-                        'striped' => false,
-                        'condensed' => false,
-                        'responsive' => true,
-                        'hover' => true,
-                        'panel' => [
-                            'type' => DetailView::TYPE_PRIMARY,
-                            'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
-                        ],
-                        'enableEditMode' => false
-                    ]);
-                ?>
-            </div>
         </div>
 
-        <!-- Mapping erc scopus present -->
-        <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Mapping Erc (<?=$model->erc_field ?>) of the candidates shown below</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <?php
-                        foreach($mappings as $mapping) {
-                            if(in_array($mapping->scopus_area, $subjects)){
-                                $relValue = $mapping->relevance;
-                                $perc = $relValue * 100;
-                                echo "<div class=\"text-gray-700\">Area: $mapping->scopus_area</div>";
-                                echo "
-                                    <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
-                                    <div class=\"progress mb-4\">
-                                        <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: $perc%\"
-                                            aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
-                                        </div>
-                                    </div>
-                                ";
-                            }
-                        }
-                    ?>
-                </div>
-            </div>
-        </div>
-
-    </div>
     <?php
         echo "<br>";
         if(empty($authors)){

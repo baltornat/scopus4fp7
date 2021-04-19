@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ->joinWith('authorSubjectArea')
         ->joinWith('projectAuthorMatch')
         ->where(['scopus_author.project_ppi'=>$model->id])
+        ->andWhere(['>=', 'match_value', 0])
         ->orderBy(['project_author_match.match_value'=>SORT_DESC])
         ->limit(10)
         ->all();
@@ -196,24 +197,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Commands dashboard -->
     <div class="row">
-        <!-- Show match threshold -->
-        <div class="col-lg-4">
-            <div class="card shadow mb-4 border-bottom-warning">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Set the match threshold value</h6>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-8 col-lg-7">
-                            <input type="range" class="custom-range" min="0" max="100" value="0" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);">
-                        </div>
-                        <div class="col-xl-4 col-lg-5">
-                            <input type="text" id="textInput" value="" placeholder="0%" style="width: 65px;" readonly>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Delete candidate -->
         <div class="col-lg-4">
             <div class="card shadow mb-4 border-bottom-warning">
@@ -233,6 +216,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="card-body">
                     bla
+                </div>
+            </div>
+        </div>
+        <!-- Show match threshold -->
+        <div class="col-lg-4">
+            <div class="card shadow mb-4 border-bottom-warning">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Set the match threshold value</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-7">
+                            <input type="range" class="custom-range" min="0" max="100" value="0" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);">
+                        </div>
+                        <div class="col-xl-4 col-lg-5">
+                            <input type="text" id="textInput" value="" placeholder="0%" style="width: 65px;" readonly>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

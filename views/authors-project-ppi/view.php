@@ -1,5 +1,6 @@
 <?php
 
+use kartik\dialog\Dialog;
 use kartik\detail\DetailView;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
@@ -260,10 +261,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class=\"card-header py-3\">
                                 <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info</h6><br>
                 ";
+
                 $form = ActiveForm::begin([
                     'action' =>['/authors-project-author-match/update','project_ppi'=>$model->id, 'author_scopus_id'=>$author->author_scopus_id]
                 ]);
-                echo Html::submitButton('Delete', ['class' => 'btn btn-google btn-block', 'name' => 'match-button']);
+                echo Html::submitButton('Delete', ['data-confirm' => 'Are you sure you want to remove this candidate?', 'class' => 'btn btn-google btn-block', 'name' => 'match-button', 'id' => "match-button$counter", 'style' => 'background-color: #1cc88a']);
                 ActiveForm::end();
                 echo "
                         </div>

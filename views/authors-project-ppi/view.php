@@ -1,6 +1,8 @@
 <?php
 
 use kartik\detail\DetailView;
+use yii\bootstrap4\ActiveForm;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AuthorsProjectPpi */
@@ -257,10 +259,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-success\">
                             <div class=\"card-header py-3\">
                                 <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info</h6><br>
-                                <a class=\"btn btn-danger btn-circle btn-sm\" href=\"#\">
-                                    <i class=\"fas fa-trash\"></i>
-                                </a>
-                            </div>
+                ";
+                $form = ActiveForm::begin([
+                    'action' =>['/authors-project-author-match/update','project_ppi'=>$model->id, 'author_scopus_id'=>$author->author_scopus_id]
+                ]);
+                echo Html::submitButton('Delete', ['class' => 'btn btn-google btn-block', 'name' => 'match-button']);
+                ActiveForm::end();
+                echo "
+                        </div>
                             <div class=\"card-body\">
                                 <div class=\"mb-1 text-gray-700\">Match value: $percentage%</div>
                                 <div class=\"progress mb-4\">

@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/europe_logo.png']);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

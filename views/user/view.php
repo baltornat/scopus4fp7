@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'group'=>true,
                                 'label'=>'SECTION 1: Unmodifiables',
-                                'rowOptions'=>['class'=>'table-info']
+                                'rowOptions'=>['class'=>'table-danger']
                             ],
                             'id',
                             [

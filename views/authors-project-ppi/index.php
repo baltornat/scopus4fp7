@@ -11,7 +11,7 @@ $this->title = 'Projects';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Project informations</h1>
+    <h1 class="h3 mb-2 text-gray-800">Projects data</h1>
     <p class="mb-4">Here are shown all the projects</p>
     <div class="card shadow mb-4 border-bottom-warning">
         <div class="card-body">

@@ -20,7 +20,8 @@ $this->title = 'Welcome manager';
                     <br>
                     <?=Html::img(Yii::getAlias('@web').'/img/undraw_welcome_3gvl.svg', ['class' => 'error mx-auto']); ?><br><br><br>
                     <p class="text-gray-500 mb-0">This is a manager account so you have access to the following functionalities:</p><br>
-                    <a href="<?=\yii\helpers\Url::to(['/authors-project-ppi/index']) ?>">&larr; Manage projects</a>
+                    <a href="<?=\yii\helpers\Url::to(['/authors-project-ppi/index']) ?>">&larr; Manage projects</a><br>
+                    <a href="<?=\yii\helpers\Url::to(['/authors-scopus-author/index']) ?>">&larr; Manage candidates</a>
                 </div>
             </div>
         </div>

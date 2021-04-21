@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\AuthorsScopusAuthor;
 use app\models\AuthorsScopusAuthorSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,17 @@ class AuthorsScopusAuthorController extends Controller
     public function behaviors()
     {
         return [
+            [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view'],
+                        'allow' => true,
+                        'roles' => ['manager'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

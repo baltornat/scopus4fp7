@@ -88,6 +88,7 @@ AppAsset::register($this);
         <?php
             $loginUrl = \yii\helpers\Url::to(['/site/index']);
             $projectsUrl = \yii\helpers\Url::to(['/authors-project-ppi/index']);
+            $authorsUrl = \yii\helpers\Url::to(['/authors-scopus-author/index']);
             if(Yii::$app->user->isGuest){
                 echo "
                     <!-- Heading -->
@@ -111,7 +112,7 @@ AppAsset::register($this);
                     <div class=\"sidebar-heading\">
                         Manager
                     </div>";
-                if($this->title == "Authors Project Ppis"){
+                if($this->title == "Projects"){
                     echo "<li class=\"nav-item active\">";
                 }else{
                     echo "<li class=\"nav-item\">";
@@ -121,6 +122,18 @@ AppAsset::register($this);
                         <a class=\"nav-link\" href=\"".$projectsUrl."\">
                             <i class=\"fas fa-fw fa-table\"></i>
                             <span>Manage projects</span></a>
+                    </li>
+                ";
+                if($this->title == "Candidate authors"){
+                    echo "<li class=\"nav-item active\">";
+                }else{
+                    echo "<li class=\"nav-item\">";
+                }
+                # Nav Item - Candidates
+                echo"
+                        <a class=\"nav-link\" href=\"".$authorsUrl."\">
+                            <i class=\"fas fa-fw fa-table\"></i>
+                            <span>Manage candidates</span></a>
                     </li>
                 ";
             }

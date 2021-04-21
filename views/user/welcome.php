@@ -22,7 +22,8 @@ $this->title = 'Welcome admin';
                     <p class="text-gray-500 mb-0">This is an admin account so you have access to the following functionalities:</p><br>
                     <a href="<?=\yii\helpers\Url::to(['/user/index']) ?>">&larr; Manage users</a><br>
                     <a href="<?=\yii\helpers\Url::to(['/user/create']) ?>">&larr; Create user</a><br>
-                    <a href="<?=\yii\helpers\Url::to(['/authors-project-ppi/index']) ?>">&larr; Manage projects</a>
+                    <a href="<?=\yii\helpers\Url::to(['/authors-project-ppi/index']) ?>">&larr; Manage projects</a><br>
+                    <a href="<?=\yii\helpers\Url::to(['/authors-scopus-author/index']) ?>">&larr; Manage candidates</a>
                 </div>
             </div>
         </div>

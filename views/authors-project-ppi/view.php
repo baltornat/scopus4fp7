@@ -175,7 +175,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'label'=>'Institution name',
                                 'attribute' => 'ppi_organization',
-                                'value'=>$model->institution->institution_name,
+                                'value'=> function($model){
+                                    if(isset($model->institution->institution_name)){
+                                        return $model->institution->institution_name;
+                                    }
+                                    return null;
+                                }
                             ],
                         ],
                         'mode' => 'view',
@@ -199,28 +204,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Commands dashboard -->
     <div class="row">
-        <!-- Delete candidate -->
-        <div class="col-lg-4">
-            <div class="card shadow mb-4 border-bottom-warning">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Delete candidate</h6>
-                </div>
-                <div class="card-body">
-                    bla
-                </div>
-            </div>
-        </div>
-        <!-- Create candidate -->
-        <div class="col-lg-4">
-            <div class="card shadow mb-4 border-bottom-warning">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Create new candidate</h6>
-                </div>
-                <div class="card-body">
-                    bla
-                </div>
-            </div>
-        </div>
         <!-- Show match threshold -->
         <div class="col-lg-4">
             <div class="card shadow mb-4 border-bottom-warning">
@@ -239,6 +222,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
+        <!-- Fill blank space -->
+        <div class="col-lg-4">
+        </div>
+        <!-- Fill blank space -->
+        <div class="col-lg-4">
+        </div>
     </div>
 
     <!-- Candidates -->
@@ -252,15 +241,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo "<div class=\"row\">";
                 }
                 $info = "Candidate author ".$author->id;
+                $url = \yii\helpers\Url::toRoute(['/authors-scopus-author/view', 'id' => $author->id]);
                 $matchValue = $author->projectAuthorMatch->match_value;
                 $percentage = $matchValue * 100;
                 echo "
                     <div class=\"col-lg-4\">           
                         <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-success\">
                             <div class=\"card-header py-3\">
-                                <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info</h6><br>
+                                <a href=\"$url\">
+                                    <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info</h6><br>
+                                </a>
                 ";
-
                 $form = ActiveForm::begin([
                     'action' =>['/authors-project-author-match/update','project_ppi'=>$model->id, 'author_scopus_id'=>$author->author_scopus_id]
                 ]);

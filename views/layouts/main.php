@@ -119,7 +119,7 @@ AppAsset::register($this);
                 # Nav Item - Candidates
                 echo"
                         <a class=\"nav-link\" href=\"".$authorsUrl."\">
-                            <i class=\"fas fa-fw fa-table\"></i>
+                            <i class=\"fas fa-users\"></i>
                             <span>Manage candidates</span></a>
                     </li>
                 ";

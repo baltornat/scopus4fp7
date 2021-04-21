@@ -254,7 +254,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-success\">
                                 <div class=\"card-header py-3\">
                                     <a href=\"$url\">
-                                        <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info</h6><br>
+                                        <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info <sup><i class=\"fas fa-search\"></i></sup></h6><br>
                                     </a>
                     ";
                 }else{
@@ -263,7 +263,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-danger border-left-danger\">
                                 <div class=\"card-header py-3\">
                                     <a href=\"$url\">
-                                        <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-danger\">$info</h6><br>
+                                        <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-danger\">$info <sup><i class=\"fas fa-search\"></i></sup></h6><br>
                                     </a>
                     ";
                 }

@@ -205,18 +205,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- Commands dashboard -->
     <div class="row">
         <!-- Show match threshold -->
-        <div class="col-lg-4">
-            <div class="card shadow mb-4 border-bottom-warning">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Set the match threshold value</h6>
-                </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-8 col-lg-7">
-                            <input type="range" class="custom-range" min="0" max="100" value="0" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Set the match threshold value</div><br>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="col-xl-8 col-lg-7">
+                                    <input type="range" class="custom-range" min="0" max="100" value="10" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);"><br><br>
+                                    <input type="text" id="textInput" value="" placeholder="10%" style="width: 80px;" readonly>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-xl-4 col-lg-5">
-                            <input type="text" id="textInput" value="" placeholder="0%" style="width: 65px;" readonly>
+                        <div class="col-auto">
+                            <i class="fas fa-sliders-h fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -244,20 +248,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 $url = \yii\helpers\Url::toRoute(['/authors-scopus-author/view', 'id' => $author->id]);
                 $matchValue = $author->projectAuthorMatch->match_value;
                 $percentage = $matchValue * 100;
-                echo "
-                    <div class=\"col-lg-4\">           
-                        <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-success\">
-                            <div class=\"card-header py-3\">
-                                <a href=\"$url\">
-                                    <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info</h6><br>
-                                </a>
-                ";
+                if($percentage>=10){
+                    echo "
+                        <div class=\"col-lg-4\">           
+                            <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-success\">
+                                <div class=\"card-header py-3\">
+                                    <a href=\"$url\">
+                                        <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-success\">$info</h6><br>
+                                    </a>
+                    ";
+                }else{
+                    echo "
+                        <div class=\"col-lg-4\">           
+                            <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-danger\">
+                                <div class=\"card-header py-3\">
+                                    <a href=\"$url\">
+                                        <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-danger\">$info</h6><br>
+                                    </a>
+                    ";
+                }
                 $form = ActiveForm::begin([
                     'action' =>['/authors-project-author-match/update','project_ppi'=>$model->id, 'author_scopus_id'=>$author->author_scopus_id]
                 ]);
-                echo Html::submitButton('Delete', ['data-confirm' => 'Are you sure you want to remove this candidate?', 'class' => 'btn btn-google btn-block', 'name' => 'match-button', 'id' => "match-button$counter", 'style' => 'background-color: #1cc88a']);
-                ActiveForm::end();
-                echo "
+                if($percentage>=10){
+                    echo Html::submitButton('Delete', ['data-confirm' => 'Are you sure you want to remove this candidate?', 'class' => 'btn btn-google btn-block', 'name' => 'match-button', 'id' => "match-button$counter", 'style' => 'background-color: #1cc88a']);
+                    ActiveForm::end();
+                    echo "
                         </div>
                             <div class=\"card-body\">
                                 <div class=\"mb-1 text-gray-700\">Match value: $percentage%</div>
@@ -267,7 +283,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                 </div>
                             </div>
-                ";
+                    ";
+                }else{
+                    echo Html::submitButton('Delete', ['data-confirm' => 'Are you sure you want to remove this candidate?', 'class' => 'btn btn-google btn-block', 'name' => 'match-button', 'id' => "match-button$counter", 'style' => 'background-color: #e74a3b']);
+                    ActiveForm::end();
+                    echo "
+                        </div>
+                            <div class=\"card-body\">
+                                <div class=\"mb-1 text-gray-700\">Match value: $percentage%</div>
+                                <div class=\"progress mb-4\">
+                                    <div id=\"bar$counter\" class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: $percentage%\"
+                                        aria-valuenow=\"$matchValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
+                                    </div>
+                                </div>
+                            </div>
+                    ";
+                }
                 $areas = implode(', ', $author->getAuthorSubjectArea()->select(["CONCAT(area_short_name, ' (', area_frequency, ')') AS full_area"])->orderBy(['area_frequency'=>SORT_DESC])->column());
                 echo DetailView::widget([
                     'model' => $author,

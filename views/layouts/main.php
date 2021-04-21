@@ -46,7 +46,6 @@ AppAsset::register($this);
 
         <?php
             $manageUsersUrl = \yii\helpers\Url::to(['/user/index']);
-            $createUrl = \yii\helpers\Url::to(['/user/create']);
             if(Yii::$app->user->can('manageUser')){
                 echo "
                     <!-- Divider -->
@@ -65,18 +64,6 @@ AppAsset::register($this);
                         <a class=\"nav-link\" href=\"".$manageUsersUrl."\">
                             <i class=\"fas fa-fw fa-cog\"></i>
                             <span>Manage users</span></a>
-                    </li>
-                ";
-                if($this->title == "Create User"){
-                    echo "<li class=\"nav-item active\">";
-                }else{
-                    echo "<li class=\"nav-item\">";
-                }
-                # Nav Item - Create User
-                echo"
-                        <a class=\"nav-link\" href=\"".$createUrl."\">
-                            <i class=\"fas fa-user-plus\"></i>
-                            <span>Create user</span></a>
                     </li>
                 ";
             }

@@ -15,7 +15,7 @@ $this->title = 'Login';
             Your account was banned.
         </div>
         <!-- Account banned -->
-        <div class="text-center">
+        <div class="text-center"><br>
             <p class="lead text-gray-800 mb-5">Blocked!</p>
             <p class="text-gray-500 mb-0">You cannot use this app anymore</p><br>
             <a href="<?=\yii\helpers\Url::to(['/site/index']) ?>">&larr; Back to Login</a><br>

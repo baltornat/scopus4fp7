@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         echo "
                             <!-- Mapping erc scopus not present -->
                             <div class=\"col-lg-4\">
-                                <div class=\"card mb-4 border-left-info\">
+                                <div class=\"card mb-4 border-left-info border-bottom-info\">
                                     <div class=\"card-body\">
                         ";
                         $relValue = $mapping->relevance;
@@ -260,7 +260,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }else{
                     echo "
                         <div class=\"col-lg-4\">           
-                            <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-danger\">
+                            <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-danger border-left-danger\">
                                 <div class=\"card-header py-3\">
                                     <a href=\"$url\">
                                         <h6 id=\"head$counter\" class=\"h4 m-0 font-weight-bold text-danger\">$info</h6><br>

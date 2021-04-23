@@ -68,13 +68,19 @@ $this->params['breadcrumbs'][] = $this->title;
         $projects = \app\models\AuthorsProjectPpi::find()
             ->where(['project_ppi.id'=>$model->project_ppi])
             ->all();
-        if(empty($projects)){
-            echo "<div class=\"alert alert-danger\"> No projects found for this author!</div>";
+        $match = \app\models\AuthorsProjectAuthorMatch::find()
+            ->where(['project_ppi'=>$model->project_ppi, 'author_scopus_id'=>$model->author_scopus_id])
+            ->one();
+        if($match->match_value < 0){
+            echo "<div class=\"alert alert-danger\"> Match value <0 for this candidate! </div>";
         }else{
-            foreach($projects as $project) {
-                $info = "Project ".$project->id;
-                $url = \yii\helpers\Url::toRoute(['/authors-project-ppi/view', 'id' => $project->id]);
-                echo "
+            if(empty($projects)){
+                echo "<div class=\"alert alert-danger\"> No projects found for this candidate!</div>";
+            }else{
+                foreach($projects as $project) {
+                    $info = "Project ".$project->id;
+                    $url = \yii\helpers\Url::toRoute(['/authors-project-ppi/view', 'id' => $project->id]);
+                    echo "
                         <div class=\"card shadow mb-4 border-bottom-primary\">
                             <div class=\"card-header py-3\">
                                 <h6 class=\"h4 m-0 font-weight-bold text-primary\">All the projects linked to this candidate</h6>
@@ -82,42 +88,43 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class=\"card-body\">
                                 <div class=\"table-responsive\">
                     ";
-                echo DetailView::widget([
-                    'model' => $project,
-                    'attributes' => [
-                        'erc_field',
-                        'funding_scheme',
-                        'call_year',
-                        'ppi_firstname',
-                        'ppi_lastname',
-                        [
-                            'label'=>'Institution name',
-                            'attribute' => 'ppi_organization',
-                            'value'=> function($project){
-                                if(isset($project->institution->institution_name)){
-                                    return $project->institution->institution_name;
+                    echo DetailView::widget([
+                        'model' => $project,
+                        'attributes' => [
+                            'erc_field',
+                            'funding_scheme',
+                            'call_year',
+                            'ppi_firstname',
+                            'ppi_lastname',
+                            [
+                                'label'=>'Institution name',
+                                'attribute' => 'ppi_organization',
+                                'value'=> function($project){
+                                    if(isset($project->institution->institution_name)){
+                                        return $project->institution->institution_name;
+                                    }
+                                    return null;
                                 }
-                                return null;
-                            }
+                            ],
                         ],
-                    ],
-                    'mode' => 'view',
-                    'bordered' => true,
-                    'striped' => false,
-                    'condensed' => false,
-                    'responsive' => true,
-                    'hover' => true,
-                    'panel' => [
-                        'type' => DetailView::TYPE_WARNING,
-                        'heading' => "<a href=\"$url\" style=\"color: black\"><h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $info <sup><i class=\"fas fa-search\"></i></sup></h3></a>",
-                    ],
-                    'enableEditMode' => false
-                ]);
-                echo "
+                        'mode' => 'view',
+                        'bordered' => true,
+                        'striped' => false,
+                        'condensed' => false,
+                        'responsive' => true,
+                        'hover' => true,
+                        'panel' => [
+                            'type' => DetailView::TYPE_WARNING,
+                            'heading' => "<a href=\"$url\" style=\"color: black\"><h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $info <sup><i class=\"fas fa-search\"></i></sup></h3></a>",
+                        ],
+                        'enableEditMode' => false
+                    ]);
+                    echo "
                             </div>
                         </div>
                     </div>
                 ";
+                }
             }
         }
     ?>

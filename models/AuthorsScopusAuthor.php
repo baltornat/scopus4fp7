@@ -35,8 +35,9 @@ class AuthorsScopusAuthor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['project_ppi', 'num_documents'], 'default', 'value' => null],
+            [['project_ppi', 'num_documents', 'affil_name', 'affil_city', 'affil_country'], 'default', 'value' => null],
             [['project_ppi', 'num_documents'], 'integer'],
+            [['project_ppi', 'author_scopus_id', 'firstname', 'lastname'], 'required'],
             [['author_scopus_id', 'firstname', 'lastname', 'affil_id', 'affil_name', 'affil_city', 'affil_country', 'author_modality'], 'string'],
             [['project_ppi', 'author_scopus_id'], 'unique', 'targetAttribute' => ['project_ppi', 'author_scopus_id']],
             [['project_ppi'], 'exist', 'skipOnError' => true, 'targetClass' => AuthorsProjectPpi::className(), 'targetAttribute' => ['project_ppi' => 'id']],

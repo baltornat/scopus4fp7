@@ -69,84 +69,84 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body">
                 <h6>If present, the light blue ones indicate the areas of the candidate authors listed below</h6>
                 <?php
-                $counter = 0;
-                foreach($mappings as $mapping) {
-                    if(in_array($mapping->scopus_area, $subjectsNotPresent)){
-                        if($counter%3 == 0){
+                    $counter = 0;
+                    foreach($mappings as $mapping) {
+                        if(in_array($mapping->scopus_area, $subjectsNotPresent)){
+                            if($counter%3 == 0){
+                                echo "
+                                    <div class=\"row\">
+                                ";
+                            }
                             echo "
-                                <div class=\"row\">
+                                <!-- Mapping erc scopus not present -->
+                                <div class=\"col-lg-4\">
+                                    <div class=\"card mb-4 border-left-danger\">
+                                        <div class=\"card-body\">
                             ";
-                        }
-                        echo "
-                            <!-- Mapping erc scopus not present -->
-                            <div class=\"col-lg-4\">
-                                <div class=\"card mb-4 border-left-danger\">
-                                    <div class=\"card-body\">
-                        ";
-                        $relValue = $mapping->relevance;
-                        $perc = $relValue * 100;
-                        echo "<div class=\"text-gray-700\">Area: $mapping->scopus_area</div>";
-                        echo "
-                            <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
-                            <div class=\"progress mb-4\">
-                                <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: $perc%\"
-                                    aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
-                                </div>
-                            </div>
-                        ";
-                        $counter++;
-                        echo "
+                            $relValue = $mapping->relevance;
+                            $perc = $relValue * 100;
+                            echo "<div class=\"text-gray-700\">Area: $mapping->scopus_area</div>";
+                            echo "
+                                <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
+                                <div class=\"progress mb-4\">
+                                    <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: $perc%\"
+                                        aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
                                     </div>
                                 </div>
-                            </div>
-                        ";
-                        if($counter%3 == 0){
-                            echo "
-                                </div>
                             ";
-                        }
-                    }
-                    if(in_array($mapping->scopus_area, $subjects)){
-                        if($counter%3 == 0){
+                            $counter++;
                             echo "
-                                <div class=\"row\">
-                            ";
-                        }
-                        echo "
-                            <!-- Mapping erc scopus not present -->
-                            <div class=\"col-lg-4\">
-                                <div class=\"card mb-4 border-left-info border-bottom-info\">
-                                    <div class=\"card-body\">
-                        ";
-                        $relValue = $mapping->relevance;
-                        $perc = $relValue * 100;
-                        echo "<div class=\"text-gray-700\">Area: $mapping->scopus_area</div>";
-                        echo "
-                            <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
-                            <div class=\"progress mb-4\">
-                                <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: $perc%\"
-                                    aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
-                                </div>
-                            </div>
-                        ";
-                        $counter++;
-                        echo "
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ";
-                        if($counter%3 == 0){
+                            ";
+                            if($counter%3 == 0){
+                                echo "
+                                    </div>
+                                ";
+                            }
+                        }
+                        if(in_array($mapping->scopus_area, $subjects)){
+                            if($counter%3 == 0){
+                                echo "
+                                    <div class=\"row\">
+                                ";
+                            }
                             echo "
+                                <!-- Mapping erc scopus not present -->
+                                <div class=\"col-lg-4\">
+                                    <div class=\"card mb-4 border-left-info border-bottom-info\">
+                                        <div class=\"card-body\">
+                            ";
+                            $relValue = $mapping->relevance;
+                            $perc = $relValue * 100;
+                            echo "<div class=\"text-gray-700\">Area: $mapping->scopus_area</div>";
+                            echo "
+                                <div class=\"mb-1 text-gray-700\">Relevance: $perc%</div>
+                                <div class=\"progress mb-4\">
+                                    <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: $perc%\"
+                                        aria-valuenow=\"$relValue\" aria-valuemin=\"0\" aria-valuemax=\"1\">
+                                    </div>
                                 </div>
                             ";
+                            $counter++;
+                            echo "
+                                        </div>
+                                    </div>
+                                </div>
+                            ";
+                            if($counter%3 == 0){
+                                echo "
+                                    </div>
+                                ";
+                            }
                         }
                     }
-                }
-                if($counter%3 != 0){
-                    echo "
-                        </div>
-                    ";
-                }
+                    if($counter%3 != 0){
+                        echo "
+                            </div>
+                        ";
+                    }
                 ?>
             </div>
         </div>
@@ -164,38 +164,38 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body">
                 <div class="table-responsive">
                     <?php
-                    echo DetailView::widget([
-                        'model' => $model,
-                        'attributes' => [
-                            'erc_field',
-                            'funding_scheme',
-                            'call_year',
-                            'ppi_firstname',
-                            'ppi_lastname',
-                            [
-                                'label'=>'Institution name',
-                                'attribute' => 'ppi_organization',
-                                'value'=> function($model){
-                                    if(isset($model->institution->institution_name)){
-                                        return $model->institution->institution_name;
+                        echo DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
+                                'erc_field',
+                                'funding_scheme',
+                                'call_year',
+                                'ppi_firstname',
+                                'ppi_lastname',
+                                [
+                                    'label'=>'Institution name',
+                                    'attribute' => 'ppi_organization',
+                                    'value'=> function($model){
+                                        if(isset($model->institution->institution_name)){
+                                            return $model->institution->institution_name;
+                                        }
+                                        return null;
                                     }
-                                    return null;
-                                }
+                                ],
                             ],
-                        ],
-                        'mode' => 'view',
-                        'bordered' => true,
-                        'striped' => false,
-                        'condensed' => false,
-                        'responsive' => true,
-                        'hover' => true,
-                        'panel' => [
-                            'type' => DetailView::TYPE_PRIMARY,
-                            'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
-                        ],
-                        'enableEditMode' => false
-                    ]);
-                    echo "<br>";
+                            'mode' => 'view',
+                            'bordered' => true,
+                            'striped' => false,
+                            'condensed' => false,
+                            'responsive' => true,
+                            'hover' => true,
+                            'panel' => [
+                                'type' => DetailView::TYPE_PRIMARY,
+                                'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
+                            ],
+                            'enableEditMode' => false
+                        ]);
+                        echo "<br>";
                     ?>
                 </div>
             </div>
@@ -204,33 +204,49 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Commands dashboard -->
     <div class="row">
-        <!-- Show match threshold -->
+        <?php if(!empty($authors)): ?>
+            <!-- Show match threshold -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Set the match threshold value</div><br>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <div class="col-xl-8 col-lg-7">
+                                        <input type="range" class="custom-range" min="0" max="100" value="10" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);"><br><br>
+                                        <input type="text" id="textInput" value="" placeholder="10%" style="width: 80px;" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-sliders-h fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif ?>
+        <!-- Add new candidate -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Set the match threshold value</div><br>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <div class="col-xl-8 col-lg-7">
-                                    <input type="range" class="custom-range" min="0" max="100" value="10" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);"><br><br>
-                                    <input type="text" id="textInput" value="" placeholder="10%" style="width: 80px;" readonly>
-                                </div>
+                                Add new candidate</div><br>
+                            <div class="col-xl-8 col-lg-7">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= Html::a('Add', ['authors-scopus-author/create', 'project_ppi' => $model->id, 'erc_field' => $model->erc_field], ['class' => 'btn btn-primary']) ?></div>
+                                <br><br>
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-sliders-h fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-plus fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Fill blank space -->
-        <div class="col-lg-4">
-        </div>
-        <!-- Fill blank space -->
-        <div class="col-lg-4">
         </div>
     </div>
 

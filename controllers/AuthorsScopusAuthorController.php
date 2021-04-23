@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\AuthorsProjectAuthorMatch;
 use Yii;
 use app\models\AuthorsScopusAuthor;
 use app\models\AuthorsScopusAuthorSearch;
@@ -23,10 +24,10 @@ class AuthorsScopusAuthorController extends Controller
         return [
             [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view'],
+                'only' => ['index', 'view', 'create'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view', 'create'],
                         'allow' => true,
                         'roles' => ['manager'],
                     ],
@@ -77,48 +78,20 @@ class AuthorsScopusAuthorController extends Controller
     public function actionCreate()
     {
         $model = new AuthorsScopusAuthor();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $match = new AuthorsProjectAuthorMatch();
+            $match->project_ppi = $model->project_ppi;
+            $match->author_scopus_id = $model->author_scopus_id;
+            $match->erc_field = Yii::$app->request->get('erc_field');
+            $match->match_value = 1;
+            if($match->save() && $model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Updates an existing AuthorsScopusAuthor model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Deletes an existing AuthorsScopusAuthor model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

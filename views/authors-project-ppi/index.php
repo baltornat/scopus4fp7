@@ -29,14 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'ppi_lastname',
                         [
                             'label'=>'Institution name',
-                            'attribute' => 'ppi_organization',
-                            'value'=>function($model){
-                                $institution = \app\models\AuthorsInstitution::find()->where(['md_institution_tokens'=>$model->ppi_organization])->one();
-                                if(empty($institution)){
-                                    return null;
-                                }
-                                return $institution->institution_name;
-                            }
+                            'attribute' => 'institution',
+                            'value' => 'institution.institution_name'
                         ],
                         [
                             'class' => 'app\grid\ActionColumn',
@@ -65,14 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'ppi_organization',
                                 [
                                     'label'=>'Institution name',
-                                    'attribute' => 'ppi_organization',
-                                    'value'=>function($model){
-                                        $institution = \app\models\AuthorsInstitution::find()->where(['md_institution_tokens'=>$model->ppi_organization])->one();
-                                        if(empty($institution)){
-                                            return null;
-                                        }
-                                        return $institution->institution_name;
-                                    }
+                                    'attribute' => 'institution',
+                                    'value' => 'institution.institution_name'
                                 ],
                                 'p_id',
                             ],

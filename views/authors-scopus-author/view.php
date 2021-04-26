@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'hover' => true,
                         'panel' => [
                             'type' => DetailView::TYPE_WARNING,
-                            'heading' => "<a href=\"$url\" style=\"color: black\"><h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $info <sup><i class=\"fas fa-search\"></i></sup></h3></a>",
+                            'heading' => "<a href=\"$url\" style=\"color: black\"><h3 class=\"panel-title\"><i class=\"fas fa-search\"></i> $info </h3></a>",
                         ],
                         'enableEditMode' => false
                     ]);

@@ -11,6 +11,7 @@ use app\models\User;
  */
 class UserSearch extends User
 {
+    public $authAssignment;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,7 @@ class UserSearch extends User
     {
         return [
             [['id'], 'integer'],
-            [['email', 'password', 'name', 'surname', 'authKey', 'accessToken'], 'safe'],
+            [['email', 'password', 'name', 'surname', 'authKey', 'accessToken', 'authAssignment'], 'safe'],
             [['isDisabled'], 'boolean'],
         ];
     }
@@ -49,27 +50,24 @@ class UserSearch extends User
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $dataProvider->sort->attributes['authAssignment'] = [
+            'asc' => ['auth_assignment.item_name' => SORT_ASC],
+            'desc' => ['auth_assignment.item_name' => SORT_DESC],
+        ];
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
         // grid filtering conditions
         $query->andFilterWhere([
-            //'id' => $this->id,
             'isDisabled' => $this->isDisabled,
+            'auth_assignment.item_name' => $this->authAssignment,
         ]);
 
         $query->andFilterWhere(['ilike', 'email', $this->email])
-            //->andFilterWhere(['ilike', 'password', $this->password])
             ->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'surname', $this->surname])
-            //->andFilterWhere(['ilike', 'authKey', $this->authKey])
-            ->andFilterWhere(['ilike', 'auth_assignment.item_name', $this->authKey]);
-            //->andFilterWhere(['ilike', 'accessToken', $this->accessToken]);
+            ->andFilterWhere(['ilike', 'surname', $this->surname]);
 
         return $dataProvider;
     }

@@ -47,8 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'name',
                         'surname',
                         [
+                            'class' => 'kartik\grid\EnumColumn',
+                            'enum' => ['admin', 'manager'],
+                            'filter' => [
+                                'admin' => 'admin',
+                                'manager' => 'manager',
+                            ],
                             'label' => 'Role',
-                            'attribute' => 'authKey',
+                            'attribute' => 'authAssignment',
                             'value' => 'authAssignment.item_name'
                         ],
                         [

@@ -14,17 +14,17 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <!--$form->field($model, 'password')->textInput(['maxlength' => true]) ?> -->
-
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
 
-    <!--$form->field($model, 'authKey')->textInput(['maxlength' => true]) ?> -->
-
-    <!--$form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?> -->
-
-    <!--$form->field($model->authAssignment, 'item_name')->textInput(['maxlength' => true]) ?> -->
+    <?= $form->field($model->authAssignment, 'item_name')->dropdownList([
+        'admin' => 'admin',
+        'manager' => 'manager'
+        ],
+        ['prompt'=>'Select Role']
+        )->label('Role');
+    ?>
 
     <?= $form->field($model, 'isDisabled')->checkbox() ?>
 

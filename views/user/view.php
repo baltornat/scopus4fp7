@@ -51,14 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'type' => DetailView::TYPE_PRIMARY,
                             'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-user\"></i> $this->title </h3>",
                         ],
-                        /*'deleteOptions'=>[
-                            'params' => ['custom_param'=>true],
-                            'url'=>['delete', 'id' => $model->id],
-                            'data'=>[
-                                'confirm'=>Yii::t('app', 'Are you sure you want to delete this item?'),
-                                'method'=>'post',
-                            ],
-                        ],*/
                         'enableEditMode' => false
                     ]);
                 ?>

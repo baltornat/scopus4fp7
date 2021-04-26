@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'hover' => true,
                         'panel' => [
                             'type' => GridView::TYPE_PRIMARY,
-                            'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
+                            'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-table\"></i> $this->title </h3>",
                             'after' => false,
                             'before' => false
                         ],

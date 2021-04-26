@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'hover' => true,
                         'panel' => [
                             'type' => DetailView::TYPE_PRIMARY,
-                            'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> ID: $model->id </h3>",
+                            'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-user\"></i> ID: $model->id </h3>",
                         ],
                         'enableEditMode' => false
                     ]);

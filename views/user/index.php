@@ -59,10 +59,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'class' => 'kartik\grid\BooleanColumn',
-                            'label' => 'Disabled?',
+                            'label' => 'Is disabled',
                             'attribute' => 'isDisabled',
+                            'trueIcon' => '<span class="fas fa-times" style="color: red"></span>',
                             'trueLabel' => 'Yes',
-                            'falseLabel' => 'No'
+                            'falseIcon' => '<span class="fas fa-check" style="color: limegreen"></span>',
+                            'falseLabel' => 'No',
                         ],
                         [
                             'class' => 'kartik\grid\ActionColumn',
@@ -116,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'hover' => true,
                         'panel' => [
                             'type' => GridView::TYPE_PRIMARY,
-                            'heading' => "<h3 class=\"panel-title\"><i class=\"glyphicon glyphicon-user\"></i> $this->title </h3>",
+                            'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-cog\"></i> $this->title </h3>",
                             'after' => false,
                             'before' => false
                         ],

@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'ppi_lastname',
                         [
                             'label'=>'Institution name',
-                            'attribute' => 'institution',
-                            'value' => 'institution.institution_name'
+                            'attribute' => 'institutionName',
+                            'value' => 'institutionName.institution_name'
                         ],
                         [
                             'class' => 'app\grid\ActionColumn',
@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ];
                     echo ExportMenu::widget([
                             'dataProvider' => $dataProvider,
+                            'filename' => 'projects-grid-export',
                             'columns' => [
                                 [
                                     'class' => 'kartik\grid\SerialColumn',
@@ -59,8 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'ppi_organization',
                                 [
                                     'label'=>'Institution name',
-                                    'attribute' => 'institution',
-                                    'value' => 'institution.institution_name'
+                                    'attribute' => 'institutionName',
+                                    'value' => 'institutionName.institution_name'
                                 ],
                                 'p_id',
                             ],

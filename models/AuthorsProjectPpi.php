@@ -58,7 +58,7 @@ class AuthorsProjectPpi extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getInstitution(){
+    public function getInstitutionName(){
         return $this->hasOne(AuthorsInstitution::className(), ['md_institution_tokens'=>'ppi_organization']);
     }
 

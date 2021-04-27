@@ -11,7 +11,7 @@ use app\models\AuthorsProjectPpi;
  */
 class AuthorsProjectPpiSearch extends AuthorsProjectPpi
 {
-    public $institution;
+    public $institutionName;
     /**
      * {@inheritdoc}
      */
@@ -19,7 +19,7 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
     {
         return [
             [['id'], 'integer'],
-            [['p_rcn', 'funding_scheme', 'call_year', 'ppi_firstname', 'ppi_lastname', 'organization_url', 'ppi_organization', 'erc_field', 'p_id', 'institution'], 'safe'],
+            [['p_rcn', 'funding_scheme', 'call_year', 'ppi_firstname', 'ppi_lastname', 'organization_url', 'ppi_organization', 'erc_field', 'p_id', 'institutionName'], 'safe'],
         ];
     }
 
@@ -42,7 +42,7 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
     public function search($params)
     {
         $query = AuthorsProjectPpi::find();
-        $query->joinWith('institution');
+        $query->joinWith('institutionName')->groupBy('id');
 
         // add conditions that should always apply here
 
@@ -50,7 +50,7 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
             'query' => $query,
         ]);
 
-        $dataProvider->sort->attributes['institution'] = [
+        $dataProvider->sort->attributes['institutionName'] = [
             'asc' => ['institution.institution_name' => SORT_ASC],
             'desc' => ['institution.institution_name' => SORT_DESC],
         ];
@@ -71,7 +71,7 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
             ->andFilterWhere(['ilike', 'ppi_firstname', $this->ppi_firstname])
             ->andFilterWhere(['ilike', 'ppi_lastname', $this->ppi_lastname])
             ->andFilterWhere(['ilike', 'organization_url', $this->organization_url])
-            ->andFilterWhere(['ilike', 'institution.institution_name', $this->institution])
+            ->andFilterWhere(['ilike', 'institution.institution_name', $this->institutionName])
             ->andFilterWhere(['ilike', 'erc_field', $this->erc_field]);
             //->andFilterWhere(['ilike', 'p_id', $this->p_id]);
 

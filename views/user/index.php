@@ -73,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ];
                     echo ExportMenu::widget([
                         'dataProvider' => $dataProvider,
+                        'filename' => 'users-grid-export',
                         'columns' => [
                             [
                                 'class' => 'kartik\grid\SerialColumn',

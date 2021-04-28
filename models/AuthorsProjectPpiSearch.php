@@ -42,7 +42,7 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
     public function search($params)
     {
         $query = AuthorsProjectPpi::find();
-        $query->joinWith('institutionName')->groupBy('id');
+        $query->joinWith('institutionName')->groupBy(['id']);
 
         // add conditions that should always apply here
 
@@ -50,10 +50,10 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
             'query' => $query,
         ]);
 
-        $dataProvider->sort->attributes['institutionName'] = [
+        /*$dataProvider->sort->attributes['institutionName'] = [
             'asc' => ['institution.institution_name' => SORT_ASC],
             'desc' => ['institution.institution_name' => SORT_DESC],
-        ];
+        ];*/
 
         if (!($this->load($params) && $this->validate())) {
             // uncomment the following line if you do not want to return any records when validation fails

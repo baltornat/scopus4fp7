@@ -18,8 +18,7 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['email', 'password', 'name', 'surname', 'authKey', 'accessToken', 'authAssignment'], 'safe'],
+            [['id', 'email', 'password', 'name', 'surname', 'authKey', 'accessToken', 'authAssignment'], 'safe'],
             [['isDisabled'], 'boolean'],
         ];
     }
@@ -43,7 +42,7 @@ class UserSearch extends User
     public function search($params)
     {
         $query = User::find();
-        $query->leftJoin('public.auth_assignment', 'id=user_id::integer');
+        $query->joinWith('authAssignment');
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

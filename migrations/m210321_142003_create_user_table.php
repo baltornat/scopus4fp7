@@ -13,7 +13,7 @@ class m210321_142003_create_user_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%appschema.user}}', [
-            'id' => $this->primaryKey(),
+            'id' => $this->string()->notNull()->unique(),
             'email' => $this->string(254)->notNull()->unique(),
             'password' => $this->string(128)->notNull(),
             'name' => $this->string()->notNull(),
@@ -22,6 +22,7 @@ class m210321_142003_create_user_table extends Migration
             'accessToken' => $this->string()->notNull(),
             'isDisabled' => $this->boolean()->defaultValue(false),
         ]);
+        $this->addPrimaryKey('user_id', '{{%appschema.user}}', ['id']);
     }
 
     /**

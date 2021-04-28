@@ -34,7 +34,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['email', 'password', 'name', 'surname'], 'required'],
             [['email'], 'string', 'max' => 254],
             [['password'], 'string', 'min' => 4, 'max' => 128],
-            [['name', 'surname', 'authKey', 'accessToken'], 'string', 'max' => 255],
+            [['id', 'name', 'surname', 'authKey', 'accessToken'], 'string', 'max' => 255],
             [['email'], 'unique'],
             [['email'], 'email'],
             [['isDisabled'], 'boolean'],
@@ -47,6 +47,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'email' => 'Email',
             'password' => 'Password',
             'name' => 'Name',

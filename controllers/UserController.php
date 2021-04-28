@@ -82,6 +82,13 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 // form inputs are valid, do something here
+                $user = User::find()
+                    ->select('id')
+                    ->orderBy(['id'=>SORT_DESC])
+                    ->one();
+                $max = (int)$user->id + 1;
+                $max = (string)$max;
+                $model->id = $max;
                 $model->email = $_POST['User']['email'];
                 $model->password = password_hash($_POST['User']['password'], PASSWORD_ARGON2I);
                 $model->name = $_POST['User']['name'];
@@ -95,6 +102,9 @@ class UserController extends Controller
                     $manager = $auth->getRole('manager');
                     $auth->assign($manager, $p_key);
                     Yii::$app->session->setFlash('userSignedUp');
+                    return $this->refresh();
+                }else{
+                    Yii::$app->session->setFlash('userNotSignedUp');
                     return $this->refresh();
                 }
             }
@@ -156,6 +166,8 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        $user = Yii::$app->authManager;
+        $user->revokeAll($id);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

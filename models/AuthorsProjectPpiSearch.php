@@ -46,11 +46,6 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
         $query->select("*")
             ->from('authors.project_ppi')
             ->leftJoin("(SELECT DISTINCT ON (md_institution_tokens) * FROM authors.institution) AS p", 'project_ppi.ppi_organization = p.md_institution_tokens');
-
-
-        /*$query = AuthorsProjectPpi::find()
-            ->join('LEFT OUTER JOIN', $institutions, "project_ppi.ppi_organization = $institutions.md_institution_tokens");
-        */
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body p-0 border-bottom-warning">
             <!-- Nested Row within Card Body -->
             <div class="row">
-                <?=Html::img(Yii::getAlias('@web').'/img/undraw_Access_account_re_8spm.svg', ['class' => 'col-lg-5 d-none d-lg-block']); ?>
+                <?=Html::img(Yii::getAlias('@web').'/img/undraw_Access_account_re_8spm.svg', ['class' => 'col-lg-5 d-none d-lg-block', 'style' => 'position: relative; left: 30px;']); ?>
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">

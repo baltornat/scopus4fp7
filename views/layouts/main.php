@@ -159,6 +159,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/
 
                     <?php
                         if(!Yii::$app->user->isGuest){
+                            $id = Yii::$app->user->getId();
                             echo "
                                 <div class=\"topbar-divider d-none d-sm-block\"></div>
                                 <!-- Nav Item - User Information -->
@@ -172,6 +173,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/
                                     <!-- Dropdown - User Information -->
                                     <div class=\"dropdown-menu dropdown-menu-right shadow animated--grow-in\"
                                          aria-labelledby=\"userDropdown\">
+                                        <a class=\"dropdown-item\" href=".\yii\helpers\Url::to(['/user/info', 'id' => $id]).">
+                                            <i class=\"fas fa-user fa-sm fa-fw mr-2 text-gray-400\"></i>
+                                            Profile
+                                        </a>
+                                        <a class=\"dropdown-item\" href=".\yii\helpers\Url::to(['/user/password', 'id' => $id]).">
+                                            <i class=\"fas fa-cogs fa-sm fa-fw mr-2 text-gray-400\"></i>
+                                            Change password
+                                        </a>
                                         <a class=\"dropdown-item\" role=\"button\" data-toggle=\"modal\" data-target=\"#logoutModal\">
                                             <i class=\"fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400\"></i>
                                             Logout

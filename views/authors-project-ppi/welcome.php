@@ -3,8 +3,6 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\AuthorsProjectPpiSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Welcome manager';
 ?>

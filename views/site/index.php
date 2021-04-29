@@ -33,7 +33,7 @@ $this->title = 'Login';
                     <div class="card-body p-0 border-bottom-warning">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <?=Html::img(Yii::getAlias('@web').'/img/undraw_Sign_in_re_o58h.svg', ['class' => 'col-lg-5 d-none d-lg-block']); ?>
+                            <?=Html::img(Yii::getAlias('@web').'/img/undraw_Sign_in_re_o58h.svg', ['class' => 'col-lg-5 d-none d-lg-block', 'style' => 'position: relative; left: 30px;']); ?>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">

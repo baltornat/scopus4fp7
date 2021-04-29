@@ -24,12 +24,17 @@ class UserController extends Controller
         return [
             [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'welcome', 'info', 'password'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'welcome'],
                         'allow' => true,
                         'roles' => ['admin'],
+                    ],
+                    [
+                        'actions' => ['info', 'password'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
             ],
@@ -40,6 +45,11 @@ class UserController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionWelcome()
+    {
+        return $this->render('welcome');
     }
 
     /**
@@ -126,27 +136,31 @@ class UserController extends Controller
     {
         $auth = new AuthAssignment();
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save() && $auth->load(Yii::$app->request->post())) {
-            $actualRole = Yii::$app->authManager->getRolesByUser($id);
-            if($auth->item_name != $actualRole){
-                switch($auth->item_name){
-                    case 'manager':
-                        // Revoke current role
-                        $manager = Yii::$app->authManager;
-                        $manager->revokeAll($id);
-                        // Assign new role manager
-                        $newRole = $manager->getRole('manager');
-                        $manager->assign($newRole, $id);
-                        break;
-                    case 'admin':
-                        // Revoke current role
-                        $admin = Yii::$app->authManager;
-                        $admin->revokeAll($id);
-                        // Assign new role manager
-                        $newRole = $admin->getRole('admin');
-                        $admin->assign($newRole, $id);
-                        break;
-                    default:
+        if ($model->load(Yii::$app->request->post()) && $auth->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                if($model->save()){
+                    $actualRole = Yii::$app->authManager->getRolesByUser($id);
+                    if($auth->item_name != $actualRole){
+                        switch($auth->item_name){
+                            case 'manager':
+                                // Revoke current role
+                                $manager = Yii::$app->authManager;
+                                $manager->revokeAll($id);
+                                // Assign new role manager
+                                $newRole = $manager->getRole('manager');
+                                $manager->assign($newRole, $id);
+                                break;
+                            case 'admin':
+                                // Revoke current role
+                                $admin = Yii::$app->authManager;
+                                $admin->revokeAll($id);
+                                // Assign new role manager
+                                $newRole = $admin->getRole('admin');
+                                $admin->assign($newRole, $id);
+                                break;
+                            default:
+                        }
+                    }
                 }
             }
             return $this->redirect(['view', 'id' => $model->id]);
@@ -171,6 +185,51 @@ class UserController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionInfo($id)
+    {
+        $real_id = Yii::$app->user->getId();
+        if($real_id == $id) {
+            return $this->render('info', [
+                'model' => $this->findModel($id),
+            ]);
+        }else{
+            return $this->render('welcome');
+        }
+    }
+
+    /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionPassword($id)
+    {
+        $real_id = Yii::$app->user->getId();
+        $model = $this->findModel($id);
+        if($real_id == $id) {
+            if($model->load(Yii::$app->request->post())) {
+                if ($model->validate()) {
+                    $model->password = password_hash($_POST['User']['password'], PASSWORD_ARGON2I);
+                    if($model->save()){
+                        Yii::$app->session->setFlash('passwordChanged');
+                        return $this->refresh();
+                    }
+                }
+            }
+            return $this->render('password', [
+                'model' => $this->findModel($id),
+            ]);
+        }
+        return $this->render('welcome');
     }
 
     /**

@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = 'Update';
                 <div class="card-body p-0 border-bottom-warning">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <?=Html::img(Yii::getAlias('@web').'/img/undraw_switches_1js3.svg', ['class' => 'col-lg-5 d-none d-lg-block']); ?>
+                        <?=Html::img(Yii::getAlias('@web').'/img/undraw_switches_1js3.svg', ['class' => 'col-lg-5 d-none d-lg-block', 'style' => 'position: relative; left: 30px;']); ?>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
@@ -40,11 +40,5 @@ $this->params['breadcrumbs'][] = 'Update';
         </div>
 
     </div>
-
-</div>
-
-<div class="user-update">
-
-
 
 </div>

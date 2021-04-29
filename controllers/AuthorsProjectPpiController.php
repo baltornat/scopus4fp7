@@ -23,10 +23,10 @@ class AuthorsProjectPpiController extends Controller
         return [
             [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'view'],
+                'only' => ['index', 'view', 'welcome'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view', 'welcome'],
                         'allow' => true,
                         'roles' => ['manager'],
                     ],
@@ -39,6 +39,11 @@ class AuthorsProjectPpiController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionWelcome()
+    {
+        return $this->render('welcome');
     }
 
     /**

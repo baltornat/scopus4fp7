@@ -78,6 +78,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 echo "<div class=\"alert alert-danger\"> No projects found for this candidate!</div>";
             }else{
                 foreach($projects as $project) {
+                    $institution = \app\models\AuthorsInstitution::find()
+                        ->select('institution_name')
+                        ->where(['md_institution_tokens'=>$project->ppi_organization])
+                        ->limit(1)
+                        ->one();
                     $info = "Project ".$project->id;
                     $url = \yii\helpers\Url::toRoute(['/authors-project-ppi/view', 'id' => $project->id]);
                     echo "
@@ -98,14 +103,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'ppi_lastname',
                             [
                                 'label'=>'Institution name',
-                                'attribute' => 'ppi_organization',
-                                'value'=> function($project){
-                                    if(isset($project->institution->institution_name)){
-                                        return $project->institution->institution_name;
-                                    }
-                                    return null;
-                                }
-                            ],
+                                'attribute'=>'ppi_organization',
+                                'value'=>(empty($institution->institution_name) >= 18) ? null : $institution->institution_name
+                            ]
                         ],
                         'mode' => 'view',
                         'bordered' => true,

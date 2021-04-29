@@ -15,6 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <!-- Initial queries -->
 <?php
+    $institution = \app\models\AuthorsInstitution::find()
+        ->select('institution_name')
+        ->where(['md_institution_tokens'=>$model->ppi_organization])
+        ->limit(1)
+        ->one();
     $authors = \app\models\AuthorsScopusAuthor::find()
         ->joinWith('authorSubjectArea')
         ->joinWith('projectAuthorMatch')
@@ -174,14 +179,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'ppi_lastname',
                                 [
                                     'label'=>'Institution name',
-                                    'attribute' => 'ppi_organization',
-                                    'value'=> function($model){
-                                        if(isset($model->institution->institution_name)){
-                                            return $model->institution->institution_name;
-                                        }
-                                        return null;
-                                    }
-                                ],
+                                    'attribute'=>'ppi_organization',
+                                    'value'=>(empty($institution->institution_name) >= 18) ? null : $institution->institution_name
+                                ]
                             ],
                             'mode' => 'view',
                             'bordered' => true,

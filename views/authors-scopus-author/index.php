@@ -37,6 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo ExportMenu::widget([
                         'dataProvider' => $dataProvider,
                         'filename' => 'candidates-grid-export',
+                        'clearBuffers' => true,
+                        'batchSize' => 20,
+                        'exportConfig' => [
+                            ExportMenu::FORMAT_PDF => false
+                        ],
                         'columns' => [
                             [
                                 'class' => 'kartik\grid\SerialColumn',

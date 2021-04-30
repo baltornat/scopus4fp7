@@ -1,8 +1,6 @@
 <?php
 
 use kartik\detail\DetailView;
-use yii\bootstrap4\ActiveForm;
-use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AuthorsScopusAuthor */

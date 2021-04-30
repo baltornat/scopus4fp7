@@ -74,6 +74,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => $gridColumns,
+                        'pager' => [
+                            'firstPageLabel' => 'First',
+                            'lastPageLabel'  => 'Last'
+                        ],
                         'toolbar' => false,
                         'pjax' => true,
                         'bordered' => true,

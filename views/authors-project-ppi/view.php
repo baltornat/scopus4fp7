@@ -6,6 +6,9 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AuthorsProjectPpi */
+/* @var $institution */
+/* @var $authors */
+/* @var $mappings */
 
 $this->title = "Project number $model->id";
 
@@ -13,26 +16,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<!-- Initial queries -->
+<!-- Initial php -->
 <?php
-    $institution = \app\models\AuthorsInstitution::find()
-        ->select('institution_name')
-        ->where(['md_institution_tokens'=>$model->ppi_organization])
-        ->limit(1)
-        ->one();
-    $authors = \app\models\AuthorsScopusAuthor::find()
-        ->joinWith('authorSubjectArea')
-        ->joinWith('projectAuthorMatch')
-        ->where(['scopus_author.project_ppi'=>$model->id])
-        ->andWhere(['>=', 'match_value', 0])
-        ->orderBy(['project_author_match.match_value'=>SORT_DESC])
-        ->limit(10)
-        ->all();
-    $mappings = \app\models\AuthorsMappingErcScopus::find()
-        ->joinWith('projectPpi')
-        ->where(['mapping_erc_scopus.erc_field'=>$model->erc_field])
-        ->orderBy(['relevance'=>SORT_DESC])
-        ->all();
     $subjects = array();
     $match_value_percentages = array();
     foreach($authors as $author){

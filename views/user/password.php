@@ -10,13 +10,16 @@ $this->title = 'Change password';
 <?php if (Yii::$app->session->hasFlash('passwordChanged')): ?>
 <div class="container-fluid">
     <div class="alert alert-success">
-        Password changed succesfully!
-    </div>
-    <div class="text-center">
-        <a class="small" href="<?=\yii\helpers\Url::to(['/user/info', 'id'=>$model->id]) ?>">Check your profile</a>
+        Password changed successfully!
     </div>
 </div>
-<?php else:; ?>
+<?php elseif (Yii::$app->session->hasFlash('passwordNotChanged')): ?>
+<div class="container-fluid">
+    <div class="alert alert-danger">
+        Error during passoword change!
+    </div>
+</div>
+<?php endif; ?>
 <div class="container">
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -54,4 +57,3 @@ $this->title = 'Change password';
         </div>
     </div>
 </div>
-<?php endif; ?>

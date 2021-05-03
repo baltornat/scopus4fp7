@@ -68,8 +68,30 @@ class AuthorsProjectPpiController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $institution = \app\models\AuthorsInstitution::find()
+            ->select('institution_name')
+            ->where(['md_institution_tokens'=>$model->ppi_organization])
+            ->limit(1)
+            ->one();
+        $authors = \app\models\AuthorsScopusAuthor::find()
+            ->joinWith('authorSubjectArea')
+            ->joinWith('projectAuthorMatch')
+            ->where(['scopus_author.project_ppi'=>$model->id])
+            ->andWhere(['>=', 'match_value', 0])
+            ->orderBy(['project_author_match.match_value'=>SORT_DESC])
+            ->limit(10)
+            ->all();
+        $mappings = \app\models\AuthorsMappingErcScopus::find()
+            ->joinWith('projectPpi')
+            ->where(['mapping_erc_scopus.erc_field'=>$model->erc_field])
+            ->orderBy(['relevance'=>SORT_DESC])
+            ->all();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'institution' => $institution,
+            'authors' => $authors,
+            'mappings' => $mappings,
         ]);
     }
 

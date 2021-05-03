@@ -222,6 +222,9 @@ class UserController extends Controller
                     if($model->save()){
                         Yii::$app->session->setFlash('passwordChanged');
                         return $this->refresh();
+                    }else{
+                        Yii::$app->session->setFlash('passwordNotChanged');
+                        return $this->refresh();
                     }
                 }
             }

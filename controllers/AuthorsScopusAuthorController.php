@@ -65,8 +65,17 @@ class AuthorsScopusAuthorController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $projects = \app\models\AuthorsProjectPpi::find()
+            ->where(['project_ppi.id'=>$model->project_ppi])
+            ->all();
+        $match = \app\models\AuthorsProjectAuthorMatch::find()
+            ->where(['project_ppi'=>$model->project_ppi, 'author_scopus_id'=>$model->author_scopus_id])
+            ->one();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'projects' => $projects,
+            'match' => $match,
         ]);
     }
 

@@ -4,6 +4,8 @@ use kartik\detail\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AuthorsScopusAuthor */
+/* @var $projects */
+/* @var $match */
 
 $this->title = "Candidate "."$model->id";
 $this->params['breadcrumbs'][] = ['label' => 'Candidate authors', 'url' => ['index']];
@@ -63,12 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Candidates -->
     <?php
-        $projects = \app\models\AuthorsProjectPpi::find()
-            ->where(['project_ppi.id'=>$model->project_ppi])
-            ->all();
-        $match = \app\models\AuthorsProjectAuthorMatch::find()
-            ->where(['project_ppi'=>$model->project_ppi, 'author_scopus_id'=>$model->author_scopus_id])
-            ->one();
         if($match->match_value < 0){
             echo "<div class=\"alert alert-danger\"> Match value <0 for this candidate! </div>";
         }else{

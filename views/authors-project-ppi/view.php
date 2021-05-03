@@ -301,6 +301,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     ";
                 }
                 $areas = implode(', ', $author->getAuthorSubjectArea()->select(["CONCAT(area_short_name, ' (', area_frequency, ')') AS full_area"])->orderBy(['area_frequency'=>SORT_DESC])->column());
+                if(empty($areas)){
+                    $areas = null;
+                }
                 echo DetailView::widget([
                     'model' => $author,
                     'attributes' => [

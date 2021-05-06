@@ -69,11 +69,6 @@ class AuthorsProjectPpiController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $institution = \app\models\AuthorsInstitution::find()
-            ->select('institution_name')
-            ->where(['md_institution_tokens'=>$model->ppi_organization])
-            ->limit(1)
-            ->one();
         $authors = \app\models\AuthorsScopusAuthor::find()
             ->joinWith('authorSubjectArea')
             ->joinWith('projectAuthorMatch')
@@ -89,7 +84,6 @@ class AuthorsProjectPpiController extends Controller
             ->all();
         return $this->render('view', [
             'model' => $model,
-            'institution' => $institution,
             'authors' => $authors,
             'mappings' => $mappings,
         ]);

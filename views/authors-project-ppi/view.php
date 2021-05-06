@@ -6,7 +6,6 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AuthorsProjectPpi */
-/* @var $institution */
 /* @var $authors */
 /* @var $mappings */
 
@@ -163,9 +162,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'ppi_firstname',
                                 'ppi_lastname',
                                 [
-                                    'label'=>'Institution name',
-                                    'attribute'=>'ppi_organization',
-                                    'value'=>(empty($institution->institution_name) >= 18) ? null : $institution->institution_name
+                                    'label'=>'Organization',
+                                    'attribute' => 'ppiOrganization',
+                                    'value' => $model->ppiOrganization->ppi_organization,
                                 ]
                             ],
                             'mode' => 'view',

@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'ppi_firstname',
                         'ppi_lastname',
                         [
-                            'label'=>'Institution name',
-                            'attribute' => 'institutionName',
-                            'value' => 'institutionName.institution_name'
+                            'label'=>'Organization',
+                            'attribute' => 'ppiOrganization',
+                            'value' => 'ppiOrganization.ppi_organization'
                         ],
                         [
                             'class' => 'app\grid\ActionColumn',
@@ -64,9 +64,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'organization_url',
                                 'ppi_organization',
                                 [
-                                    'label'=>'Institution name',
-                                    'attribute' => 'institutionName',
-                                    'value' => 'institutionName.institution_name'
+                                    'label'=>'Organization',
+                                    'attribute' => 'ppiOrganization',
+                                    'value' => 'ppiOrganization.ppi_organization'
                                 ],
                                 'p_id',
                             ],

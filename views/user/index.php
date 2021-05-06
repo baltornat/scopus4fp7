@@ -59,12 +59,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         [
                             'class' => 'kartik\grid\BooleanColumn',
-                            'label' => 'Is disabled',
+                            'label' => 'Is active',
                             'attribute' => 'isDisabled',
                             'trueIcon' => '<span class="fas fa-times" style="color: red"></span>',
-                            'trueLabel' => 'Yes',
+                            'trueLabel' => 'No',
                             'falseIcon' => '<span class="fas fa-check" style="color: limegreen"></span>',
-                            'falseLabel' => 'No',
+                            'falseLabel' => 'Yes',
                         ],
                         [
                             'class' => 'kartik\grid\ActionColumn',
@@ -108,10 +108,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             'accessToken',
                             [
                                 'class' => 'kartik\grid\BooleanColumn',
-                                'label' => 'Is disabled',
+                                'label' => 'Is active',
                                 'attribute' => 'isDisabled',
-                                'trueLabel' => 'Yes',
-                                'falseLabel' => 'No',
+                                'trueLabel' => 'No',
+                                'falseLabel' => 'Yes',
                             ],
                         ],
                         'dropdownOptions' => [

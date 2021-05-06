@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- Card Header - Accordion -->
         <a href="#collapseCardAreas" class="d-block card-header py-3 collapsed" data-toggle="collapse"
            role="button" aria-expanded="false" aria-controls="collapseCardAreas">
-            <h6 class="h4 m-0 font-weight-bold text-primary">Show/hide relevance of all the areas with Erc (<?=$model->erc_field ?>)</h6>
+            <h6 class="h4 m-0 font-weight-bold text-primary">Show/hide relevance of all the scopus areas with Erc (<?=$model->erc_field ?>)</h6>
         </a>
         <!-- Card Content - Collapse -->
         <div class="collapse" id="collapseCardAreas">

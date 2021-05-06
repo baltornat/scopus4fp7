@@ -153,7 +153,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow border-bottom-primary">
-                <h2>Scopus4fp7 web-app</h2>
+                <h2>Scopus <sup>4FP7</sup></h2>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
 

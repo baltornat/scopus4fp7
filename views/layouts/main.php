@@ -135,11 +135,18 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
 
-        <!-- Sidebar Message -->
+        <!-- Sidebar Message scopus -->
         <div class="sidebar-card">
             <img class="sidebar-card-illustration mb-2" src="/img/undraw_Tabs_re_a2bd.svg" alt="">
             <p class="text-center mb-2"><strong>Scopus</strong> is the world's largest abstract and citation database of peer-reviewed research literature. </p>
-            <a class="btn btn-success btn-sm" href="https://www.scopus.com/home.uri">Visit Scopus website!</a>
+            <a class="btn btn-success btn-sm" href="https://www.scopus.com/freelookup/form/author.uri?zone=TopNavBar&origin=NO%20ORIGIN%20DEFINED">Author Search</a>
+        </div>
+
+        <!-- Sidebar Message elsevier -->
+        <div class="sidebar-card">
+            <img class="sidebar-card-illustration mb-2" src="/img/undraw_developer_activity_bv83.svg" alt="">
+            <p class="text-center mb-2"><strong>Elsevier</strong> is a leader in information and analytics for customers across the global research and health ecosystems. </p>
+            <a class="btn btn-success btn-sm" href="https://dev.elsevier.com/">Developer Portal</a>
         </div>
 
     </ul>

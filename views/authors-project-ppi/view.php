@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Page Heading -->
     <h1 class="h3 mb-1 text-gray-800">Candidate authors</h1>
-    <p class="mb-4">In this page you can check the candidates authors for the selected project. You can also see the relevance of all the areas with the Erc field specified by the project.</p>
+    <p class="mb-4">In this page you can check the candidates authors for the selected project. You can also see the relevance of all the scopus areas with the Erc field specified by the project.</p>
 
     <!-- Areas -->
     <div class="card shadow mb-4 border-bottom-warning">

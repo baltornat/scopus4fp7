@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">User <?=$model->name?> <?=$model->surname?></h1>
+    <h1 class="h3 mb-2 text-gray-800">User <strong><?=$model->name?> <?=$model->surname?></strong></h1>
     <p class="mb-4">Here is shown all data about the specified user</p>
     <div class="card shadow mb-4 border-bottom-warning">
         <div class="card-body">

@@ -3,9 +3,12 @@
 namespace app\controllers;
 
 use app\models\AuthorsProjectAuthorMatch;
+use app\models\PublicationsPublication;
+use app\models\PublicationsPublicationSearch;
 use Yii;
 use app\models\AuthorsScopusAuthor;
 use app\models\AuthorsScopusAuthorSearch;
+use yii\base\BaseObject;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -66,16 +69,20 @@ class AuthorsScopusAuthorController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $projects = \app\models\AuthorsProjectPpi::find()
+        $project = \app\models\AuthorsProjectPpi::find()
             ->where(['project_ppi.id'=>$model->project_ppi])
-            ->all();
+            ->one();
         $match = \app\models\AuthorsProjectAuthorMatch::find()
             ->where(['project_ppi'=>$model->project_ppi, 'author_scopus_id'=>$model->author_scopus_id])
             ->one();
+        $searchModel = new PublicationsPublicationSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $model);
         return $this->render('view', [
             'model' => $model,
-            'projects' => $projects,
+            'project' => $project,
             'match' => $match,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

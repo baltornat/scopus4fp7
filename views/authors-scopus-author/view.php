@@ -171,10 +171,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'citedby',
                         'pubdate',
                         [
-                            'label' => 'Authors (authid: authname - afid: afname)',
-                            'attribute' => 'authors',
-                        ],
-                        /*[
                             'class' => 'kartik\grid\ExpandRowColumn',
                             'value' => function ($model, $key, $index, $column) {
                                 return GridView::ROW_COLLAPSED;
@@ -184,7 +180,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                    'authors' => $data->authors,
                                 ]);
                             }
-                        ],*/
+                        ],
                     ];
                     echo ExportMenu::widget([
                         'dataProvider' => $dataProvider,
@@ -222,7 +218,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'author_scopus_id',
                             'project_ppi',
                             [
-                                'label' => 'Authors (authid: authname - afid: afname)',
+                                'label' => 'Authors (authid@authname@afid@afname@afcity@afcountry)',
                                 'attribute' => 'authors',
                             ],
                             [
@@ -231,7 +227,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                             'publicationsAbstract.content',
                             [
-                                'label' => 'Keywords (keyword: language)',
+                                'label' => 'Keywords (keyword@language)',
                                 'attribute' => 'keywords',
                             ],
                         ],

@@ -41,25 +41,18 @@ class PublicationsPublicationSearch extends PublicationsPublication
      */
     public function search($params, $model)
     {
-        $subQuery = PublicationsPublication::find()
-            ->select(["publication.*", "abstract.*", "STRING_AGG(DISTINCT(CONCAT('(', keyword.keyword, ': ', keyword.language, ')')), ' - ') AS keywords", "STRING_AGG(DISTINCT(CONCAT('(', author.authid, ': ', authname, ' - ', affiliation.afid, ': ', affiliation.afname, ')')), ' - ') AS authors"])
+        $query = PublicationsPublication::find()
+            ->select(["publication.*", "abstract.*", "STRING_AGG(DISTINCT(CONCAT(keyword.keyword, '@', keyword.language)), ' | ') AS keywords", "STRING_AGG(DISTINCT(CONCAT(author.authid, '@', authname, '@', affiliation.afid, '@', affiliation.afname, '@', affiliation.afcity, '@', affiliation.afcountry)), ' | ') AS authors"])
             ->joinWith('publicationsAuthor')
             ->joinWith('publicationsAbstract')
             ->joinWith('publicationsKeyword')
             ->joinWith('publicationsAffiliation')
             ->where(['author_scopus_id'=>$model->author_scopus_id, 'project_ppi'=>$model->project_ppi])
             ->groupBy(['publication.id','eid','title','pubdate','citedby', 'abstract.pubid', 'abstract.language']);
-        $query = PublicationsPublication::find()
-            ->from([$subQuery]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $dataProvider->sort->attributes['authors'] = [
-            'asc' => ['authors' => SORT_ASC],
-            'desc' => ['authors' => SORT_DESC],
-        ];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -85,7 +78,6 @@ class PublicationsPublicationSearch extends PublicationsPublication
             ->andFilterWhere(['ilike', 'funding_agency_id', $this->funding_agency_id])
             ->andFilterWhere(['ilike', 'funding_agency_name', $this->funding_agency_name])
             ->andFilterWhere(['ilike', 'citedby_link', $this->citedby_link])
-            ->andFilterWhere(['ilike', 'authors', $this->authors])
             ->andFilterWhere(['ilike', 'author_scopus_id', $this->author_scopus_id]);
 
         return $dataProvider;

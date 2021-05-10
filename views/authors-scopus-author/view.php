@@ -167,7 +167,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             'width' => '20px',
                         ],
                         'eid',
-                        'title',
+                        [
+                            'attribute' => 'title',
+                            'format' => 'raw',
+                        ],
                         'citedby',
                         'pubdate',
                         [

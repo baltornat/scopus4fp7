@@ -233,12 +233,14 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
+    <hr>
 
     <!-- Candidates -->
     <?php
         if(empty($authors)){
             echo "<div class=\"alert alert-danger\"> No valid candidate authors found!</div>";
         }else{
+            echo "<h4 class=\"h4 m-0 font-weight-bold\">Below are shown maximum 12 candidates</h4><br>";
             $counter = 0;
             foreach($authors as $author) {
                 if($counter%3 == 0 || $counter==0){

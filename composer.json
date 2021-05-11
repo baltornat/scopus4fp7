@@ -22,7 +22,8 @@
         "kartik-v/yii2-krajee-base": "@dev",
         "kartik-v/yii2-editable": "@dev",
         "kartik-v/yii2-detail-view": "dev-master",
-        "kartik-v/yii2-export": "dev-master"
+        "kartik-v/yii2-export": "dev-master",
+        "practically/yii2-chartjs": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

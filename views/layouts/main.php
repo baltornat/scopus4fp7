@@ -77,6 +77,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/
             $loginUrl = \yii\helpers\Url::to(['/site/index']);
             $projectsUrl = \yii\helpers\Url::to(['/authors-project-ppi/index']);
             $authorsUrl = \yii\helpers\Url::to(['/authors-scopus-author/index']);
+            $statisticsUrl = \yii\helpers\Url::to(['/statistics/index']);
             if(Yii::$app->user->isGuest){
                 echo "
                     <!-- Heading -->
@@ -122,6 +123,18 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => '/img/
                         <a class=\"nav-link\" href=\"".$authorsUrl."\">
                             <i class=\"fas fa-users\"></i>
                             <span>Manage candidates</span></a>
+                    </li>
+                ";
+                if($this->title == "Statistics"){
+                    echo "<li class=\"nav-item active\">";
+                }else{
+                    echo "<li class=\"nav-item\">";
+                }
+                # Nav Item - Statistics
+                echo"
+                        <a class=\"nav-link\" href=\"".$statisticsUrl."\">
+                            <i class=\"fas fa-chart-bar\"></i>
+                            <span>Statistics</span></a>
                     </li>
                 ";
             }

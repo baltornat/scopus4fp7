@@ -28,6 +28,7 @@ class AppAsset extends AssetBundle
         'vendor/jquery-easing/jquery.easing.min.js',
         'js/sb-admin-2.min.js',
         'js/range.js',
+        'vendor/chart.js/Chart.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

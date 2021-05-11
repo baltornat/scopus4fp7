@@ -23,7 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <a href="<?=\yii\helpers\Url::to(['/user/create']) ?>">&larr; Create another user</a><br>
             <a href="<?=\yii\helpers\Url::to(['/user/index']) ?>">&larr; Back to Manage users</a><br>
             <a href="<?=\yii\helpers\Url::to(['/authors-project-ppi/index']) ?>">&larr; Back to Manage projects</a><br>
-            <a href="<?=\yii\helpers\Url::to(['/authors-scopus-author/index']) ?>">&larr; Back to Manage candidates</a>
+            <a href="<?=\yii\helpers\Url::to(['/authors-scopus-author/index']) ?>">&larr; Back to Manage candidates</a><br>
+            <a href="<?=\yii\helpers\Url::to(['/statistics/index']) ?>">&larr; Back to Statistics</a>
         </div>
 
     </div>

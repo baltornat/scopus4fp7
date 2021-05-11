@@ -21,6 +21,8 @@ use Yii;
  */
 class AuthorsScopusAuthor extends \yii\db\ActiveRecord
 {
+    public $mean;
+    public $num_modality;
     /**
      * {@inheritdoc}
      */

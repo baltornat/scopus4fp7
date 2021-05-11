@@ -14,6 +14,8 @@ use Yii;
  */
 class AuthorsProjectAuthorMatch extends \yii\db\ActiveRecord
 {
+    public $mean_match_value;
+    public $mean2;
     /**
      * {@inheritdoc}
      */

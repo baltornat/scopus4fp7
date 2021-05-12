@@ -7,11 +7,12 @@ use yii\web\JsExpression;
 $this->title = 'Statistics';
 $this->params['breadcrumbs'][] = $this->title;
 
-$subquery = \app\models\AuthorsScopusAuthor::find()
-    ->select(["project_ppi, COUNT(*) AS num_authors"])
-    ->groupBy(['project_ppi'])
-    ->orderBy(['num_authors'=>SORT_DESC]);
-$query = \app\models\AuthorsScopusAuthor::find()
+$subquery = \app\models\AuthorsProjectPpi::find()
+    ->select(["project_ppi.id, SUM(CASE WHEN scopus_author.id is null THEN 0 ELSE 1 END) AS num_authors"])
+    ->leftJoin('authors.scopus_author', 'project_ppi.id = scopus_author.project_ppi')
+    ->groupBy(['project_ppi.id'])
+    ->orderBy(['id'=>SORT_ASC]);
+$query = \app\models\AuthorsProjectPpi::find()
     ->select(["avg(num_authors) AS mean"])
     ->from([$subquery])
     ->one();
@@ -94,11 +95,11 @@ $query2 = \app\models\AuthorsProjectAuthorMatch::find()
                     <br>
                 </div>
             </div>
-            <!-- Mean of match value per project -->
+            <!-- Mean of match value between all the projects -->
             <div class="card shadow mb-4 border-bottom-warning">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Medium match value of the candidates per project</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Medium match value of the candidates between all projects</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body" style="text-align: center;">
@@ -117,7 +118,7 @@ $query2 = \app\models\AuthorsProjectAuthorMatch::find()
             <div class="card shadow mb-4 border-bottom-warning">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Relevance of the author modalities</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Number of scopus authors per author modality</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -155,13 +156,14 @@ $query2 = \app\models\AuthorsProjectAuthorMatch::find()
                         'type' => Chart::TYPE_BAR,
                         'datasets' => [
                             [
-                                'query' => \app\models\AuthorsScopusAuthor::find()
-                                    ->select(["project_ppi, COUNT(*) AS num_authors"])
-                                    ->groupBy(['project_ppi'])
+                                'query' => \app\models\AuthorsProjectPpi::find()
+                                    ->select(["project_ppi.id, SUM(CASE WHEN scopus_author.id is null THEN 0 ELSE 1 END) AS num_authors"])
+                                    ->leftJoin('authors.scopus_author', 'project_ppi.id = scopus_author.project_ppi')
+                                    ->groupBy(['project_ppi.id'])
                                     ->orderBy(['num_authors'=>SORT_DESC])
                                     ->limit(10)
                                     ->createCommand(),
-                                'labelAttribute' => 'project_ppi',
+                                'labelAttribute' => 'id',
                                 'dataAttribute' => 'num_authors'
                             ]
                         ],

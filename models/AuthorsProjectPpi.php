@@ -19,6 +19,7 @@ namespace app\models;
  */
 class AuthorsProjectPpi extends \yii\db\ActiveRecord
 {
+    public $mean;
     public $num_projects;
     public $num_projects2;
     public $num_authors;

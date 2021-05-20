@@ -75,7 +75,7 @@ class AuthorsProjectPpiController extends Controller
             ->where(['scopus_author.project_ppi'=>$model->id])
             ->andWhere(['>=', 'match_value', 0])
             ->orderBy(['project_author_match.match_value'=>SORT_DESC])
-            ->limit(12)
+            ->limit(Yii::$app->params['maxCandidatesDisplayed'])
             ->all();
         $mappings = \app\models\AuthorsMappingErcScopus::find()
             ->joinWith('projectPpi')

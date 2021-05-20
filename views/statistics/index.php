@@ -86,12 +86,12 @@ $query2 = \app\models\AuthorsProjectAuthorMatch::find()
             <div class="card shadow mb-4 border-bottom-warning">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Medium number of candidates per project</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Average number of candidates per project</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body" style="text-align: center;">
                     <br>
-                    <h1><code><?=$query->mean ?></code></h1>
+                    <h1><code><?=round($query->mean, 2, PHP_ROUND_HALF_UP) ?></code></h1>
                     <br>
                 </div>
             </div>
@@ -99,12 +99,12 @@ $query2 = \app\models\AuthorsProjectAuthorMatch::find()
             <div class="card shadow mb-4 border-bottom-warning">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Medium match value of the candidates between all projects</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Average match value of the candidate authors among all projects</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body" style="text-align: center;">
                     <br>
-                    <h1><code><?=$query2->mean2 *100?>%</code></h1>
+                    <h1><code><?=round($query2->mean2 *100, 2, PHP_ROUND_HALF_UP)?>%</code></h1>
                     <br>
                 </div>
             </div>

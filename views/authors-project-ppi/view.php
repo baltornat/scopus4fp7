@@ -199,8 +199,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     Set the match threshold value</div><br>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
                                     <div class="col-xl-8 col-lg-7">
-                                        <input type="range" class="custom-range" min="0" max="100" value="10" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);"><br><br>
-                                        <input type="text" id="textInput" value="" placeholder="10%" style="width: 80px;" readonly>
+                                        <input type="range" class="custom-range" min="0" max="100" value="<?=Yii::$app->params['matchValueThreshold'] ?>" step="0.1" id="customRange1" oninput="changeColor('<?=implode("-", $match_value_percentages) ?>', this.value);"><br><br>
+                                        <input type="text" id="textInput" value="" placeholder="<?=Yii::$app->params['matchValueThreshold'] ?>%" style="width: 80px;" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +240,8 @@ $this->params['breadcrumbs'][] = $this->title;
         if(empty($authors)){
             echo "<div class=\"alert alert-danger\"> No valid candidate authors found!</div>";
         }else{
-            echo "<h4 class=\"h4 m-0 font-weight-bold\">Below are shown maximum 12 candidates</h4><br>";
+            $maxNum = Yii::$app->params['maxCandidatesDisplayed'];
+            echo "<h4 class=\"h4 m-0 font-weight-bold\">Below are shown maximum $maxNum candidates</h4><br>";
             $counter = 0;
             foreach($authors as $author) {
                 if($counter%3 == 0 || $counter==0){
@@ -250,7 +251,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $url = \yii\helpers\Url::toRoute(['/authors-scopus-author/view', 'id' => $author->id]);
                 $matchValue = $author->projectAuthorMatch->match_value;
                 $percentage = $matchValue * 100;
-                if($percentage>=10){
+                if($percentage>=Yii::$app->params['matchValueThreshold']){
                     echo "
                         <div class=\"col-lg-4\">           
                             <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-success\">
@@ -272,7 +273,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $form = ActiveForm::begin([
                     'action' =>['/authors-project-author-match/update','project_ppi'=>$model->id, 'author_scopus_id'=>$author->author_scopus_id]
                 ]);
-                if($percentage>=10){
+                if($percentage>=Yii::$app->params['matchValueThreshold']){
                     echo Html::submitButton('Delete', ['data-confirm' => 'Are you sure you want to remove this candidate?', 'class' => 'btn btn-google btn-block', 'name' => 'match-button', 'id' => "match-button$counter", 'style' => 'background-color: #1cc88a']);
                     ActiveForm::end();
                     echo "

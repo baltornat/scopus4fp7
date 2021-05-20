@@ -24,7 +24,10 @@ class m210433_183353_add_admin_user extends Migration
      */
     public function safeUp()
     {
-        $password = password_hash('admin', PASSWORD_ARGON2I);
+        $email = Yii::$app->params['adminDefaultEmail'];
+        $password = password_hash(Yii::$app->params['adminDefaultPassword'], PASSWORD_ARGON2I);
+        $name = Yii::$app->params['adminDefaultName'];
+        $surname = Yii::$app->params['adminDefaultSurname'];
         $authKey = md5(random_bytes(5));;
         $accessToken = password_hash(random_bytes(10), PASSWORD_DEFAULT);
         $table = $this->_user;
@@ -33,7 +36,7 @@ class m210433_183353_add_admin_user extends Migration
         INSERT INTO {$table}
         ("id", "email", "password", "name", "surname", "authKey", "accessToken", "isDisabled")
         VALUES
-        ('1', 'admin@admin.it', '$password', 'admin-name', 'admin-surname', '$authKey', '$accessToken', false)
+        ('1', '$email', '$password', '$name', '$surname', '$authKey', '$accessToken', false)
 SQL;
         Yii::$app->db->createCommand($sql)->execute();
         $auth = Yii::$app->authManager;
@@ -50,12 +53,13 @@ SQL;
     public function safeDown()
     {
         $table = $this->_user;
+        $email = Yii::$app->params['adminDefaultEmail'];
         $sql = <<<SQL
         SELECT id from {$table}
-        where email='admin@admin.it'
+        where email='$email'
 SQL;
         $id = Yii::$app->db->createCommand($sql)->execute();
-        $this->delete($this->_user, ['email' => 'admin@admin.it']);
+        $this->delete($this->_user, ['email' => $email]);
     }
 
 }

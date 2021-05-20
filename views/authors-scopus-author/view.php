@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- Card Header - Accordion -->
         <a href="#collapseCardPublications" class="d-block card-header py-3" data-toggle="collapse"
            role="button" aria-expanded="true" aria-controls="collapseCardPublications">
-            <h6 class="h4 m-0 font-weight-bold text-primary">Show/hide all the publications for the project <?=$project->id ?> and the author <?=$model->id ?></h6>
+            <h6 class="h4 m-0 font-weight-bold text-primary">Show/hide all the publications for the project <?=$project->id ?> and the author <?=$model->firstname?> <?=$model->lastname?> (<?=$model->author_scopus_id ?>)</h6>
         </a>
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardPublications">

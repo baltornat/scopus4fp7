@@ -237,11 +237,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- Candidates -->
     <?php
+        $maxNum = Yii::$app->params['maxCandidatesDisplayed'];
+        $numCandidates = count($match_value_percentages);
         if(empty($authors)){
             echo "<div class=\"alert alert-danger\"> No valid candidate authors found!</div>";
         }else{
-            $maxNum = Yii::$app->params['maxCandidatesDisplayed'];
-            echo "<h4 class=\"h4 m-0 font-weight-bold\">Below are shown maximum $maxNum candidates</h4><br>";
+            //Print the button to show all the candidates only if $maxNum < total number of candidates returned by the query
+            if($numCandidates > $maxNum){
+                echo "<h4 id=\"title\" class=\"h4 m-0 font-weight-bold\">Candidate authors (Shown $maxNum of $numCandidates)</h4><br>";
+                echo "<a class=\"btn btn-info btn-icon-split\" onclick=\"showAll($maxNum, $numCandidates)\">
+                        <span class=\"icon text-white-50\">
+                            <i class=\"fas fa-arrow-right\"></i>
+                        </span>  
+                        <span class=\"text\">Show/hide all candidate authors</span>
+                      </a><br><br>";
+            }else{
+                echo "<h4 class=\"h4 m-0 font-weight-bold\">Candidate authors (Shown $numCandidates of $numCandidates)</h4><br>";
+            }
             $counter = 0;
             foreach($authors as $author) {
                 if($counter%3 == 0 || $counter==0){
@@ -251,9 +263,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 $url = \yii\helpers\Url::toRoute(['/authors-scopus-author/view', 'id' => $author->id]);
                 $matchValue = $author->projectAuthorMatch->match_value;
                 $percentage = $matchValue * 100;
+                if($counter<$maxNum) {
+                    echo "<div class=\"col-lg-4\">";
+                }else{
+                    echo "<div class=\"col-lg-4\" id=\"col$counter\" style=\"display: none;\">";
+                }
                 if($percentage>=Yii::$app->params['matchValueThreshold']){
-                    echo "
-                        <div class=\"col-lg-4\">           
+                    echo "         
                             <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-success border-left-success\">
                                 <div class=\"card-header py-3\">
                                     <a href=\"$url\">
@@ -261,8 +277,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </a>
                     ";
                 }else{
-                    echo "
-                        <div class=\"col-lg-4\">           
+                    echo "        
                             <div id=\"author$counter\" class=\"card shadow mb-4 border-bottom-danger border-left-danger\">
                                 <div class=\"card-header py-3\">
                                     <a href=\"$url\">

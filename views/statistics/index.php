@@ -99,7 +99,7 @@ $query2 = \app\models\AuthorsProjectAuthorMatch::find()
             <div class="card shadow mb-4 border-bottom-warning">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Average match value of the candidate authors among all projects</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Average match value of the candidate authors considering all projects</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body" style="text-align: center;">
@@ -159,6 +159,8 @@ $query2 = \app\models\AuthorsProjectAuthorMatch::find()
                                 'query' => \app\models\AuthorsProjectPpi::find()
                                     ->select(["project_ppi.id, SUM(CASE WHEN scopus_author.id is null THEN 0 ELSE 1 END) AS num_authors"])
                                     ->leftJoin('authors.scopus_author', 'project_ppi.id = scopus_author.project_ppi')
+                                    ->leftJoin('authors.project_author_match', 'scopus_author.author_scopus_id = project_author_match.author_scopus_id')
+                                    ->where(['>=', 'match_value', 0])
                                     ->groupBy(['project_ppi.id'])
                                     ->orderBy(['num_authors'=>SORT_DESC])
                                     ->limit(10)

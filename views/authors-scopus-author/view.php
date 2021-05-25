@@ -11,7 +11,7 @@ use kartik\grid\GridView;
 /* @var $project */
 /* @var $match */
 
-$this->title = "Candidate "."$model->id";
+$this->title = "Candidate "."$model->author_scopus_id";
 $this->params['breadcrumbs'][] = ['label' => 'Candidate authors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -44,7 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'label'=>'SECTION 1: Identification Data',
                                             'rowOptions'=>['class'=>'table-info']
                                         ],
-                                        'author_scopus_id',
                                         'firstname',
                                         'lastname',
                                         [
@@ -71,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'hover' => true,
                                     'panel' => [
                                         'type' => DetailView::TYPE_PRIMARY,
-                                        'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-user\"></i> ID: $model->id </h3>",
+                                        'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-user\"></i> Author Scopus ID: $model->author_scopus_id </h3>",
                                         'before' => false,
                                         'after' => false,
                                     ],
@@ -93,12 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if(empty($project)){
                         echo "<div class=\"alert alert-danger\"> No projects found for this candidate!</div>";
                     }else{
-                        $org = \app\models\CordisCordisProject::find()
-                            ->select('cordis.cordis_project.ppi_organization')
-                            ->where(['cordis.cordis_project.p_rcn'=>$project->p_rcn])
-                            ->limit(1)
-                            ->one();
-                        $info = "Project ".$project->id;
+                        $info = "Project ID: ".$project->ppiOrganization->p_id;
                         $url = \yii\helpers\Url::toRoute(['/authors-project-ppi/view', 'id' => $project->id]);
                         echo "
                             <div class=\"card shadow mb-4 border-bottom-warning\">                           
@@ -121,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
                                     'label'=>'Organization',
                                     'attribute'=>'ppi_organization',
-                                    'value'=>(empty($org->ppi_organization) >= 18) ? null : $org->ppi_organization
+                                    'value'=>(empty($project->ppiOrganization->ppi_organization) >= 18) ? null : $project->ppiOrganization->ppi_organization
                                 ]
                             ],
                             'mode' => 'view',
@@ -154,7 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- Card Header - Accordion -->
         <a href="#collapseCardPublications" class="d-block card-header py-3" data-toggle="collapse"
            role="button" aria-expanded="true" aria-controls="collapseCardPublications">
-            <h6 class="h4 m-0 font-weight-bold text-primary">Show/hide all the publications for the project <?=$project->id ?> and the author <?=$model->firstname?> <?=$model->lastname?> (<?=$model->author_scopus_id ?>)</h6>
+            <h6 class="h4 m-0 font-weight-bold text-primary">Show/hide all the publications for the project (<?=$project->ppiOrganization->p_id ?>) and the author <strong><?=$model->firstname?> <?=$model->lastname?></strong> (<?=$model->author_scopus_id ?>)</h6>
         </a>
         <!-- Card Content - Collapse -->
         <div class="collapse show" id="collapseCardPublications">

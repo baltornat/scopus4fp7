@@ -9,7 +9,7 @@ use yii\helpers\Html;
 /* @var $authors */
 /* @var $mappings */
 
-$this->title = "Project number $model->id";
+$this->title = "Project number ".strval($model->ppiOrganization->p_id);
 
 $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -175,7 +175,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'hover' => true,
                             'panel' => [
                                 'type' => DetailView::TYPE_PRIMARY,
-                                'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-tasks\"></i> $this->title </h3>",
+                                'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-tasks\"></i> Project ID: ".strval($model->ppiOrganization->p_id)."</h3>",
                             ],
                             'enableEditMode' => false
                         ]);
@@ -259,7 +259,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 if($counter%3 == 0 || $counter==0){
                     echo "<div class=\"row\">";
                 }
-                $info = "Candidate author ".$author->id;
+                $info = "Candidate author ".$author->author_scopus_id;
                 $url = \yii\helpers\Url::toRoute(['/authors-scopus-author/view', 'id' => $author->id]);
                 $matchValue = $author->projectAuthorMatch->match_value;
                 $percentage = $matchValue * 100;

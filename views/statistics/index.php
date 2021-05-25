@@ -314,7 +314,7 @@ $query4 = \app\models\AuthorsProjectAuthorMatch::find()
             </div>
         </div>
         <div class="col-xl-8 col-lg-7">
-            <!-- Bar Chart Top 10 projects/candidates -->
+            <!-- Bar Chart Top x projects/candidates -->
             <div class="card shadow mb-4 border-bottom-warning">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Top 15 projects with highest number of candidates with match value >= <?=$threshold?>%</h6>
@@ -325,15 +325,16 @@ $query4 = \app\models\AuthorsProjectAuthorMatch::find()
                         'datasets' => [
                             [
                                 'query' => \app\models\AuthorsProjectPpi::find()
-                                    ->select(["project_ppi.id, SUM(CASE WHEN scopus_author.id is null THEN 0 ELSE 1 END) AS num_authors"])
+                                    ->select(["cordis_project.p_id, project_ppi.id, SUM(CASE WHEN scopus_author.id is null THEN 0 ELSE 1 END) AS num_authors"])
                                     ->leftJoin('authors.scopus_author', 'project_ppi.id = scopus_author.project_ppi')
                                     ->leftJoin('authors.project_author_match', 'scopus_author.author_scopus_id = project_author_match.author_scopus_id')
+                                    ->joinWith('ppiOrganization')
                                     ->where(['>=', 'match_value', $threshold/100])
-                                    ->groupBy(['project_ppi.id'])
+                                    ->groupBy(['project_ppi.id', 'cordis_project.p_id'])
                                     ->orderBy(['num_authors'=>SORT_DESC])
                                     ->limit(15)
                                     ->createCommand(),
-                                'labelAttribute' => 'id',
+                                'labelAttribute' => 'p_id',
                                 'dataAttribute' => 'num_authors'
                             ]
                         ],
@@ -344,7 +345,7 @@ $query4 = \app\models\AuthorsProjectAuthorMatch::find()
                                     [
                                         'scaleLabel' => [
                                             'display' => true,
-                                            'labelString' => 'Project ppi'
+                                            'labelString' => 'Project ID'
                                         ],
                                     ],
                                 ],

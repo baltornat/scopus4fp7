@@ -68,7 +68,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'attribute' => 'ppiOrganization',
                                     'value' => 'ppiOrganization.ppi_organization'
                                 ],
-                                'p_id',
+                                [
+                                    'label'=>'P ID',
+                                    'attribute' => 'p_id',
+                                    'value' => 'ppiOrganization.p_id'
+                                ],
                             ],
                             'dropdownOptions' => [
                                 'label' => 'Export All',

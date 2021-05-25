@@ -70,6 +70,7 @@ class AuthorsScopusAuthorController extends Controller
     {
         $model = $this->findModel($id);
         $project = \app\models\AuthorsProjectPpi::find()
+            ->joinWith('ppiOrganization')
             ->where(['project_ppi.id'=>$model->project_ppi])
             ->one();
         $match = \app\models\AuthorsProjectAuthorMatch::find()

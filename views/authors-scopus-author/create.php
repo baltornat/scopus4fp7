@@ -9,10 +9,11 @@ use yii\helpers\Html;
 $request = Yii::$app->request;
 $model->project_ppi = $request->get('project_ppi');
 $erc_field = $request->get('erc_field');
+$p_id = $request->get('p_id');
 
 $this->title = 'Add new candidate';
 $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['authors-project-ppi/index']];
-$this->params['breadcrumbs'][] = ['label' => "Project number $model->project_ppi", 'url' => ['authors-project-ppi/view', 'id' => $model->project_ppi]];
+$this->params['breadcrumbs'][] = ['label' => "Project number $p_id", 'url' => ['authors-project-ppi/view', 'id' => $model->project_ppi]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container">

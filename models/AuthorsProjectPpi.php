@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-
 /**
  * This is the model class for table "authors.project_ppi".
  *
@@ -20,9 +19,6 @@ namespace app\models;
 class AuthorsProjectPpi extends \yii\db\ActiveRecord
 {
     public $mean;
-    public $num_projects;
-    public $num_projects2;
-    public $num_authors;
     /**
      * {@inheritdoc}
      */
@@ -69,5 +65,4 @@ class AuthorsProjectPpi extends \yii\db\ActiveRecord
     public function getMappingErcScopus(){
         return $this->hasOne(AuthorsMappingErcScopus::className(), ['erc_field'=>'erc_field']);
     }
-
 }

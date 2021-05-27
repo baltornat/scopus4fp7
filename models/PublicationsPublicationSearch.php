@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\models\PublicationsPublication;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

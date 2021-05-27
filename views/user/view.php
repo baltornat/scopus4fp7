@@ -17,42 +17,42 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
             <div class="table-responsive">
                 <?php
-                    echo DetailView::widget([
-                        'model' => $model,
-                        'attributes' => [
-                            [
-                                'group'=>true,
-                                'label'=>'SECTION 1: Unmodifiables',
-                                'rowOptions'=>['class'=>'table-danger']
-                            ],
-                            'id',
-                            [
-                                'group'=>true,
-                                'label'=>'SECTION 2: Identification Data',
-                                'rowOptions'=>['class'=>'table-info'],
-                            ],
-                            [
-                                'label'=>'Role',
-                                'attribute'=>'id',
-                                'value'=>$model->authAssignment->item_name,
-                            ],
-                            'email:email',
-                            'name',
-                            'surname',
-                            'isDisabled:boolean',
+                echo DetailView::widget([
+                    'model' => $model,
+                    'attributes' => [
+                        [
+                            'group'=>true,
+                            'label'=>'SECTION 1: Unmodifiables',
+                            'rowOptions'=>['class'=>'table-danger']
                         ],
-                        'mode' => 'view',
-                        'bordered' => true,
-                        'striped' => false,
-                        'condensed' => false,
-                        'responsive' => true,
-                        'hover' => true,
-                        'panel' => [
-                            'type' => DetailView::TYPE_PRIMARY,
-                            'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-user\"></i> $this->title </h3>",
+                        'id',
+                        [
+                            'group'=>true,
+                            'label'=>'SECTION 2: Identification Data',
+                            'rowOptions'=>['class'=>'table-info'],
                         ],
-                        'enableEditMode' => false
-                    ]);
+                        [
+                            'label'=>'Role',
+                            'attribute'=>'id',
+                            'value'=>$model->authAssignment->item_name,
+                        ],
+                        'email:email',
+                        'name',
+                        'surname',
+                        'isDisabled:boolean',
+                    ],
+                    'mode' => 'view',
+                    'bordered' => true,
+                    'striped' => false,
+                    'condensed' => false,
+                    'responsive' => true,
+                    'hover' => true,
+                    'panel' => [
+                        'type' => DetailView::TYPE_PRIMARY,
+                        'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-user\"></i> $this->title </h3>",
+                    ],
+                    'enableEditMode' => false
+                ]);
                 ?>
             </div>
         </div>

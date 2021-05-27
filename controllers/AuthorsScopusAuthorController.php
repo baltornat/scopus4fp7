@@ -3,12 +3,10 @@
 namespace app\controllers;
 
 use app\models\AuthorsProjectAuthorMatch;
-use app\models\PublicationsPublication;
 use app\models\PublicationsPublicationSearch;
 use Yii;
 use app\models\AuthorsScopusAuthor;
 use app\models\AuthorsScopusAuthorSearch;
-use yii\base\BaseObject;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

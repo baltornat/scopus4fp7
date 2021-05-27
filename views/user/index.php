@@ -33,17 +33,64 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-
     <div class="card shadow mb-4 border-bottom-warning">
         <div class="card-body">
             <div class="table-responsive">
                 <?php
-                    $gridColumns = [
+                $gridColumns = [
+                    [
+                        'class' => 'kartik\grid\SerialColumn',
+                        'width' => '20px',
+                    ],
+                    'email',
+                    'name',
+                    'surname',
+                    [
+                        'class' => 'kartik\grid\EnumColumn',
+                        'enum' => ['admin', 'manager'],
+                        'filter' => [
+                            'admin' => 'admin',
+                            'manager' => 'manager',
+                        ],
+                        'label' => 'Role',
+                        'attribute' => 'authAssignment',
+                        'value' => 'authAssignment.item_name'
+                    ],
+                    [
+                        'class' => 'kartik\grid\BooleanColumn',
+                        'label' => 'Is active',
+                        'attribute' => 'isDisabled',
+                        'trueIcon' => '<span class="fas fa-times" style="color: red"></span>',
+                        'trueLabel' => 'No',
+                        'falseIcon' => '<span class="fas fa-check" style="color: limegreen"></span>',
+                        'falseLabel' => 'Yes',
+                    ],
+                    [
+                        'class' => 'kartik\grid\ActionColumn',
+                        'width' => '100px',
+                    ],
+                ];
+                echo ExportMenu::widget([
+                    'dataProvider' => $dataProvider,
+                    'filename' => 'users-grid-export',
+                    'clearBuffers' => true,
+                    'batchSize' => 20,
+                    'exportConfig' => [
+                        ExportMenu::FORMAT_PDF => false
+                    ],
+                    'columns' => [
                         [
                             'class' => 'kartik\grid\SerialColumn',
-                            'width' => '20px',
+                            'exportMenuStyle' => [ // format the serial column cells
+                                'fill' => [
+                                    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                                    'color' => ['argb' => 'FFE5E5E5']
+                                ]
+                            ]
                         ],
+                        'id',
                         'email',
+                        'password',
                         'name',
                         'surname',
                         [
@@ -57,90 +104,42 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'authAssignment',
                             'value' => 'authAssignment.item_name'
                         ],
+                        'accessToken',
                         [
                             'class' => 'kartik\grid\BooleanColumn',
                             'label' => 'Is active',
                             'attribute' => 'isDisabled',
-                            'trueIcon' => '<span class="fas fa-times" style="color: red"></span>',
                             'trueLabel' => 'No',
-                            'falseIcon' => '<span class="fas fa-check" style="color: limegreen"></span>',
                             'falseLabel' => 'Yes',
                         ],
-                        [
-                            'class' => 'kartik\grid\ActionColumn',
-                            'width' => '100px',
-                        ],
-                    ];
-                    echo ExportMenu::widget([
-                        'dataProvider' => $dataProvider,
-                        'filename' => 'users-grid-export',
-                        'clearBuffers' => true,
-                        'batchSize' => 20,
-                        'exportConfig' => [
-                            ExportMenu::FORMAT_PDF => false
-                        ],
-                        'columns' => [
-                            [
-                                'class' => 'kartik\grid\SerialColumn',
-                                'exportMenuStyle' => [ // format the serial column cells
-                                    'fill' => [
-                                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                                        'color' => ['argb' => 'FFE5E5E5']
-                                    ]
-                                ]
-                            ],
-                            'id',
-                            'email',
-                            'password',
-                            'name',
-                            'surname',
-                            [
-                                'class' => 'kartik\grid\EnumColumn',
-                                'enum' => ['admin', 'manager'],
-                                'filter' => [
-                                    'admin' => 'admin',
-                                    'manager' => 'manager',
-                                ],
-                                'label' => 'Role',
-                                'attribute' => 'authAssignment',
-                                'value' => 'authAssignment.item_name'
-                            ],
-                            'accessToken',
-                            [
-                                'class' => 'kartik\grid\BooleanColumn',
-                                'label' => 'Is active',
-                                'attribute' => 'isDisabled',
-                                'trueLabel' => 'No',
-                                'falseLabel' => 'Yes',
-                            ],
-                        ],
-                        'dropdownOptions' => [
-                            'label' => 'Export All',
-                            'class' => 'btn btn-outline-secondary'
-                        ]
-                    ]);
-                    echo "<br><br>";
-                    echo GridView::widget([
-                        'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => $gridColumns,
-                        'pager' => [
-                            'firstPageLabel' => 'First',
-                            'lastPageLabel'  => 'Last'
-                        ],
-                        'pjax' => true,
-                        'bordered' => true,
-                        'striped' => false,
-                        'condensed' => false,
-                        'responsive' => true,
-                        'hover' => true,
-                        'panel' => [
-                            'type' => GridView::TYPE_PRIMARY,
-                            'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-cog\"></i> $this->title </h3>",
-                            'after' => false,
-                            'before' => false
-                        ],
-                    ]);
+                    ],
+                    'dropdownOptions' => [
+                        'label' => 'Export All',
+                        'class' => 'btn btn-outline-secondary'
+                    ]
+                ]);
+                echo "<br><br>";
+                echo GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'columns' => $gridColumns,
+                    'pager' => [
+                        'firstPageLabel' => 'First',
+                        'lastPageLabel'  => 'Last'
+                    ],
+                    'pjax' => true,
+                    'bordered' => true,
+                    'striped' => false,
+                    'condensed' => false,
+                    'responsive' => true,
+                    'hover' => true,
+                    'panel' => [
+                        'type' => GridView::TYPE_PRIMARY,
+                        'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-cog\"></i> $this->title </h3>",
+                        'after' => false,
+                        'before' => false
+                    ],
+                ]);
                 ?>
             </div>
         </div>

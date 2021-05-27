@@ -4,8 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\AuthorsProjectPpi;
-use yii\db\Query;
 
 /**
  * AuthorsProjectPpiSearch represents the model behind the search form of `app\models\AuthorsProjectPpi`.
@@ -29,7 +27,6 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -44,7 +41,6 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
     {
         $query = AuthorsProjectPpi::find();
         $query->joinWith('ppiOrganization');
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,8 +52,6 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
         ];
 
         if (!($this->load($params) && $this->validate())) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
@@ -73,7 +67,6 @@ class AuthorsProjectPpiSearch extends AuthorsProjectPpi
             ->andFilterWhere(['ilike', 'project_ppi.organization_url', $this->organization_url])
             ->andFilterWhere(['ilike', 'cordis.cordis_project.ppi_organization', $this->ppiOrganization])
             ->andFilterWhere(['ilike', 'project_ppi.erc_field', $this->erc_field]);
-            //->andFilterWhere(['ilike', 'p_id', $this->p_id]);
 
         return $dataProvider;
     }

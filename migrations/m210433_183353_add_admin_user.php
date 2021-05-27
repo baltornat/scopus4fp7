@@ -61,5 +61,4 @@ SQL;
         $id = Yii::$app->db->createCommand($sql)->execute();
         $this->delete($this->_user, ['email' => $email]);
     }
-
 }

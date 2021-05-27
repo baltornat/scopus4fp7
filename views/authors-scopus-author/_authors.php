@@ -24,18 +24,18 @@
                     </thead>
                     <tbody>
                         <?php
-                            $array = explode('|', $authors);
-                            $count = 0;
-                            foreach($array as $element){
-                                $count++;
-                                echo "<tr>";
-                                echo "<td>$count</td>";
-                                $row = explode('@', $element);
-                                foreach($row as $column){
-                                    echo "<td>$column</td>";
-                                }
-                                echo "</tr>";
+                        $array = explode('|', $authors);
+                        $count = 0;
+                        foreach($array as $element){
+                            $count++;
+                            echo "<tr>";
+                            echo "<td>$count</td>";
+                            $row = explode('@', $element);
+                            foreach($row as $column){
+                                echo "<td>$column</td>";
                             }
+                            echo "</tr>";
+                        }
                         ?>
                     </tbody>
                 </table>

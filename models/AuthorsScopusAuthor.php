@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "authors.scopus_author".
  *
@@ -21,7 +19,6 @@ use Yii;
  */
 class AuthorsScopusAuthor extends \yii\db\ActiveRecord
 {
-    public $num_modality;
     /**
      * {@inheritdoc}
      */

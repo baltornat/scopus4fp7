@@ -2,7 +2,6 @@
 /* @var $this yii\web\View */
 
 use practically\chartjs\Chart;
-use yii\web\JsExpression;
 
 $this->title = 'Statistics';
 $this->params['breadcrumbs'][] = $this->title;

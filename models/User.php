@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "users".
  *
@@ -94,5 +92,4 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getAuthAssignment(){
         return $this->hasOne(AuthAssignment::className(), ['user_id'=>'id']);
     }
-
 }

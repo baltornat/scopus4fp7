@@ -36,46 +36,46 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="card-body">
                         <div class="table-responsive">
                             <?php
-                                echo DetailView::widget([
-                                    'model' => $model,
-                                    'attributes' => [
-                                        [
-                                            'group'=>true,
-                                            'label'=>'SECTION 1: Identification Data',
-                                            'rowOptions'=>['class'=>'table-info']
-                                        ],
-                                        'firstname',
-                                        'lastname',
-                                        [
-                                            'group'=>true,
-                                            'label'=>'SECTION 2: Affiliation Data',
-                                            'rowOptions'=>['class'=>'table-info'],
-                                        ],
-                                        'affil_name',
-                                        'affil_city',
-                                        'affil_country',
-                                        [
-                                            'group'=>true,
-                                            'label'=>'SECTION 3: Other Data',
-                                            'rowOptions'=>['class'=>'table-warning'],
-                                        ],
-                                        'num_documents',
-                                        'author_modality',
+                            echo DetailView::widget([
+                                'model' => $model,
+                                'attributes' => [
+                                    [
+                                        'group'=>true,
+                                        'label'=>'SECTION 1: Identification Data',
+                                        'rowOptions'=>['class'=>'table-info']
                                     ],
-                                    'mode' => 'view',
-                                    'bordered' => true,
-                                    'striped' => false,
-                                    'condensed' => false,
-                                    'responsive' => true,
-                                    'hover' => true,
-                                    'panel' => [
-                                        'type' => DetailView::TYPE_PRIMARY,
-                                        'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-user\"></i> Author Scopus ID: $model->author_scopus_id </h3>",
-                                        'before' => false,
-                                        'after' => false,
+                                    'firstname',
+                                    'lastname',
+                                    [
+                                        'group'=>true,
+                                        'label'=>'SECTION 2: Affiliation Data',
+                                        'rowOptions'=>['class'=>'table-info'],
                                     ],
-                                    'enableEditMode' => false
-                                ]);
+                                    'affil_name',
+                                    'affil_city',
+                                    'affil_country',
+                                    [
+                                        'group'=>true,
+                                        'label'=>'SECTION 3: Other Data',
+                                        'rowOptions'=>['class'=>'table-warning'],
+                                    ],
+                                    'num_documents',
+                                    'author_modality',
+                                ],
+                                'mode' => 'view',
+                                'bordered' => true,
+                                'striped' => false,
+                                'condensed' => false,
+                                'responsive' => true,
+                                'hover' => true,
+                                'panel' => [
+                                    'type' => DetailView::TYPE_PRIMARY,
+                                    'heading' => "<h3 class=\"panel-title\"><i class=\"fas fa-user\"></i> Author Scopus ID: $model->author_scopus_id </h3>",
+                                    'before' => false,
+                                    'after' => false,
+                                ],
+                                'enableEditMode' => false
+                            ]);
                             ?>
                         </div>
                     </div>
@@ -86,60 +86,60 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-6 mb-4">
             <!-- Project -->
             <?php
-                if($match->match_value < 0){
-                    echo "<div class=\"alert alert-danger\"> Match value < 0 for this candidate! </div>";
+            if($match->match_value < 0){
+                echo "<div class=\"alert alert-danger\"> Match value < 0 for this candidate! </div>";
+            }else{
+                if(empty($project)){
+                    echo "<div class=\"alert alert-danger\"> No projects found for this candidate!</div>";
                 }else{
-                    if(empty($project)){
-                        echo "<div class=\"alert alert-danger\"> No projects found for this candidate!</div>";
-                    }else{
-                        $info = "Project ID: ".$project->ppiOrganization->p_id;
-                        $url = \yii\helpers\Url::toRoute(['/authors-project-ppi/view', 'id' => $project->id]);
-                        echo "
-                            <div class=\"card shadow mb-4 border-bottom-warning\">                           
-                                <a href=\"#collapseCardProject\" class=\"d-block card-header py-3\" data-toggle=\"collapse\"
-                                   role=\"button\" aria-expanded=\"true\" aria-controls=\"collapseCardProject\">
-                                    <h6 class=\"h4 m-0 font-weight-bold text-primary\">Show/hide project data</h6>
-                                </a>
-                                <div class=\"collapse show\" id=\"collapseCardProject\">
-                                    <div class=\"card-body\">
-                                        <div class=\"table-responsive\">
-                        ";
-                        echo DetailView::widget([
-                            'model' => $project,
-                            'attributes' => [
-                                'erc_field',
-                                'funding_scheme',
-                                'call_year',
-                                'ppi_firstname',
-                                'ppi_lastname',
-                                [
-                                    'label'=>'Organization',
-                                    'attribute'=>'ppi_organization',
-                                    'value'=>(empty($project->ppiOrganization->ppi_organization) >= 18) ? null : $project->ppiOrganization->ppi_organization
-                                ]
-                            ],
-                            'mode' => 'view',
-                            'bordered' => true,
-                            'striped' => false,
-                            'condensed' => false,
-                            'responsive' => true,
-                            'hover' => true,
-                            'panel' => [
-                                'type' => DetailView::TYPE_PRIMARY,
-                                'heading' => "<a href=\"$url\" style=\"color: white\"><h3 class=\"panel-title\"><i class=\"fas fa-search\"></i> $info </h3></a>",
-                                'before' => false,
-                                'after' => false,
-                            ],
-                            'enableEditMode' => false
-                        ]);
-                        echo "
-                                    </div>
+                    $info = "Project ID: ".$project->ppiOrganization->p_id;
+                    $url = \yii\helpers\Url::toRoute(['/authors-project-ppi/view', 'id' => $project->id]);
+                    echo "
+                        <div class=\"card shadow mb-4 border-bottom-warning\">                           
+                            <a href=\"#collapseCardProject\" class=\"d-block card-header py-3\" data-toggle=\"collapse\"
+                               role=\"button\" aria-expanded=\"true\" aria-controls=\"collapseCardProject\">
+                                <h6 class=\"h4 m-0 font-weight-bold text-primary\">Show/hide project data</h6>
+                            </a>
+                            <div class=\"collapse show\" id=\"collapseCardProject\">
+                                <div class=\"card-body\">
+                                    <div class=\"table-responsive\">
+                    ";
+                    echo DetailView::widget([
+                        'model' => $project,
+                        'attributes' => [
+                            'erc_field',
+                            'funding_scheme',
+                            'call_year',
+                            'ppi_firstname',
+                            'ppi_lastname',
+                            [
+                                'label'=>'Organization',
+                                'attribute'=>'ppi_organization',
+                                'value'=>(empty($project->ppiOrganization->ppi_organization) >= 18) ? null : $project->ppiOrganization->ppi_organization
+                            ]
+                        ],
+                        'mode' => 'view',
+                        'bordered' => true,
+                        'striped' => false,
+                        'condensed' => false,
+                        'responsive' => true,
+                        'hover' => true,
+                        'panel' => [
+                            'type' => DetailView::TYPE_PRIMARY,
+                            'heading' => "<a href=\"$url\" style=\"color: white\"><h3 class=\"panel-title\"><i class=\"fas fa-search\"></i> $info </h3></a>",
+                            'before' => false,
+                            'after' => false,
+                        ],
+                        'enableEditMode' => false
+                    ]);
+                    echo "
                                 </div>
                             </div>
                         </div>
-                    ";
-                    }
+                    </div>
+                ";
                 }
+            }
             ?>
         </div>
     </div>

@@ -50,7 +50,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'password' => 'Password',
             'name' => 'Name',
             'surname' => 'Surname',
-            'isDisabled' => 'Disable user',
+            'isDisabled' => 'Is disabled',
         ];
     }
 

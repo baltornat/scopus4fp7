@@ -12,6 +12,22 @@ Given a project proponent, beneficiary or non-beneficiary, we can have multiple 
 The developed application allows the user to choose from the list of candidates for a certain project the one deemed suitable and to view the list of all his publications.
 
 
+
+Yii 2 BASIC PROJECT TEMPLATE
+---------------------------
+
+Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
+rapidly creating small projects.
+
+The template contains the basic features including user login/logout and a contact page.
+It includes all commonly used configurations that would allow you to focus on adding new
+features to your application.
+
+[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
+[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
+[![build](https://github.com/yiisoft/yii2-app-basic/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-basic/actions?query=workflow%3Abuild)
+
+
 DIRECTORY STRUCTURE
 -------------------
 
@@ -229,18 +245,3 @@ vendor/bin/codecept run functional,unit --coverage --coverage-html --coverage-xm
 
 
 You can see code coverage output under the `tests/_output` directory.
-
-
-Yii2 BASIC PROJECT TEMPLATE
----------------------------
-
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
-
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![build](https://github.com/yiisoft/yii2-app-basic/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-basic/actions?query=workflow%3Abuild)

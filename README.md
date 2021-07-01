@@ -6,10 +6,7 @@
     <br>
 </p>
 
-The Scopus4FP7 Web application arises from the need to find the profiles of the correct candidate authors for projects funded by the European Union.
-
-Given a project proponent, beneficiary or non-beneficiary, we can have multiple profiles of corresponding authors (i.e. candidate authors) but only one of these must be considered correct.
-The developed application allows the user to choose from the list of candidates for a certain project the one deemed suitable and to view the list of all his publications.
+The Scopus4FP7 Web application allows accredited users to consult the data relating to the scientific production inherent in the research projects of the EU-FP7 program. The application concerns both the projects presented and funded (beneficiary projects), and the projects presented and not funded (non-beneficiaries).
 
 
 
